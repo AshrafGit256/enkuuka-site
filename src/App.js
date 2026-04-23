@@ -1,44 +1,46 @@
 /**
- * ENKUUKA Y'OMWAKA — Official Festival Website
+ * ENKUUKA Y'OMWAKA — Light Mode Edition
  * ================================================
  * Royal Buganda New Year Festival · Lubiri Palace, Mengo, Kampala
  * 31st December · Every Year
  *
- * Theme: Royal Ink & Gold — deep ink-black with burnished parchment and gold
+ * Theme: Warm Ivory & Deep Ink — aged parchment with burnished gold
  * Fonts: Cormorant Garamond (display) + Bebas Neue (headlines) + DM Sans (body)
- * React + Tailwind-free: pure inline CSS-in-JS via a <style> injection pattern
- *
- * Pages:
- *   Home · Culture · Clans (52) · Masaza (18) · Entertainment
- *   Business · Programme · Gallery · Accommodation · Invitation · Contact
- *
- * Usage:
- *   Place in src/App.jsx (Vite) or pages/index.jsx (Next.js)
- *   Install: npm i react react-dom
- *   Run:     npm run dev
  */
 
 import { useState, useEffect, useRef, useMemo } from "react";
 
 // ─────────────────────────────────────────────────────────────────────────────
-// DESIGN TOKENS
+// DESIGN TOKENS — Light Mode
 // ─────────────────────────────────────────────────────────────────────────────
 const T = {
-  ink:      "#0D0C0A",   // main background
-  ink2:     "#1A1812",   // card/surface background
-  ink3:     "#252318",   // hover surface
-  parch:    "#F5EDD6",   // primary text (warm white)
-  parch2:   "#EDE0B8",   // secondary text warm
-  gold:     "#C9A84C",   // primary accent
-  gold2:    "#E8C97A",   // lighter gold (hover)
-  gold3:    "#8B6914",   // dark gold (border, muted)
-  muted:    "#8A7B5A",   // body text muted
-  red:      "#8B1A1A",   // danger / royal red accent
-  cream:    "#FAF3E0",
+  // Backgrounds (light → dark surfaces)
+  bg:       "#F7F2E8",   // main page background — warm ivory
+  bg2:      "#EDE5D0",   // card / section surface — aged parchment
+  bg3:      "#E4D9BF",   // hover surface — deeper parchment
+  bgNav:    "#FDFAF3",   // nav — near white warm
+
+  // Text
+  ink:      "#1C1A13",   // primary text — deep warm black
+  ink2:     "#3D3925",   // secondary text
+  muted:    "#7A6E52",   // body text muted — warm olive-grey
+
+  // Accents
+  gold:     "#c94c4c",   // primary gold (darker for light bg contrast)
+  gold2:    "#C43C3C",   // medium gold
+  gold3:    "#D45E5E",   // light gold (borders, decorations)
+  goldBg:   "rgba(166,124,46,.08)",  // gold tint background
+
+  // Borders
+  line:     "rgba(166,124,46,.18)",
+  lineSoft: "rgba(166,124,46,.10)",
+
+  // Accent
+  red:      "#7A1515",   // royal red
 };
 
 // ─────────────────────────────────────────────────────────────────────────────
-// FONT INJECTION (Google Fonts)
+// FONT INJECTION
 // ─────────────────────────────────────────────────────────────────────────────
 if (typeof document !== "undefined") {
   const fontId = "enkuuka-fonts";
@@ -58,248 +60,255 @@ if (typeof document !== "undefined") {
 const GLOBAL_CSS = `
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; font-size: 16px; }
-  body { background: ${T.ink}; color: ${T.parch}; font-family: 'DM Sans', sans-serif; overflow-x: hidden; }
+  body {
+    background: ${T.bg};
+    color: ${T.ink};
+    font-family: 'DM Sans', sans-serif;
+    overflow-x: hidden;
+  }
   ::-webkit-scrollbar { width: 5px; }
-  ::-webkit-scrollbar-track { background: ${T.ink}; }
+  ::-webkit-scrollbar-track { background: ${T.bg2}; }
   ::-webkit-scrollbar-thumb { background: ${T.gold3}; border-radius: 2px; }
-  ::selection { background: ${T.gold3}; color: ${T.parch}; }
+  ::selection { background: ${T.gold3}; color: ${T.ink}; }
 
-  /* font utilities */
   .f-display { font-family: 'Cormorant Garamond', serif; }
   .f-block   { font-family: 'Bebas Neue', sans-serif; letter-spacing: 2px; }
   .f-body    { font-family: 'DM Sans', sans-serif; }
 
-  /* page fade */
   .page-enter { animation: pgEnter 0.4s ease both; }
   @keyframes pgEnter { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
 
-  /* scroll fade-up utility */
   .fu { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
   .fu.visible { opacity: 1; transform: none; }
 
-  /* NAV -------------------------------------------------------------------- */
+  /* NAV */
   .nav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 999;
     height: 60px; padding: 0 32px;
     display: flex; align-items: center; justify-content: space-between;
-    background: rgba(13,12,10,.97);
-    border-bottom: 1px solid rgba(201,168,76,.18);
+    background: ${T.bgNav};
+    border-bottom: 1px solid ${T.line};
+    box-shadow: 0 1px 16px rgba(28,26,19,.06);
     transition: height .3s;
   }
   .nav.slim { height: 50px; }
-  .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 700; color: ${T.parch}; cursor: pointer; letter-spacing: 0.5px; white-space: nowrap; }
+  .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 700; color: ${T.ink}; cursor: pointer; letter-spacing: 0.5px; white-space: nowrap; }
   .nav-logo em { color: ${T.gold}; font-style: italic; }
   .nav-links { display: flex; gap: 20px; list-style: none; }
-  .nav-links li { font-size: .68rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: rgba(245,237,214,.45); cursor: pointer; transition: color .2s; padding: 4px 0; border-bottom: 1.5px solid transparent; }
-  .nav-links li:hover, .nav-links li.active { color: ${T.parch}; border-bottom-color: ${T.gold}; }
-  .nav-cta { background: ${T.gold}; color: ${T.ink}; border: none; padding: 8px 18px; font-family: 'DM Sans', sans-serif; font-size: .68rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; transition: .2s; }
+  .nav-links li { font-size: .68rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: ${T.muted}; cursor: pointer; transition: color .2s; padding: 4px 0; border-bottom: 1.5px solid transparent; }
+  .nav-links li:hover, .nav-links li.active { color: ${T.ink}; border-bottom-color: ${T.gold}; }
+  .nav-cta { background: ${T.gold}; color: #fff; border: none; padding: 8px 18px; font-family: 'DM Sans', sans-serif; font-size: .68rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; transition: .2s; }
   .nav-cta:hover { background: ${T.gold2}; }
   .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
-  .hamburger span { display: block; width: 22px; height: 1.5px; background: ${T.parch}; border-radius: 1px; transition: .3s; }
-  .mob-drawer { display: none; position: fixed; top: 60px; left: 0; right: 0; background: rgba(13,12,10,.99); padding: 20px 24px; z-index: 998; border-bottom: 1px solid rgba(201,168,76,.15); }
+  .hamburger span { display: block; width: 22px; height: 1.5px; background: ${T.ink}; border-radius: 1px; transition: .3s; }
+  .mob-drawer { display: none; position: fixed; top: 60px; left: 0; right: 0; background: ${T.bgNav}; padding: 20px 24px; z-index: 998; border-bottom: 1px solid ${T.line}; box-shadow: 0 8px 24px rgba(28,26,19,.08); }
   .mob-drawer.open { display: block; }
-  .mob-drawer li { list-style: none; padding: 11px 0; font-size: .8rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: rgba(245,237,214,.6); cursor: pointer; border-bottom: 1px solid rgba(201,168,76,.07); transition: color .2s; }
+  .mob-drawer li { list-style: none; padding: 11px 0; font-size: .8rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: ${T.muted}; cursor: pointer; border-bottom: 1px solid ${T.lineSoft}; transition: color .2s; }
   .mob-drawer li:hover { color: ${T.gold}; }
 
-  /* TICKER ------------------------------------------------------------------ */
-  .ticker { background: ${T.gold3}; padding: 9px 0; overflow: hidden; }
+  /* TICKER */
+  .ticker { background: ${T.gold}; padding: 9px 0; overflow: hidden; }
   .ticker-track { display: flex; gap: 52px; white-space: nowrap; animation: tickerScroll 28s linear infinite; }
-  .ticker-item { font-family: 'Bebas Neue', sans-serif; font-size: .85rem; letter-spacing: 3px; color: ${T.gold2}; display: inline-flex; align-items: center; gap: 16px; flex-shrink: 0; }
-  .ticker-dot { width: 4px; height: 4px; background: ${T.gold}; border-radius: 50%; opacity: .5; }
+  .ticker-item { font-family: 'Bebas Neue', sans-serif; font-size: .85rem; letter-spacing: 3px; color: rgba(255,255,255,.88); display: inline-flex; align-items: center; gap: 16px; flex-shrink: 0; }
+  .ticker-dot { width: 4px; height: 4px; background: rgba(255,255,255,.5); border-radius: 50%; }
   @keyframes tickerScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
-  /* BUTTONS ----------------------------------------------------------------- */
-  .btn-gold { background: ${T.gold}; color: ${T.ink}; border: none; padding: 13px 30px; font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: .75rem; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; transition: .25s; }
-  .btn-gold:hover { background: ${T.gold2}; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(201,168,76,.25); }
+  /* BUTTONS */
+  .btn-gold { background: ${T.gold}; color: #fff; border: none; padding: 13px 30px; font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: .75rem; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; transition: .25s; }
+  .btn-gold:hover { background: ${T.gold2}; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(166,124,46,.22); }
   .btn-outline { background: transparent; color: ${T.gold}; border: 1.5px solid ${T.gold}; padding: 13px 30px; font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: .75rem; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; transition: .25s; }
-  .btn-outline:hover { background: rgba(201,168,76,.1); transform: translateY(-1px); }
+  .btn-outline:hover { background: ${T.goldBg}; transform: translateY(-1px); }
 
-  /* SECTION LABELS ---------------------------------------------------------- */
+  /* SECTION LABELS */
   .s-label { display: inline-flex; align-items: center; gap: 8px; font-size: .65rem; letter-spacing: 5px; text-transform: uppercase; color: ${T.gold}; font-weight: 700; margin-bottom: 10px; }
   .s-label::before { content: ''; display: block; width: 20px; height: 1px; background: ${T.gold}; }
-  .s-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.6rem, 4vw, 3rem); line-height: 1.05; color: ${T.parch}; margin-bottom: 14px; font-weight: 700; }
+  .s-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.6rem, 4vw, 3rem); line-height: 1.05; color: ${T.ink}; margin-bottom: 14px; font-weight: 700; }
   .s-title em { color: ${T.gold}; font-style: italic; }
   .s-body { font-size: .9rem; color: ${T.muted}; line-height: 1.85; max-width: 560px; }
 
-  /* HERO -------------------------------------------------------------------- */
+  /* HERO */
   .hero { position: relative; min-height: 100vh; display: flex; align-items: flex-end; padding-bottom: 80px; overflow: hidden; }
-  .hero-bg { position: absolute; inset: 0; background-size: cover; background-position: center; filter: brightness(.38) saturate(1.05); }
-  .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(13,12,10,.05) 0%, rgba(13,12,10,.55) 55%, ${T.ink} 100%); }
+  .hero-bg { position: absolute; inset: 0; background-size: cover; background-position: center; filter: brightness(.36) saturate(.9); }
+  .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(247,242,232,.05) 0%, rgba(247,242,232,.12) 40%, ${T.bg} 100%); }
   .hero-deco { position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: linear-gradient(to right, transparent, ${T.gold}, ${T.gold2}, ${T.gold}, transparent); }
   .hero-content { position: relative; z-index: 2; padding: 0 48px; max-width: 960px; }
-  .hero-eyebrow { display: inline-flex; align-items: center; gap: 8px; font-size: .65rem; letter-spacing: 5px; text-transform: uppercase; color: ${T.gold}; font-weight: 700; margin-bottom: 18px; }
-  .hero-eyebrow::before { content: ''; display: block; width: 24px; height: 1px; background: ${T.gold}; }
-  .hero-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(3.2rem, 9vw, 7.5rem); line-height: .92; color: ${T.parch}; font-weight: 700; margin-bottom: 8px; }
-  .hero-title em { color: ${T.gold}; font-style: italic; }
-  .hero-sub { font-size: .8rem; font-weight: 300; letter-spacing: 6px; text-transform: uppercase; color: rgba(245,237,214,.38); margin-bottom: 28px; }
+  .hero-eyebrow { display: inline-flex; align-items: center; gap: 8px; font-size: .65rem; letter-spacing: 5px; text-transform: uppercase; color: ${T.gold3}; font-weight: 700; margin-bottom: 18px; }
+  .hero-eyebrow::before { content: ''; display: block; width: 24px; height: 1px; background: ${T.gold3}; }
+  .hero-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(3.2rem, 9vw, 7.5rem); line-height: .92; color: #FAF5E8; font-weight: 700; margin-bottom: 8px; text-shadow: 0 2px 40px rgba(28,26,19,.3); }
+  .hero-title em { color: ${T.gold3}; font-style: italic; }
+  .hero-sub { font-size: .8rem; font-weight: 300; letter-spacing: 6px; text-transform: uppercase; color: rgba(250,245,232,.55); margin-bottom: 28px; }
 
-  /* COUNTDOWN --------------------------------------------------------------- */
+  /* COUNTDOWN */
   .countdown { display: flex; gap: 3px; margin-bottom: 32px; }
-  .cd-block { background: rgba(201,168,76,.08); border: 1px solid rgba(201,168,76,.22); padding: 12px 16px; min-width: 68px; text-align: center; }
-  .cd-num { font-family: 'Bebas Neue', sans-serif; font-size: clamp(1.6rem, 4vw, 2.4rem); color: ${T.parch}; line-height: 1; display: block; }
-  .cd-label { font-size: .55rem; letter-spacing: 2.5px; text-transform: uppercase; color: ${T.muted}; margin-top: 4px; display: block; }
-  .cd-sep { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; color: ${T.gold}; align-self: center; line-height: 1; padding-bottom: 14px; opacity: .45; }
+  .cd-block { background: rgba(247,242,232,.12); border: 1px solid rgba(250,245,232,.25); padding: 12px 16px; min-width: 68px; text-align: center; backdrop-filter: blur(4px); }
+  .cd-num { font-family: 'Bebas Neue', sans-serif; font-size: clamp(1.6rem, 4vw, 2.4rem); color: #FAF5E8; line-height: 1; display: block; }
+  .cd-label { font-size: .55rem; letter-spacing: 2.5px; text-transform: uppercase; color: rgba(250,245,232,.45); margin-top: 4px; display: block; }
+  .cd-sep { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; color: ${T.gold3}; align-self: center; line-height: 1; padding-bottom: 14px; opacity: .55; }
 
-  /* PAGE HERO --------------------------------------------------------------- */
+  /* PAGE HERO */
   .phero { position: relative; height: 340px; overflow: hidden; display: flex; align-items: flex-end; padding-bottom: 44px; }
-  .phero > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: brightness(.28); }
-  .phero-ov { position: absolute; inset: 0; background: linear-gradient(to top, ${T.ink} 0%, rgba(13,12,10,.45) 55%, transparent 100%); }
+  .phero > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: brightness(.28) saturate(.85); }
+  .phero-ov { position: absolute; inset: 0; background: linear-gradient(to top, ${T.bg} 0%, rgba(247,242,232,.2) 55%, transparent 100%); }
   .phero-content { position: relative; z-index: 2; padding: 0 48px; }
+  .phero-content .s-label { color: ${T.gold3}; }
+  .phero-content .s-label::before { background: ${T.gold3}; }
+  .phero-content .s-title { color: #FAF5E8; }
+  .phero-content .s-title em { color: ${T.gold3}; }
 
-  /* SPLIT SECTIONS ---------------------------------------------------------- */
+  /* SPLIT */
   .split { display: grid; grid-template-columns: 1fr 1fr; overflow: hidden; }
   .split.rev { direction: rtl; }
   .split.rev > * { direction: ltr; }
   .split-img { position: relative; overflow: hidden; min-height: 420px; }
-  .split-img img { width: 100%; height: 100%; object-fit: cover; filter: brightness(.5); transition: transform .6s ease; display: block; }
+  .split-img img { width: 100%; height: 100%; object-fit: cover; filter: brightness(.6); transition: transform .6s ease; display: block; }
   .split:hover .split-img img { transform: scale(1.04); }
-  .split-img-overlay { position: absolute; inset: 0; background: linear-gradient(to right, rgba(13,12,10,.4), transparent); }
-  .split.rev .split-img-overlay { background: linear-gradient(to left, rgba(13,12,10,.4), transparent); }
-  .split-content { background: ${T.ink2}; padding: 60px 52px; display: flex; flex-direction: column; justify-content: center; position: relative; }
+  .split-img-overlay { position: absolute; inset: 0; background: linear-gradient(to right, rgba(247,242,232,.12), transparent); }
+  .split.rev .split-img-overlay { background: linear-gradient(to left, rgba(247,242,232,.12), transparent); }
+  .split-content { background: ${T.bg2}; padding: 60px 52px; display: flex; flex-direction: column; justify-content: center; position: relative; }
   .split-content::before { content: ''; position: absolute; top: 0; left: 0; bottom: 0; width: 2px; background: linear-gradient(to bottom, ${T.gold}, transparent); }
   .split.rev .split-content::before { left: auto; right: 0; }
 
-  /* EVENT CARDS ------------------------------------------------------------- */
+  /* EVENT CARDS */
   .event-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
-  .event-card { position: relative; overflow: hidden; cursor: pointer; aspect-ratio: 3/4; background: ${T.ink2}; }
-  .event-card img { width: 100%; height: 100%; object-fit: cover; filter: brightness(.52); transition: filter .5s, transform .5s; display: block; }
+  .event-card { position: relative; overflow: hidden; cursor: pointer; aspect-ratio: 3/4; background: ${T.bg2}; }
+  .event-card img { width: 100%; height: 100%; object-fit: cover; filter: brightness(.55); transition: filter .5s, transform .5s; display: block; }
   .event-card:hover img { filter: brightness(.28); transform: scale(1.06); }
-  .event-card-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(13,12,10,.97) 0%, rgba(13,12,10,.18) 55%, transparent 100%); }
+  .event-card-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(28,26,19,.96) 0%, rgba(28,26,19,.12) 55%, transparent 100%); }
   .event-card-body { position: absolute; bottom: 0; left: 0; right: 0; padding: 20px; }
-  .event-card-tag { font-size: .58rem; letter-spacing: 3px; text-transform: uppercase; color: ${T.gold}; font-weight: 700; margin-bottom: 6px; display: block; }
-  .event-card-title { font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; color: ${T.parch}; line-height: 1.1; font-weight: 700; }
-  .event-card-desc { font-size: .75rem; color: rgba(245,237,214,.42); line-height: 1.55; max-height: 0; overflow: hidden; transition: max-height .4s ease; margin-top: 4px; }
+  .event-card-tag { font-size: .58rem; letter-spacing: 3px; text-transform: uppercase; color: ${T.gold3}; font-weight: 700; margin-bottom: 6px; display: block; }
+  .event-card-title { font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; color: #FAF5E8; line-height: 1.1; font-weight: 700; }
+  .event-card-desc { font-size: .75rem; color: rgba(250,245,232,.45); line-height: 1.55; max-height: 0; overflow: hidden; transition: max-height .4s ease; margin-top: 4px; }
   .event-card:hover .event-card-desc { max-height: 70px; }
 
-  /* KABAKA ------------------------------------------------------------------ */
-  .kabaka-band { background: linear-gradient(135deg, #1a0d05, ${T.ink2}); padding: 60px 48px; text-align: center; border-top: 2px solid ${T.gold3}; }
-  .kab-stat { padding: 18px 22px; border: 1px solid rgba(201,168,76,.22); background: rgba(201,168,76,.05); text-align: center; min-width: 120px; }
+  /* KABAKA */
+  .kabaka-band { background: linear-gradient(135deg, ${T.bg3}, ${T.bg2}); padding: 60px 48px; text-align: center; border-top: 2px solid ${T.gold3}; border-bottom: 2px solid ${T.gold3}; }
+  .kab-stat { padding: 18px 22px; border: 1px solid ${T.line}; background: rgba(255,255,255,.45); text-align: center; min-width: 120px; }
 
-  /* CLANS ------------------------------------------------------------------- */
-  .clan-search { width: 100%; padding: 11px 16px; background: rgba(201,168,76,.05); border: 1px solid rgba(201,168,76,.2); color: ${T.parch}; font-family: 'DM Sans', sans-serif; font-size: .88rem; outline: none; margin-bottom: 20px; transition: border-color .2s; }
-  .clan-search:focus { border-color: ${T.gold}; }
-  .clan-search::placeholder { color: rgba(245,237,214,.22); }
+  /* CLANS */
+  .clan-search { width: 100%; padding: 11px 16px; background: #fff; border: 1px solid ${T.line}; color: ${T.ink}; font-family: 'DM Sans', sans-serif; font-size: .88rem; outline: none; margin-bottom: 20px; transition: border-color .2s; box-shadow: inset 0 1px 4px rgba(28,26,19,.04); }
+  .clan-search:focus { border-color: ${T.gold}; box-shadow: inset 0 1px 4px rgba(28,26,19,.04), 0 0 0 3px rgba(166,124,46,.12); }
+  .clan-search::placeholder { color: ${T.muted}; opacity: .5; }
   .clans-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; }
-  .clan-card { background: ${T.ink2}; border: 1px solid rgba(201,168,76,.07); padding: 14px 13px; transition: .25s; cursor: default; position: relative; overflow: hidden; }
+  .clan-card { background: #fff; border: 1px solid ${T.lineSoft}; padding: 14px 13px; transition: .25s; cursor: default; position: relative; overflow: hidden; }
   .clan-card::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: ${T.gold}; transform: scaleX(0); transition: transform .3s; transform-origin: left; }
-  .clan-card:hover { background: ${T.ink3}; border-color: rgba(201,168,76,.28); }
+  .clan-card:hover { background: ${T.bg2}; border-color: ${T.line}; box-shadow: 0 2px 12px rgba(28,26,19,.06); }
   .clan-card:hover::after { transform: scaleX(1); }
-  .clan-card.original { border-left: 2px solid ${T.gold3}; }
+  .clan-card.original { border-left: 2px solid ${T.gold2}; }
   .clan-card.royal { border-left: 2px solid ${T.gold}; }
-  .clan-num { font-family: 'Bebas Neue', sans-serif; font-size: .68rem; color: ${T.gold3}; letter-spacing: 1px; margin-bottom: 4px; display: block; }
-  .clan-name { font-family: 'Cormorant Garamond', serif; font-size: .95rem; font-weight: 700; color: ${T.parch}; margin-bottom: 2px; }
+  .clan-num { font-family: 'Bebas Neue', sans-serif; font-size: .68rem; color: ${T.gold2}; letter-spacing: 1px; margin-bottom: 4px; display: block; }
+  .clan-name { font-family: 'Cormorant Garamond', serif; font-size: .95rem; font-weight: 700; color: ${T.ink}; margin-bottom: 2px; }
   .clan-totem { font-size: .72rem; color: ${T.muted}; line-height: 1.45; }
-  .clan-head { font-size: .62rem; color: ${T.gold3}; letter-spacing: .5px; margin-top: 5px; }
+  .clan-head { font-size: .62rem; color: ${T.gold2}; letter-spacing: .5px; margin-top: 5px; }
   .clan-count { font-size: .75rem; color: ${T.muted}; text-align: right; margin-top: 12px; }
 
-  /* MASAZA ------------------------------------------------------------------ */
+  /* MASAZA */
   .masaza-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
-  .saza-card { background: ${T.ink2}; overflow: hidden; transition: .3s; }
-  .saza-card:hover { transform: translateY(-3px); }
-  .saza-card img { width: 100%; height: 160px; object-fit: cover; filter: brightness(.48); transition: .5s; display: block; }
+  .saza-card { background: #fff; overflow: hidden; transition: .3s; border: 1px solid ${T.lineSoft}; }
+  .saza-card:hover { transform: translateY(-3px); box-shadow: 0 8px 28px rgba(28,26,19,.1); }
+  .saza-card img { width: 100%; height: 160px; object-fit: cover; filter: brightness(.52); transition: .5s; display: block; }
   .saza-card:hover img { filter: brightness(.32); transform: scale(1.04); }
-  .saza-body { padding: 16px; border-top: 2px solid rgba(201,168,76,.12); }
+  .saza-body { padding: 16px; border-top: 2px solid ${T.lineSoft}; }
   .saza-num { font-family: 'Bebas Neue', sans-serif; font-size: .65rem; color: ${T.gold}; letter-spacing: 2px; margin-bottom: 4px; display: block; }
-  .saza-name { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 700; color: ${T.parch}; margin-bottom: 2px; }
+  .saza-name { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 700; color: ${T.ink}; margin-bottom: 2px; }
   .saza-chief { font-size: .72rem; color: ${T.muted}; }
   .saza-desc { font-size: .72rem; color: ${T.muted}; line-height: 1.55; margin-top: 6px; }
 
-  /* TIMELINE ---------------------------------------------------------------- */
+  /* TIMELINE */
   .timeline-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
   .tl-item { display: grid; grid-template-columns: 70px 1fr; gap: 0 16px; padding-bottom: 24px; position: relative; }
-  .tl-item::before { content: ''; position: absolute; left: 69px; top: 10px; bottom: -14px; width: 1px; background: rgba(201,168,76,.14); }
+  .tl-item::before { content: ''; position: absolute; left: 69px; top: 10px; bottom: -14px; width: 1px; background: ${T.line}; }
   .tl-item:last-child::before { display: none; }
   .tl-time { font-family: 'Bebas Neue', sans-serif; font-size: .85rem; color: ${T.gold}; text-align: right; padding-top: 2px; letter-spacing: .5px; }
   .tl-body { position: relative; padding-left: 14px; }
-  .tl-dot { width: 8px; height: 8px; background: ${T.gold}; border-radius: 50%; position: absolute; left: -14px; top: 4px; box-shadow: 0 0 0 3px rgba(201,168,76,.15); }
-  .tl-title { font-family: 'Cormorant Garamond', serif; font-size: .95rem; color: ${T.parch}; font-weight: 700; margin-bottom: 2px; }
+  .tl-dot { width: 8px; height: 8px; background: ${T.gold}; border-radius: 50%; position: absolute; left: -14px; top: 4px; box-shadow: 0 0 0 3px rgba(166,124,46,.15); }
+  .tl-title { font-family: 'Cormorant Garamond', serif; font-size: .95rem; color: ${T.ink}; font-weight: 700; margin-bottom: 2px; }
   .tl-desc { font-size: .75rem; color: ${T.muted}; line-height: 1.65; }
 
-  /* BUSINESS ---------------------------------------------------------------- */
-  .tab-bar { display: flex; overflow-x: auto; border-bottom: 1px solid rgba(201,168,76,.12); margin-bottom: 28px; scrollbar-width: none; }
+  /* BUSINESS */
+  .tab-bar { display: flex; overflow-x: auto; border-bottom: 1px solid ${T.line}; margin-bottom: 28px; scrollbar-width: none; }
   .tab-bar::-webkit-scrollbar { display: none; }
-  .tab-btn { padding: 11px 20px; white-space: nowrap; border: none; background: none; font-family: 'DM Sans', sans-serif; font-size: .68rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(245,237,214,.32); cursor: pointer; border-bottom: 1.5px solid transparent; margin-bottom: -1px; transition: .2s; }
-  .tab-btn.active, .tab-btn:hover { color: ${T.parch}; border-bottom-color: ${T.gold}; }
+  .tab-btn { padding: 11px 20px; white-space: nowrap; border: none; background: none; font-family: 'DM Sans', sans-serif; font-size: .68rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: ${T.muted}; cursor: pointer; border-bottom: 1.5px solid transparent; margin-bottom: -1px; transition: .2s; }
+  .tab-btn.active, .tab-btn:hover { color: ${T.ink}; border-bottom-color: ${T.gold}; }
   .biz-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
-  .biz-card { background: ${T.ink2}; border: 1px solid rgba(201,168,76,.07); overflow: hidden; transition: .3s; }
-  .biz-card:hover { border-color: rgba(201,168,76,.28); transform: translateY(-3px); }
-  .biz-card img { width: 100%; height: 130px; object-fit: cover; filter: brightness(.6); transition: .4s; display: block; }
+  .biz-card { background: #fff; border: 1px solid ${T.lineSoft}; overflow: hidden; transition: .3s; }
+  .biz-card:hover { border-color: ${T.line}; transform: translateY(-3px); box-shadow: 0 8px 24px rgba(28,26,19,.08); }
+  .biz-card img { width: 100%; height: 130px; object-fit: cover; filter: brightness(.62); transition: .4s; display: block; }
   .biz-card:hover img { filter: brightness(.38); transform: scale(1.04); }
   .biz-body { padding: 16px; }
   .biz-tag { font-size: .6rem; letter-spacing: 3px; text-transform: uppercase; color: ${T.gold}; margin-bottom: 4px; display: block; }
-  .biz-title { font-family: 'Cormorant Garamond', serif; font-size: 1rem; font-weight: 700; color: ${T.parch}; margin-bottom: 4px; }
+  .biz-title { font-family: 'Cormorant Garamond', serif; font-size: 1rem; font-weight: 700; color: ${T.ink}; margin-bottom: 4px; }
   .biz-desc { font-size: .77rem; color: ${T.muted}; line-height: 1.65; margin-bottom: 10px; }
-  .biz-cta { font-size: .62rem; letter-spacing: 2px; text-transform: uppercase; color: ${T.gold}; cursor: pointer; transition: letter-spacing .2s; display: inline-block; }
+  .biz-cta { font-size: .62rem; letter-spacing: 2px; text-transform: uppercase; color: ${T.gold}; cursor: pointer; transition: letter-spacing .2s; display: inline-block; font-weight: 700; }
   .biz-cta:hover { letter-spacing: 3px; }
 
-  /* GALLERY ----------------------------------------------------------------- */
+  /* GALLERY */
   .gal-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px; }
   .gal-item { position: relative; overflow: hidden; cursor: pointer; aspect-ratio: 4/3; }
-  .gal-item img { width: 100%; height: 100%; object-fit: cover; filter: brightness(.62); transition: .45s; display: block; }
+  .gal-item img { width: 100%; height: 100%; object-fit: cover; filter: brightness(.65); transition: .45s; display: block; }
   .gal-item:hover img { filter: brightness(.3); transform: scale(1.05); }
-  .gal-item-overlay { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; background: rgba(13,12,10,.38); opacity: 0; transition: opacity .3s; }
+  .gal-item-overlay { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; background: rgba(28,26,19,.35); opacity: 0; transition: opacity .3s; }
   .gal-item:hover .gal-item-overlay { opacity: 1; }
-  .gal-item-title { font-family: 'Cormorant Garamond', serif; font-size: .95rem; font-weight: 700; color: ${T.parch}; letter-spacing: 1px; }
-  .gal-item-sub { font-size: .6rem; letter-spacing: 3px; text-transform: uppercase; color: ${T.gold}; margin-top: 4px; }
+  .gal-item-title { font-family: 'Cormorant Garamond', serif; font-size: .95rem; font-weight: 700; color: #FAF5E8; letter-spacing: 1px; }
+  .gal-item-sub { font-size: .6rem; letter-spacing: 3px; text-transform: uppercase; color: ${T.gold3}; margin-top: 4px; }
 
-  /* LIGHTBOX ---------------------------------------------------------------- */
-  .lightbox { position: fixed; inset: 0; background: rgba(10,9,8,.97); z-index: 2000; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 14px; cursor: pointer; padding: 20px; }
-  .lightbox img { max-width: 100%; max-height: 75vh; object-fit: contain; display: block; border: 1px solid rgba(201,168,76,.2); }
+  /* LIGHTBOX */
+  .lightbox { position: fixed; inset: 0; background: rgba(247,242,232,.97); z-index: 2000; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 14px; cursor: pointer; padding: 20px; }
+  .lightbox img { max-width: 100%; max-height: 75vh; object-fit: contain; display: block; border: 1px solid ${T.line}; box-shadow: 0 20px 60px rgba(28,26,19,.15); }
 
-  /* HOTELS ------------------------------------------------------------------ */
+  /* HOTELS */
   .hotel-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
   .hotel-card { position: relative; overflow: hidden; cursor: pointer; }
-  .hotel-card img { width: 100%; height: 220px; object-fit: cover; filter: brightness(.5); transition: .5s; display: block; }
+  .hotel-card img { width: 100%; height: 220px; object-fit: cover; filter: brightness(.52); transition: .5s; display: block; }
   .hotel-card:hover img { filter: brightness(.28); transform: scale(1.04); }
-  .hotel-body { position: absolute; bottom: 0; left: 0; right: 0; padding: 20px; background: linear-gradient(to top, rgba(13,12,10,.98), transparent); }
-  .hotel-stars { font-size: .8rem; color: ${T.gold2}; margin-bottom: 3px; }
-  .hotel-name { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 700; color: ${T.parch}; margin-bottom: 2px; }
-  .hotel-loc { font-size: .7rem; color: rgba(245,237,214,.4); margin-bottom: 7px; }
-  .hotel-price { font-size: .78rem; color: ${T.gold}; font-weight: 600; }
-  .hotel-book { display: none; background: ${T.gold}; color: ${T.ink}; border: none; padding: 7px 18px; font-size: .65rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; cursor: pointer; margin-top: 8px; transition: .2s; }
+  .hotel-body { position: absolute; bottom: 0; left: 0; right: 0; padding: 20px; background: linear-gradient(to top, rgba(28,26,19,.97), transparent); }
+  .hotel-stars { font-size: .8rem; color: ${T.gold3}; margin-bottom: 3px; }
+  .hotel-name { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 700; color: #FAF5E8; margin-bottom: 2px; }
+  .hotel-loc { font-size: .7rem; color: rgba(250,245,232,.45); margin-bottom: 7px; }
+  .hotel-price { font-size: .78rem; color: ${T.gold3}; font-weight: 600; }
+  .hotel-book { display: none; background: ${T.gold}; color: #fff; border: none; padding: 7px 18px; font-size: .65rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; cursor: pointer; margin-top: 8px; transition: .2s; }
   .hotel-card:hover .hotel-book { display: block; }
   .hotel-book:hover { background: ${T.gold2}; }
 
-  /* INVITATION -------------------------------------------------------------- */
-  .inv-card { max-width: 440px; margin: 0 auto; background: ${T.ink2}; border: 1px solid rgba(201,168,76,.35); overflow: hidden; }
-  .inv-top { background: linear-gradient(135deg, ${T.gold3}, ${T.ink3}); padding: 28px 36px; text-align: center; border-bottom: 1px solid rgba(201,168,76,.3); }
+  /* INVITATION */
+  .inv-card { max-width: 440px; margin: 0 auto; background: #fff; border: 1px solid ${T.line}; overflow: hidden; box-shadow: 0 8px 40px rgba(28,26,19,.1); }
+  .inv-top { background: linear-gradient(135deg, ${T.bg3}, ${T.bg2}); padding: 28px 36px; text-align: center; border-bottom: 1px solid ${T.line}; }
   .inv-body { padding: 32px 36px; text-align: center; }
-  .inv-divider { height: 1px; background: rgba(201,168,76,.2); margin: 16px 0; }
+  .inv-divider { height: 1px; background: ${T.line}; margin: 16px 0; }
 
-  /* CONTACT ----------------------------------------------------------------- */
-  .contact-input { width: 100%; padding: 12px 14px; background: rgba(201,168,76,.04); border: 1px solid rgba(201,168,76,.14); color: ${T.parch}; font-family: 'DM Sans', sans-serif; font-size: .85rem; outline: none; transition: border-color .2s; margin-bottom: 12px; resize: none; }
-  .contact-input:focus { border-color: ${T.gold}; }
-  .contact-input::placeholder { color: rgba(245,237,214,.2); }
+  /* CONTACT */
+  .contact-input { width: 100%; padding: 12px 14px; background: #fff; border: 1px solid ${T.line}; color: ${T.ink}; font-family: 'DM Sans', sans-serif; font-size: .85rem; outline: none; transition: border-color .2s; margin-bottom: 12px; resize: none; }
+  .contact-input:focus { border-color: ${T.gold}; box-shadow: 0 0 0 3px rgba(166,124,46,.1); }
+  .contact-input::placeholder { color: ${T.muted}; opacity: .55; }
 
-  /* SPONSORS ---------------------------------------------------------------- */
-  .sponsors-band { background: ${T.ink2}; border-top: 1px solid rgba(201,168,76,.1); border-bottom: 1px solid rgba(201,168,76,.1); padding: 28px; display: flex; gap: 10px; flex-wrap: wrap; align-items: center; justify-content: center; }
-  .sponsor-pill { padding: 8px 20px; border: 1px solid rgba(201,168,76,.1); font-size: .65rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: rgba(245,237,214,.28); cursor: pointer; transition: .2s; }
-  .sponsor-pill:hover { border-color: rgba(201,168,76,.4); color: ${T.parch}; }
+  /* SPONSORS */
+  .sponsors-band { background: ${T.bg2}; border-top: 1px solid ${T.lineSoft}; border-bottom: 1px solid ${T.lineSoft}; padding: 28px; display: flex; gap: 10px; flex-wrap: wrap; align-items: center; justify-content: center; }
+  .sponsor-pill { padding: 8px 20px; border: 1px solid ${T.line}; font-size: .65rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: ${T.muted}; cursor: pointer; transition: .2s; background: #fff; }
+  .sponsor-pill:hover { border-color: ${T.gold}; color: ${T.ink}; background: ${T.goldBg}; }
 
-  /* STATS STRIP ------------------------------------------------------------- */
-  .stats-strip { display: grid; grid-template-columns: repeat(3, 1fr); border-bottom: 1px solid rgba(201,168,76,.1); }
-  .stat-cell { padding: 28px 20px; text-align: center; border-right: 1px solid rgba(201,168,76,.1); }
+  /* STATS */
+  .stats-strip { display: grid; grid-template-columns: repeat(3, 1fr); border-bottom: 1px solid ${T.line}; background: ${T.bg2}; }
+  .stat-cell { padding: 28px 20px; text-align: center; border-right: 1px solid ${T.line}; }
   .stat-cell:last-child { border-right: none; }
   .stat-num { font-family: 'Bebas Neue', sans-serif; font-size: 2.2rem; color: ${T.gold}; display: block; line-height: 1; }
   .stat-label { font-size: .62rem; letter-spacing: 3px; text-transform: uppercase; color: ${T.muted}; margin-top: 4px; display: block; }
 
-  /* FOOTER ------------------------------------------------------------------ */
-  .footer { background: ${T.ink2}; border-top: 2px solid ${T.gold3}; padding: 52px 48px 28px; }
-  .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 44px; margin-bottom: 44px; padding-bottom: 36px; border-bottom: 1px solid rgba(201,168,76,.08); }
-  .footer-brand { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 700; color: ${T.parch}; }
+  /* FOOTER */
+  .footer { background: ${T.bg3}; border-top: 2px solid ${T.gold2}; padding: 52px 48px 28px; }
+  .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 44px; margin-bottom: 44px; padding-bottom: 36px; border-bottom: 1px solid ${T.line}; }
+  .footer-brand { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 700; color: ${T.ink}; }
   .footer-brand em { color: ${T.gold}; }
   .footer-tagline { font-size: .82rem; color: ${T.muted}; line-height: 1.75; margin: 10px 0 18px; max-width: 280px; }
   .footer-col-head { font-size: .62rem; letter-spacing: 3px; text-transform: uppercase; color: ${T.gold}; margin-bottom: 14px; font-weight: 700; }
   .footer-links { list-style: none; display: flex; flex-direction: column; gap: 9px; }
-  .footer-links li { font-size: .82rem; color: rgba(245,237,214,.35); cursor: pointer; transition: color .2s; }
-  .footer-links li:hover { color: ${T.parch}; }
+  .footer-links li { font-size: .82rem; color: ${T.muted}; cursor: pointer; transition: color .2s; }
+  .footer-links li:hover { color: ${T.ink}; }
   .footer-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
-  .footer-copy { font-size: .72rem; color: rgba(245,237,214,.18); }
+  .footer-copy { font-size: .72rem; color: ${T.muted}; opacity: .6; }
   .social-row { display: flex; gap: 7px; }
-  .social-btn { width: 32px; height: 32px; border: 1px solid rgba(201,168,76,.12); display: flex; align-items: center; justify-content: center; font-size: .78rem; color: rgba(245,237,214,.35); cursor: pointer; transition: .2s; }
+  .social-btn { width: 32px; height: 32px; border: 1px solid ${T.line}; display: flex; align-items: center; justify-content: center; font-size: .78rem; color: ${T.muted}; cursor: pointer; transition: .2s; background: #fff; }
   .social-btn:hover { border-color: ${T.gold}; color: ${T.gold}; }
 
-  /* RESPONSIVE -------------------------------------------------------------- */
+  /* RESPONSIVE */
   @media (max-width: 1024px) {
     .clans-grid { grid-template-columns: repeat(3, 1fr); }
     .footer-grid { grid-template-columns: 1fr 1fr; }
@@ -330,7 +339,6 @@ const GLOBAL_CSS = `
 // DATA
 // ─────────────────────────────────────────────────────────────────────────────
 
-/** Unsplash image URLs */
 const IMG = {
   hero:      "https://images.unsplash.com/photo-1504609813442-a8924e83f76e?w=1800&q=80",
   drums:     "https://images.unsplash.com/photo-1516663713099-86c5bfa5f3db?w=900&q=80",
@@ -348,17 +356,13 @@ const IMG = {
   food:      "https://images.unsplash.com/photo-1565299715199-866c917206bb?w=700&q=80",
 };
 
-/** All 52 Buganda Clans */
 const CLANS = [
-  // Original 5 Banansangwa
   { n: "Ffumbe",          totem: "African Civet",       head: "Walusimbi",           orig: true  },
   { n: "Lugave",          totem: "Pangolin",             head: "Ndugwa",              orig: true  },
   { n: "Ngonge",          totem: "Otter",                head: "Nakigoye Kisolo",     orig: true  },
   { n: "Njaza",           totem: "Reedbuck",             head: "Kitanda",             orig: true  },
   { n: "Nnyonyi",         totem: "Bird (General)",       head: "Mukwenda",            orig: true  },
-  // Royal
   { n: "Abalangira",      totem: "Royal — no totem",    head: "Ssaabataka (Kabaka)", royal: true },
-  // Main clans
   { n: "Mmamba",          totem: "Lungfish",             head: "Ggunju"              },
   { n: "Ngo",             totem: "Leopard",              head: "Muteesasira"         },
   { n: "Ngabi",           totem: "Bushbuck",             head: "Nsamba Lukonge"      },
@@ -407,26 +411,25 @@ const CLANS = [
   { n: "Nkwavu Omukazi",  totem: "Female Squirrel",      head: "Nassolo Nkwavu"      },
 ];
 
-/** All 18 Masaza (Counties) of Buganda */
 const MASAZA = [
-  { n: "Kyadondo",  chief: "Ssabaganzi",      img: IMG.palace,   desc: "Home to Kampala. One of the four original Buganda counties, seat of the Kabaka." },
-  { n: "Busiro",    chief: "Mugema",           img: IMG.culture,  desc: "Ancient heartland containing the UNESCO-listed Kasubi Royal Tombs." },
-  { n: "Kyaggwe",   chief: "Kago",             img: IMG.crowd,    desc: "Eastern county rich in Lake Victoria islands and fertile agricultural land." },
-  { n: "Buddu",     chief: "Pokino",           img: IMG.market,   desc: "Southern county with the Katonga River border, known for fertile soils." },
-  { n: "Ssingo",    chief: "Kasujju",          img: IMG.drums,    desc: "Large northern county with significant cultural and agricultural heritage." },
-  { n: "Mawokota",  chief: "Kangawo",          img: IMG.dance,    desc: "Original Buganda county west of Kyadondo, known for Lake Victoria shores." },
-  { n: "Busujju",   chief: "Kitunzi",          img: IMG.craft,    desc: "Western county historically part of the core Buganda territory." },
-  { n: "Bulemeezi", chief: "Kimbugwe",         img: IMG.food,     desc: "Northwestern county bordering Ssingo and Buruuli with rolling landscape." },
-  { n: "Buruuli",   chief: "Kimbugwe",         img: IMG.fireworks,desc: "Northern county situated on the shores of Lake Kyoga." },
-  { n: "Bugerere",  chief: "Mugema wa Bugerere",img: IMG.music,   desc: "Eastern county bordered by the River Nile and Lake Kyoga." },
-  { n: "Gomba",     chief: "Kasujju wa Gomba", img: IMG.palace,   desc: "Southwestern county bordering the greater Ankole region." },
-  { n: "Butambala", chief: "Namasole",         img: IMG.culture,  desc: "Small but culturally significant county in central Buganda." },
-  { n: "Mubende",   chief: "Mugema wa Mubende",img: IMG.crowd,    desc: "Western county historically contested with the Bunyoro Kingdom." },
-  { n: "Buwekula",  chief: "Katambala",        img: IMG.market,   desc: "Northwestern county known for rolling hills and pastoral farming." },
-  { n: "Ssese",     chief: "Gabunga",          img: IMG.drums,    desc: "Sacred island county on Lake Victoria — the autonomous islands of the gods." },
-  { n: "Kabula",    chief: "Mukwenda",         img: IMG.dance,    desc: "Southern county, site of historically significant battles and migrations." },
-  { n: "Kooki",     chief: "Ssabaganzi wa Kooki",img: IMG.craft,  desc: "Southwestern county with close cultural ties to Rwanda." },
-  { n: "Buvuma",    chief: "Mugema wa Buvuma", img: IMG.fireworks,desc: "Island county in Lake Victoria, renowned for its fishing communities." },
+  { n: "Kyadondo",  chief: "Ssabaganzi",       img: IMG.palace,    desc: "Home to Kampala. One of the four original Buganda counties, seat of the Kabaka." },
+  { n: "Busiro",    chief: "Mugema",            img: IMG.culture,   desc: "Ancient heartland containing the UNESCO-listed Kasubi Royal Tombs." },
+  { n: "Kyaggwe",   chief: "Kago",              img: IMG.crowd,     desc: "Eastern county rich in Lake Victoria islands and fertile agricultural land." },
+  { n: "Buddu",     chief: "Pokino",            img: IMG.market,    desc: "Southern county with the Katonga River border, known for fertile soils." },
+  { n: "Ssingo",    chief: "Kasujju",           img: IMG.drums,     desc: "Large northern county with significant cultural and agricultural heritage." },
+  { n: "Mawokota",  chief: "Kangawo",           img: IMG.dance,     desc: "Original Buganda county west of Kyadondo, known for Lake Victoria shores." },
+  { n: "Busujju",   chief: "Kitunzi",           img: IMG.craft,     desc: "Western county historically part of the core Buganda territory." },
+  { n: "Bulemeezi", chief: "Kimbugwe",          img: IMG.food,      desc: "Northwestern county bordering Ssingo and Buruuli with rolling landscape." },
+  { n: "Buruuli",   chief: "Kimbugwe",          img: IMG.fireworks, desc: "Northern county situated on the shores of Lake Kyoga." },
+  { n: "Bugerere",  chief: "Mugema wa Bugerere",img: IMG.music,     desc: "Eastern county bordered by the River Nile and Lake Kyoga." },
+  { n: "Gomba",     chief: "Kasujju wa Gomba",  img: IMG.palace,    desc: "Southwestern county bordering the greater Ankole region." },
+  { n: "Butambala", chief: "Namasole",          img: IMG.culture,   desc: "Small but culturally significant county in central Buganda." },
+  { n: "Mubende",   chief: "Mugema wa Mubende", img: IMG.crowd,     desc: "Western county historically contested with the Bunyoro Kingdom." },
+  { n: "Buwekula",  chief: "Katambala",         img: IMG.market,    desc: "Northwestern county known for rolling hills and pastoral farming." },
+  { n: "Ssese",     chief: "Gabunga",           img: IMG.drums,     desc: "Sacred island county on Lake Victoria — the autonomous islands of the gods." },
+  { n: "Kabula",    chief: "Mukwenda",          img: IMG.dance,     desc: "Southern county, site of historically significant battles and migrations." },
+  { n: "Kooki",     chief: "Ssabaganzi wa Kooki",img: IMG.craft,    desc: "Southwestern county with close cultural ties to Rwanda." },
+  { n: "Buvuma",    chief: "Mugema wa Buvuma",  img: IMG.fireworks, desc: "Island county in Lake Victoria, renowned for its fishing communities." },
 ];
 
 const TICKER_WORDS = [
@@ -510,7 +513,7 @@ const HOTELS = [
 ];
 
 const GALLERY_ITEMS = [
-  { src: IMG.drums,    title: "Royal Drumming",   sub: "Culture"       },
+  { src: IMG.drums,    title: "Royal Drumming",    sub: "Culture"       },
   { src: IMG.dance,    title: "Traditional Dance", sub: "Heritage"      },
   { src: IMG.market,   title: "Trade Fair",        sub: "Business"      },
   { src: IMG.fireworks,title: "New Year Fireworks",sub: "Celebration"   },
@@ -753,7 +756,7 @@ function HomePage({ setPage }) {
   const cd = useCountdown();
   return (
     <div className="page-enter">
-      {/* HERO */}
+      {/* HERO — photo remains dramatic, gradient now fades to ivory */}
       <section className="hero">
         <div className="hero-bg" style={{ backgroundImage: `url(${IMG.hero})` }} />
         <div className="hero-overlay" />
@@ -775,7 +778,7 @@ function HomePage({ setPage }) {
           </div>
           <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
             <button className="btn-gold" onClick={() => setPage("Invitation")}>Secure Your Tickets →</button>
-            <button className="btn-outline" onClick={() => setPage("Business")}>Exhibit with Us</button>
+            <button className="btn-outline" style={{ color: "rgba(250,245,232,.85)", borderColor: "rgba(250,245,232,.4)" }} onClick={() => setPage("Business")}>Exhibit with Us</button>
           </div>
         </div>
       </section>
@@ -790,7 +793,7 @@ function HomePage({ setPage }) {
       </div>
 
       {/* HIGHLIGHTS */}
-      <div style={{ background: T.ink, padding: "64px 48px" }}>
+      <div style={{ background: T.bg, padding: "64px 48px" }}>
         <FU><p className="s-label">What's On</p><h2 className="s-title f-display">Highlights at <em>Enkuuka 2025</em></h2></FU>
         <div className="event-grid" style={{ marginTop: 24 }}>
           {HOME_EVENTS.map((e, i) => (
@@ -841,7 +844,6 @@ function CulturePage({ setPage }) {
       {traditions.map((t) => (
         <SplitSection key={t.title} img={t.img} label={t.label} title={t.title} titleAccent={t.accent} body={t.body} reverse={t.reverse} />
       ))}
-      {/* Kabaka */}
       <div className="kabaka-band">
         <FU style={{ textAlign: "center" }}>
           <p className="s-label" style={{ justifyContent: "center" }}>His Majesty</p>
@@ -855,7 +857,7 @@ function CulturePage({ setPage }) {
             {[["👑","36th Kabaka","Since 1993"],["🏛","Lubiri Palace","Royal Seat"],["🌍","6M+ Baganda","Kingdom People"],["📜","52 Clans","All United"]].map(([icon, t1, t2]) => (
               <div key={t1} className="kab-stat">
                 <div style={{ fontSize: "1.4rem", marginBottom: 6 }}>{icon}</div>
-                <p className="f-block" style={{ color: T.parch, fontSize: ".9rem" }}>{t1}</p>
+                <p className="f-block" style={{ color: T.ink, fontSize: ".9rem" }}>{t1}</p>
                 <p style={{ fontSize: ".62rem", color: T.muted, letterSpacing: 2, textTransform: "uppercase", marginTop: 2 }}>{t2}</p>
               </div>
             ))}
@@ -889,7 +891,7 @@ function ClansPage({ setPage }) {
     <div className="page-enter">
       <PageHero img={IMG.culture} label="Ebika by'Obuganda" title="The 52 Clans of" titleAccent="Buganda" />
       <Ticker />
-      <div style={{ background: T.ink, padding: "52px 48px" }}>
+      <div style={{ background: T.bg, padding: "52px 48px" }}>
         <FU>
           <p className="s-label">About the Clan System</p>
           <h2 className="s-title f-display">Identity Through <em>Blood & Totem</em></h2>
@@ -945,7 +947,7 @@ function MasazaPage({ setPage }) {
     <div className="page-enter">
       <PageHero img={IMG.palace} label="Amasaza ga Buganda" title="The 18 Counties of" titleAccent="Buganda" />
       <Ticker />
-      <div style={{ background: T.ink, padding: "52px 48px" }}>
+      <div style={{ background: T.bg, padding: "52px 48px" }}>
         <FU>
           <p className="s-label">About the Counties</p>
           <h2 className="s-title f-display">The Kingdom's <em>Administrative Fabric</em></h2>
@@ -969,7 +971,7 @@ function MasazaPage({ setPage }) {
           </div>
         </FU>
       </div>
-      <div style={{ background: T.ink2, padding: "40px 48px", borderTop: `1px solid rgba(201,168,76,.1)`, textAlign: "center" }}>
+      <div style={{ background: T.bg2, padding: "40px 48px", borderTop: `1px solid ${T.lineSoft}`, textAlign: "center" }}>
         <FU>
           <p className="s-label" style={{ justifyContent: "center" }}>Masaza Cup</p>
           <h2 className="s-title f-display" style={{ textAlign: "center" }}>The Kingdom's <em>Football Tournament</em></h2>
@@ -993,7 +995,7 @@ function EntertainmentPage({ setPage }) {
     <div className="page-enter">
       <PageHero img={IMG.music} label="Live Performances" title="A Night of" titleAccent="Pure Magic" />
       <Ticker />
-      <div style={{ background: T.ink, padding: "52px 48px" }}>
+      <div style={{ background: T.bg, padding: "52px 48px" }}>
         <FU>
           <p className="s-label">The Lineup</p>
           <h2 className="s-title f-display">Artists & <em>Performers</em></h2>
@@ -1007,12 +1009,12 @@ function EntertainmentPage({ setPage }) {
         <FU delay={0.2}>
           <div style={{ marginTop: 40, position: "relative", overflow: "hidden" }}>
             <img src={IMG.fireworks} alt="Fireworks" loading="lazy" style={{ width: "100%", height: 300, objectFit: "cover", filter: "brightness(.32)", display: "block" }} />
-            <div style={{ position: "absolute", inset: 0, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", background: "rgba(13,12,10,.4)" }}>
-              <p className="s-label" style={{ justifyContent: "center" }}>December 31 · 11:59 PM</p>
-              <h2 className="s-title f-display" style={{ fontSize: "clamp(1.6rem,5vw,3rem)", textAlign: "center" }}>
-                New Year <em>Countdown</em>
+            <div style={{ position: "absolute", inset: 0, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", background: "rgba(28,26,19,.4)" }}>
+              <p className="s-label" style={{ justifyContent: "center", color: T.gold3 }}>December 31 · 11:59 PM</p>
+              <h2 className="s-title f-display" style={{ fontSize: "clamp(1.6rem,5vw,3rem)", textAlign: "center", color: "#FAF5E8" }}>
+                New Year <em style={{ color: T.gold3 }}>Countdown</em>
               </h2>
-              <p style={{ color: "rgba(245,237,214,.5)", maxWidth: 440, textAlign: "center", lineHeight: 1.8, marginTop: 10, fontSize: ".85rem", padding: "0 20px" }}>
+              <p style={{ color: "rgba(250,245,232,.55)", maxWidth: 440, textAlign: "center", lineHeight: 1.8, marginTop: 10, fontSize: ".85rem", padding: "0 20px" }}>
                 50,000 voices count down together. Fireworks paint the Kampala sky gold and white above Lubiri Palace.
               </p>
             </div>
@@ -1034,7 +1036,7 @@ function BusinessPage({ setPage }) {
     <div className="page-enter">
       <PageHero img={IMG.market} label="Trade Fair & Opportunities" title="Business at" titleAccent="Enkuuka" />
       <Ticker />
-      <div style={{ background: T.ink, padding: "52px 48px" }}>
+      <div style={{ background: T.bg, padding: "52px 48px" }}>
         <FU>
           <p className="s-label">Why Exhibit?</p>
           <h2 className="s-title f-display">Uganda's Premier <em>End-of-Year Platform</em></h2>
@@ -1063,7 +1065,7 @@ function BusinessPage({ setPage }) {
           </div>
         </FU>
         <FU delay={0.2}>
-          <div style={{ marginTop: 40, display: "grid", gridTemplateColumns: "1fr auto", gap: 28, alignItems: "center", padding: "32px 40px", background: T.ink2, border: `1px solid rgba(201,168,76,.18)` }}>
+          <div style={{ marginTop: 40, display: "grid", gridTemplateColumns: "1fr auto", gap: 28, alignItems: "center", padding: "32px 40px", background: T.bg2, border: `1px solid ${T.line}` }}>
             <div>
               <p className="s-label">Vendor Registration</p>
               <h2 className="s-title f-display" style={{ fontSize: "clamp(1.2rem,3vw,1.8rem)" }}>
@@ -1092,7 +1094,7 @@ function ProgrammePage({ setPage }) {
     <div className="page-enter">
       <PageHero img={IMG.crowd} label="31st December" title="The Day's" titleAccent="Programme" />
       <Ticker />
-      <div style={{ background: T.ink }}>
+      <div style={{ background: T.bg }}>
         <div className="timeline-grid">
           <div style={{ padding: "48px 48px" }}>
             <FU>
@@ -1117,7 +1119,7 @@ function ProgrammePage({ setPage }) {
           </div>
           <div style={{ position: "relative", overflow: "hidden", minHeight: 500 }}>
             <img src={IMG.fireworks} alt="Fireworks" loading="lazy" style={{ width: "100%", height: "100%", objectFit: "cover", filter: "brightness(.38)", display: "block" }} />
-            <div style={{ position: "absolute", inset: 0, background: `linear-gradient(to top, ${T.ink}, transparent 50%)`, display: "flex", alignItems: "flex-end", padding: "36px 40px" }}>
+            <div style={{ position: "absolute", inset: 0, background: `linear-gradient(to top, ${T.bg}, transparent 50%)`, display: "flex", alignItems: "flex-end", padding: "36px 40px" }}>
               <div>
                 <p className="s-label">Midnight Fireworks</p>
                 <h2 className="s-title f-display">Fireworks over <em>Lubiri Palace</em></h2>
@@ -1144,7 +1146,7 @@ function GalleryPage({ setPage }) {
     <div className="page-enter">
       <PageHero img={IMG.crowd} label="Visual Memories" title="The" titleAccent="Gallery" />
       <Ticker />
-      <div style={{ background: T.ink, padding: "48px 48px 24px" }}>
+      <div style={{ background: T.bg, padding: "48px 48px 24px" }}>
         <FU>
           <p className="s-label">Enkuuka Through the Lens</p>
           <h2 className="s-title f-display">Royal Culture, <em>Captured</em></h2>
@@ -1166,22 +1168,21 @@ function GalleryPage({ setPage }) {
           </div>
         </FU>
       </div>
-      {/* Share section */}
-      <div style={{ background: T.ink2, padding: "40px 48px", borderTop: `1px solid rgba(201,168,76,.1)` }}>
+      <div style={{ background: T.bg2, padding: "40px 48px", borderTop: `1px solid ${T.lineSoft}` }}>
         <FU>
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 32, alignItems: "center" }}>
             <div>
               <p className="s-label">Share the Story</p>
               <h2 className="s-title f-display">Capture & Share <em>Your Enkuuka</em></h2>
               <p className="s-body" style={{ marginBottom: 18 }}>
-                Tag your festival photos with <strong style={{ color: T.gold }}>#EnkuukaYOmwaka</strong> to be featured in the official gallery and on the kingdom's social channels. Every image tells a piece of the Buganda story.
+                Tag your festival photos with <strong style={{ color: T.gold }}>#EnkuukaYOmwaka</strong> to be featured in the official gallery and on the kingdom's social channels.
               </p>
               <button className="btn-outline" onClick={() => setPage("Invitation")}>Get Your E-Invitation</button>
             </div>
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 3 }}>
               {[IMG.drums, IMG.dance, IMG.music, IMG.fireworks].map((src, i) => (
                 <div key={i} style={{ height: 130, overflow: "hidden" }}>
-                  <img src={src} alt="" loading="lazy" style={{ width: "100%", height: "100%", objectFit: "cover", filter: "brightness(.55)", display: "block" }} />
+                  <img src={src} alt="" loading="lazy" style={{ width: "100%", height: "100%", objectFit: "cover", filter: "brightness(.58)", display: "block" }} />
                 </div>
               ))}
             </div>
@@ -1189,11 +1190,10 @@ function GalleryPage({ setPage }) {
         </FU>
       </div>
       <PageFooter setPage={setPage} />
-      {/* Lightbox */}
       {lightbox && (
         <div className="lightbox" onClick={() => setLightbox(null)}>
           <img src={lightbox.src} alt={lightbox.title} />
-          <p className="f-display" style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "1.1rem", fontWeight: 700, color: T.parch, letterSpacing: 1 }}>{lightbox.title}</p>
+          <p className="f-display" style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "1.1rem", fontWeight: 700, color: T.ink, letterSpacing: 1 }}>{lightbox.title}</p>
           <p style={{ color: T.gold, fontSize: ".6rem", letterSpacing: 3, textTransform: "uppercase" }}>{lightbox.sub}</p>
           <p style={{ color: T.muted, fontSize: ".72rem", marginTop: 4 }}>Click anywhere to close</p>
         </div>
@@ -1211,18 +1211,13 @@ function AccommodationPage({ setPage }) {
     <div className="page-enter">
       <PageHero img={IMG.hotel} label="Stay & Experience" title="Hospitality at" titleAccent="Enkuuka" />
       <Ticker />
-
-      {/* ABOUT THE EVENT */}
-      <div style={{ background: T.ink2, padding: "52px 48px", borderBottom: `1px solid rgba(201,168,76,.1)` }}>
+      <div style={{ background: T.bg2, padding: "52px 48px", borderBottom: `1px solid ${T.lineSoft}` }}>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 48, alignItems: "center" }}>
           <FU>
             <p className="s-label">About the Festival</p>
             <h2 className="s-title f-display">The Enkuuka <em>Experience</em></h2>
             <p style={{ fontSize: ".88rem", color: T.muted, lineHeight: 1.85, marginBottom: 14 }}>
-              <strong style={{ color: T.parch }}>Enkuuka y'Omwaka</strong> — meaning "End of the Year" in Luganda — is the Buganda Kingdom's most anticipated annual event. Held every 31st December at the historic Lubiri Palace in Mengo, Kampala, it is a grand gathering of culture, commerce, and celebration under the royal banner of the Kabaka.
-            </p>
-            <p style={{ fontSize: ".88rem", color: T.muted, lineHeight: 1.85, marginBottom: 14 }}>
-              Conceived to help the Baganda close the year in the spirit of their ancestors — with music, dance, trade and royal presence — the festival has grown into a national event drawing Ugandans from all 18 Masaza, the diaspora, and international visitors.
+              <strong style={{ color: T.ink }}>Enkuuka y'Omwaka</strong> — meaning "End of the Year" in Luganda — is the Buganda Kingdom's most anticipated annual event. Held every 31st December at the historic Lubiri Palace in Mengo, Kampala, it is a grand gathering of culture, commerce, and celebration under the royal banner of the Kabaka.
             </p>
             <p style={{ fontSize: ".88rem", color: T.muted, lineHeight: 1.85, marginBottom: 22 }}>
               It is simultaneously a cultural festival, a trade fair, a tourism showcase, a community service platform, and Uganda's most spectacular New Year celebration — all in one night at one of East Africa's most storied royal grounds.
@@ -1243,24 +1238,20 @@ function AccommodationPage({ setPage }) {
           </FU>
         </div>
       </div>
-
-      {/* KEY FACTS */}
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", borderBottom: `1px solid rgba(201,168,76,.1)` }}>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", borderBottom: `1px solid ${T.line}`, background: T.bg }}>
         {[["50K+","Attendees"],["200+","Vendors"],["15+","Live Performers"],["1 Night","Unforgettable"]].map(([num, lbl]) => (
-          <div key={lbl} style={{ padding: "26px 20px", textAlign: "center", borderRight: `1px solid rgba(201,168,76,.08)` }}>
+          <div key={lbl} style={{ padding: "26px 20px", textAlign: "center", borderRight: `1px solid ${T.lineSoft}` }}>
             <span className="stat-num f-block">{num}</span>
             <span className="stat-label">{lbl}</span>
           </div>
         ))}
       </div>
-
-      {/* HOTELS */}
-      <div style={{ background: T.ink, padding: "48px 48px 24px" }}>
+      <div style={{ background: T.bg, padding: "48px 48px 24px" }}>
         <FU>
           <p className="s-label">Where to Stay</p>
           <h2 className="s-title f-display">Kampala's Finest <em>Hotels</em></h2>
           <p className="s-body" style={{ marginBottom: 28 }}>
-            Book early — Kampala fills up fast on December 31st. All hotels below are within easy reach of Lubiri Palace in Mengo. Hover over any hotel to book.
+            Book early — Kampala fills up fast on December 31st. All hotels below are within easy reach of Lubiri Palace in Mengo.
           </p>
         </FU>
         <FU delay={0.1}>
@@ -1280,7 +1271,7 @@ function AccommodationPage({ setPage }) {
           </div>
         </FU>
       </div>
-      <div style={{ padding: "36px 48px", textAlign: "center", background: T.ink, borderTop: `1px solid rgba(201,168,76,.07)` }}>
+      <div style={{ padding: "36px 48px", textAlign: "center", background: T.bg, borderTop: `1px solid ${T.lineSoft}` }}>
         <FU>
           <p style={{ color: T.muted, fontSize: ".82rem", marginBottom: 16 }}>Entebbe International Airport is 45km from Kampala. Festival shuttle buses operate between major hotels and Lubiri Palace.</p>
           <button className="btn-outline">Transport & Directions →</button>
@@ -1300,7 +1291,7 @@ function InvitationPage({ setPage }) {
   const [preview, setPreview] = useState(false);
   return (
     <div className="page-enter">
-      <div style={{ background: T.ink, minHeight: "100vh", paddingTop: 60 }}>
+      <div style={{ background: T.bg, minHeight: "100vh", paddingTop: 60 }}>
         <div style={{ maxWidth: 640, margin: "0 auto", padding: "64px 24px" }}>
           <FU style={{ textAlign: "center" }}>
             <p className="s-label" style={{ justifyContent: "center" }}>Digital E-Invitation</p>
@@ -1309,8 +1300,8 @@ function InvitationPage({ setPage }) {
           </FU>
           {!preview ? (
             <FU delay={0.1}>
-              <div style={{ background: T.ink2, border: `1px solid rgba(201,168,76,.2)`, padding: "32px" }}>
-                <p style={{ color: "rgba(245,237,214,.4)", fontSize: ".8rem", marginBottom: 12 }}>Enter your name to personalise your invitation</p>
+              <div style={{ background: T.bg2, border: `1px solid ${T.line}`, padding: "32px" }}>
+                <p style={{ color: T.muted, fontSize: ".8rem", marginBottom: 12 }}>Enter your name to personalise your invitation</p>
                 <input
                   className="contact-input"
                   placeholder="Your full name…"
@@ -1327,22 +1318,22 @@ function InvitationPage({ setPage }) {
             <FU delay={0.05}>
               <div className="inv-card">
                 <div className="inv-top">
-                  <p style={{ fontSize: ".62rem", letterSpacing: 4, textTransform: "uppercase", color: "rgba(245,237,214,.65)", marginBottom: 7 }}>The Buganda Kingdom · Lubiri Palace</p>
-                  <h2 className="f-display" style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "2.2rem", color: T.parch, fontWeight: 700, lineHeight: .95 }}>
-                    Enkuuka<br /><em style={{ color: T.gold2 }}>y'Omwaka</em>
+                  <p style={{ fontSize: ".62rem", letterSpacing: 4, textTransform: "uppercase", color: T.muted, marginBottom: 7 }}>The Buganda Kingdom · Lubiri Palace</p>
+                  <h2 className="f-display" style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "2.2rem", color: T.ink, fontWeight: 700, lineHeight: .95 }}>
+                    Enkuuka<br /><em style={{ color: T.gold }}>y'Omwaka</em>
                   </h2>
                 </div>
                 <div className="inv-body">
                   <p style={{ fontSize: ".65rem", color: T.muted, letterSpacing: 3, textTransform: "uppercase", marginBottom: 10 }}>Cordially Invites</p>
-                  <p className="f-display" style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "1.7rem", color: T.parch, fontWeight: 700, marginBottom: 16, lineHeight: 1 }}>
+                  <p className="f-display" style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "1.7rem", color: T.ink, fontWeight: 700, marginBottom: 16, lineHeight: 1 }}>
                     {name.trim() || "Honoured Guest"}
                   </p>
                   <div className="inv-divider" />
                   <p style={{ fontSize: ".82rem", color: T.muted, lineHeight: 1.85, marginBottom: 16 }}>
                     to celebrate the New Year with the Baganda people in the spirit of culture, unity and joy
                   </p>
-                  <div style={{ background: "rgba(201,168,76,.06)", border: `1px solid rgba(201,168,76,.18)`, padding: "14px 20px", marginBottom: 14 }}>
-                    <p className="f-block" style={{ fontSize: ".85rem", color: T.parch }}>31st December 2025</p>
+                  <div style={{ background: T.goldBg, border: `1px solid ${T.line}`, padding: "14px 20px", marginBottom: 14 }}>
+                    <p className="f-block" style={{ fontSize: ".85rem", color: T.ink }}>31st December 2025</p>
                     <p style={{ color: T.muted, fontSize: ".75rem", marginTop: 3 }}>📍 Lubiri Palace, Mengo, Kampala</p>
                     <p style={{ color: T.gold, fontSize: ".72rem", marginTop: 3, fontWeight: 600 }}>9:00 AM – Past Midnight</p>
                   </div>
@@ -1376,7 +1367,7 @@ function ContactPage({ setPage }) {
     <div className="page-enter">
       <PageHero img={IMG.palace} label="Reach Out" title="Contact" titleAccent="Us" />
       <Ticker />
-      <div style={{ background: T.ink }}>
+      <div style={{ background: T.bg }}>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 0 }}>
           <div style={{ padding: "52px 48px" }}>
             <FU>
@@ -1389,7 +1380,7 @@ function ContactPage({ setPage }) {
                     <span style={{ fontSize: ".95rem", marginTop: 2 }}>{icon}</span>
                     <div>
                       <p style={{ fontSize: ".6rem", letterSpacing: 2, textTransform: "uppercase", color: T.gold, marginBottom: 1 }}>{label}</p>
-                      <p style={{ fontSize: ".85rem", color: "rgba(245,237,214,.6)" }}>{val}</p>
+                      <p style={{ fontSize: ".85rem", color: T.muted }}>{val}</p>
                     </div>
                   </div>
                 ))}
@@ -1400,11 +1391,11 @@ function ContactPage({ setPage }) {
               </div>
             </FU>
           </div>
-          <div style={{ padding: "52px 48px", background: T.ink2, borderLeft: `1px solid rgba(201,168,76,.07)` }}>
+          <div style={{ padding: "52px 48px", background: T.bg2, borderLeft: `1px solid ${T.lineSoft}` }}>
             <FU delay={0.1}>
               {!sent ? (
                 <div>
-                  <p className="f-display" style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "1.4rem", fontWeight: 700, color: T.parch, marginBottom: 22 }}>Send a Message</p>
+                  <p className="f-display" style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "1.4rem", fontWeight: 700, color: T.ink, marginBottom: 22 }}>Send a Message</p>
                   <input className="contact-input" placeholder="Your name" value={form.name} onChange={f("name")} />
                   <input className="contact-input" placeholder="Email address" value={form.email} onChange={f("email")} />
                   <input className="contact-input" placeholder="Subject" value={form.subject} onChange={f("subject")} />
@@ -1421,13 +1412,12 @@ function ContactPage({ setPage }) {
             </FU>
           </div>
         </div>
-        {/* Map */}
         <FU delay={0.2}>
           <div style={{ position: "relative", height: 240, overflow: "hidden" }}>
-            <img src={IMG.palace} alt="Lubiri Palace Map" loading="lazy" style={{ width: "100%", height: "100%", objectFit: "cover", filter: "brightness(.22) saturate(.4)", display: "block" }} />
+            <img src={IMG.palace} alt="Lubiri Palace" loading="lazy" style={{ width: "100%", height: "100%", objectFit: "cover", filter: "brightness(.22) saturate(.4)", display: "block" }} />
             <div style={{ position: "absolute", inset: 0, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
-              <p className="f-display" style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "1.5rem", fontWeight: 700, color: T.parch }}>Lubiri Palace</p>
-              <p style={{ color: T.muted, fontSize: ".75rem", marginTop: 3 }}>Mengo, Kampala, Uganda · 0°18′N 32°33′E</p>
+              <p className="f-display" style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "1.5rem", fontWeight: 700, color: "#FAF5E8" }}>Lubiri Palace</p>
+              <p style={{ color: "rgba(250,245,232,.5)", fontSize: ".75rem", marginTop: 3 }}>Mengo, Kampala, Uganda · 0°18′N 32°33′E</p>
               <button className="btn-gold" style={{ marginTop: 18 }}>Get Directions →</button>
             </div>
           </div>
@@ -1459,7 +1449,6 @@ const PAGE_MAP = {
 export default function App() {
   const [page, setPage] = useState("Home");
 
-  // Inject global CSS once
   useEffect(() => {
     const id = "enkuuka-global-css";
     if (!document.getElementById(id)) {
@@ -1467,16 +1456,18 @@ export default function App() {
       style.id = id;
       style.textContent = GLOBAL_CSS;
       document.head.appendChild(style);
+    } else {
+      // update existing if already injected (hot reload)
+      document.getElementById(id).textContent = GLOBAL_CSS;
     }
   }, []);
 
-  // Scroll to top on page change
   useEffect(() => { window.scrollTo(0, 0); }, [page]);
 
   const PageComponent = PAGE_MAP[page] || HomePage;
 
   return (
-    <div style={{ minHeight: "100vh", background: T.ink }}>
+    <div style={{ minHeight: "100vh", background: T.bg }}>
       <Nav page={page} setPage={setPage} />
       <main style={{ paddingTop: 60 }}>
         <PageComponent setPage={setPage} />
