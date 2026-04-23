@@ -346,7 +346,7 @@ const IMG = {
   market:    "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=900&q=80",
   palace:    "https://images.unsplash.com/photo-1580674684081-7617fbf3d745?w=900&q=80",
   fireworks: "https://images.unsplash.com/photo-1467810563316-b5476525c0f9?w=900&q=80",
-  music:     "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=900&q=80",
+  music:     "https://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/Afrigo_Band.png",
   culture:   "https://images.unsplash.com/photo-1519638399535-1b036603ac77?w=900&q=80",
   hotel:     "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=700&q=80",
   hotel2:    "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=700&q=80",
