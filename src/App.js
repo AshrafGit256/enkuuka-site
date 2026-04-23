@@ -340,7 +340,7 @@ const GLOBAL_CSS = `
 // ─────────────────────────────────────────────────────────────────────────────
 
 const IMG = {
-  hero:      "https://images.unsplash.com/photo-1504609813442-a8924e83f76e?w=1800&q=80",
+  hero:      "https://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/king_Saha.png",
   drums:     "https://images.unsplash.com/photo-1516663713099-86c5bfa5f3db?w=900&q=80",
   dance:     "https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=900&q=80",
   market:    "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=900&q=80",
