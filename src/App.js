@@ -357,7 +357,7 @@ const IMG = {
   kingdom:  "https://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/Buganda.png",
   dress:  "https://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/DressCode.png",
   traditional: "http://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/Barkcloth.png",
-  king: "https://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/kabaka.png",
+  king: "http://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/Kabaka.png",
 };
 
 const CLANS = [
