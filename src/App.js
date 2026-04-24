@@ -343,7 +343,7 @@ const IMG = {
   hero:      "https://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/king_Saha.png",
   drums:     "https://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/Maganda.jpeg",
   dance:     "https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=900&q=80",
-  market:    "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=900&q=80",
+  market:    "https://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/Apr%2023%2C%202026%2C%2003_17_13%20PM.png",
   palace:    "https://images.unsplash.com/photo-1580674684081-7617fbf3d745?w=900&q=80",
   fireworks: "https://images.unsplash.com/photo-1467810563316-b5476525c0f9?w=900&q=80",
   music:     "https://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/Afrigo_Band.png",
