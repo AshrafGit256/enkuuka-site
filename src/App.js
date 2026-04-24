@@ -344,16 +344,20 @@ const IMG = {
   drums:     "https://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/Maganda.jpeg",
   dance:     "https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=900&q=80",
   market:    "https://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/Apr%2023%2C%202026%2C%2003_17_13%20PM.png",
-  palace:    "https://images.unsplash.com/photo-1580674684081-7617fbf3d745?w=900&q=80",
-  fireworks: "https://images.unsplash.com/photo-1467810563316-b5476525c0f9?w=900&q=80",
+  palace:    "https://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/Buganda.png",
+  fireworks: "https://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/CountDown.png",
   music:     "https://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/Afrigo_Band.png",
-  culture:   "https://images.unsplash.com/photo-1519638399535-1b036603ac77?w=900&q=80",
+  culture:   "https://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/Cultural_Exhibition.png",
   hotel:     "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=700&q=80",
   hotel2:    "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=700&q=80",
   hotel3:    "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=700&q=80",
-  crowd:     "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1200&q=80",
+  crowd:     "https://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/Enkkuka_Atmosphere.png",
   craft:     "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=700&q=80",
   food:      "https://images.unsplash.com/photo-1565299715199-866c917206bb?w=700&q=80",
+  kingdom:  "https://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/Buganda.png",
+  dress:  "https://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/DressCode.png",
+  traditional: "http://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/Barkcloth.png",
+  king: "https://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/kabaka.png",
 };
 
 const CLANS = [
@@ -832,14 +836,14 @@ function HomePage({ setPage }) {
 
 function CulturePage({ setPage }) {
   const traditions = [
-    { img: IMG.drums,   label: "Tradition", title: "Kiganda",    accent: "Drumming",    body: "Royal drums — engalabi, baakisimba — are the heartbeat of Buganda. Drummers trained from childhood carry ancient rhythms forward. The sound of royal drums at Lubiri Palace is the sound of the kingdom's soul speaking across centuries." },
+    { img: IMG.king,   label: "Royalty", title: "Kabaka", accent: "of Buganda", body: "The Kabaka is the living embodiment of the Buganda Kingdom — sovereign, spiritual symbol, and guardian of Kiganda tradition. From the royal palace at Lubiri, the king unites over sixty clans under one throne. The institution stretches back centuries, a living lineage that endures." },
     { img: IMG.dance,   label: "Tradition", title: "Traditional", accent: "Dance",      body: "Baakisimba, Nankasa and Mbaga are sacred dances at royal gatherings. Every movement — the grace of the knee, the arc of the hand — is a language of Kiganda identity spoken without words.", reverse: true },
-    { img: IMG.craft,   label: "Tradition", title: "Bark Cloth",  accent: "(Olubugo)",  body: "UNESCO-recognised bark cloth crafted entirely by hand from the mutuba fig tree. The defining textile of Buganda — worn in ceremony, honoured in museums worldwide, carried across the diaspora as living proof of African excellence." },
-    { img: IMG.culture, label: "Tradition", title: "Gomesi &",    accent: "Kanzu",      body: "The elegant gomesi worn by women and the flowing kanzu worn by men are the formal traditional dress of the Baganda. Seeing thousands of them at Lubiri on December 31st is a sight of extraordinary collective pride.", reverse: true },
+    { img: IMG.traditional,   label: "Tradition", title: "Bark Cloth",  accent: "(Olubugo)",  body: "UNESCO-recognised bark cloth crafted entirely by hand from the mutuba fig tree. The defining textile of Buganda — worn in ceremony, honoured in museums worldwide, carried across the diaspora as living proof of African excellence." },
+    { img: IMG.dress, label: "Tradition", title: "Gomesi &",    accent: "Kanzu",      body: "The elegant gomesi worn by women and the flowing kanzu worn by men are the formal traditional dress of the Baganda. Seeing thousands of them at Lubiri on December 31st is a sight of extraordinary collective pride.", reverse: true },
   ];
   return (
     <div className="page-enter">
-      <PageHero img={IMG.culture} label="Show Culture · Have Heritage" title="Buganda —" titleAccent="Kingdom of Grace" />
+      <PageHero img={IMG.kingdom} label="Show Culture · Have Heritage" title="Buganda —" titleAccent="Kingdom of Grace" />
       <Ticker />
       {traditions.map((t) => (
         <SplitSection key={t.title} img={t.img} label={t.label} title={t.title} titleAccent={t.accent} body={t.body} reverse={t.reverse} />
