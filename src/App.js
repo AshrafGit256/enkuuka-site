@@ -691,7 +691,7 @@ const CLANS = [
   { n: "Ngabi",           totem: "Bushbuck",              head: "Nsamba Lukonge",                      img: "https://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/BushBuck.jpg" },
   { n: "Ngaali",          totem: "Crested Crane",         head: "Mawesano",                            img: "https://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/CrestedCrane.jpg" },
   { n: "Ngeye",           totem: "Colobus Monkey",        head: "Kasujja",                             img: "https://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/ColobusMonkey.jpg" },
-  { n: "Nkejje",          totem: "Sprat Fish",            head: "Kikwata",                             img: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/Sprattus_sprattus.jpg/640px-Sprattus_sprattus.jpg" },
+  { n: "Nkejje",          totem: "Sprat Fish",            head: "Kikwata",                             img: "https://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/SpratFish2.jpg" },
   { n: "Njovu",           totem: "Elephant",              head: "Mukalo",                              img: "https://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/elephant.jpg" },
   { n: "Nkima",           totem: "Monkey",                head: "Mugema",                              img: "https://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/monkey.jpg" },
   { n: "Mbogo",           totem: "Buffalo",               head: "Kayiira Gajule",                      img: "https://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/Buffalo.jpg" },
