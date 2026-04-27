@@ -697,7 +697,7 @@ const CLANS = [
   { n: "Mbogo",           totem: "Buffalo",               head: "Kayiira Gajule",                      img: "https://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/Buffalo.jpg" },
   { n: "Mbwa",            totem: "Dog",                   head: "Mutasingwa",                          img: "https://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/Dog.jpg" },
   { n: "Nte",             totem: "Cow",                   head: "Katongole",                           img: "https://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/cow.jpg" },
-  { n: "Musu",            totem: "Cane Rat",              head: "Jajja Muyingo",                       img: "https://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/CaneRat.png" },
+  { n: "Musu",            totem: "Cane Rat",              head: "Jajja Muyingo",                       img: "https://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/CaneRat1.jpg" },
   { n: "Mutima",          totem: "Heart",                 head: "Namugera Kakeeto",                    img: "https://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/Heart.jpg" },
   { n: "Kkobe",           totem: "Creeping Plant",        head: "Bakiranze",                           img: "https://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/Kkobe.jpg" },
   { n: "Kasimba",         totem: "Genet Cat",             head: "Kizito",                              img: "https://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/GenetCat.jpg" },
