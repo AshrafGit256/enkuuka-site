@@ -659,7 +659,7 @@ const IMG = {
   hero:      "https://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/king_Saha.png",
   drums:     "https://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/Maganda.jpeg",
   dance:     "https://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/maganda.png",
-  market:    "https://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/Apr%2023%2C%202026%2C%2003_17_13%20PM.png",
+  market:    "https://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/trade.png",
   palace:    "https://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/Buganda.png",
   fireworks: "https://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/CountDown.png",
   music:     "https://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/Afrigo_Band.png",
