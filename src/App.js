@@ -14,29 +14,20 @@ import { useState, useEffect, useRef, useMemo } from "react";
 // DESIGN TOKENS — Light Mode
 // ─────────────────────────────────────────────────────────────────────────────
 const T = {
-  // Backgrounds (light → dark surfaces)
-  bg:       "#F7F2E8",   // main page background — warm ivory
-  bg2:      "#EDE5D0",   // card / section surface — aged parchment
-  bg3:      "#E4D9BF",   // hover surface — deeper parchment
-  bgNav:    "#FDFAF3",   // nav — near white warm
-
-  // Text
-  ink:      "#1C1A13",   // primary text — deep warm black
-  ink2:     "#3D3925",   // secondary text
-  muted:    "#7A6E52",   // body text muted — warm olive-grey
-
-  // Accents
-  gold:     "#c94c4c",   // primary gold (darker for light bg contrast)
-  gold2:    "#C43C3C",   // medium gold
-  gold3:    "#D45E5E",   // light gold (borders, decorations)
-  goldBg:   "rgba(166,124,46,.08)",  // gold tint background
-
-  // Borders
+  bg:       "#F7F2E8",
+  bg2:      "#EDE5D0",
+  bg3:      "#E4D9BF",
+  bgNav:    "#FDFAF3",
+  ink:      "#1C1A13",
+  ink2:     "#3D3925",
+  muted:    "#7A6E52",
+  gold:     "#c94c4c",
+  gold2:    "#C43C3C",
+  gold3:    "#D45E5E",
+  goldBg:   "rgba(166,124,46,.08)",
   line:     "rgba(166,124,46,.18)",
   lineSoft: "rgba(166,124,46,.10)",
-
-  // Accent
-  red:      "#7A1515",   // royal red
+  red:      "#7A1515",
 };
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -184,22 +175,344 @@ const GLOBAL_CSS = `
   .kabaka-band { background: linear-gradient(135deg, ${T.bg3}, ${T.bg2}); padding: 60px 48px; text-align: center; border-top: 2px solid ${T.gold3}; border-bottom: 2px solid ${T.gold3}; }
   .kab-stat { padding: 18px 22px; border: 1px solid ${T.line}; background: rgba(255,255,255,.45); text-align: center; min-width: 120px; }
 
-  /* CLANS */
-  .clan-search { width: 100%; padding: 11px 16px; background: #fff; border: 1px solid ${T.line}; color: ${T.ink}; font-family: 'DM Sans', sans-serif; font-size: .88rem; outline: none; margin-bottom: 20px; transition: border-color .2s; box-shadow: inset 0 1px 4px rgba(28,26,19,.04); }
-  .clan-search:focus { border-color: ${T.gold}; box-shadow: inset 0 1px 4px rgba(28,26,19,.04), 0 0 0 3px rgba(166,124,46,.12); }
+  /* ═══════════════════════════════════════════════════
+     CLANS — PRO REDESIGN
+  ═══════════════════════════════════════════════════ */
+
+  .clans-section {
+    background: ${T.bg};
+    padding: 60px 48px;
+  }
+
+  .clans-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: end;
+    margin-bottom: 44px;
+    padding-bottom: 36px;
+    border-bottom: 1px solid ${T.line};
+  }
+
+  .clans-intro-text {
+    font-size: .88rem;
+    color: ${T.muted};
+    line-height: 1.9;
+    margin-top: 12px;
+  }
+
+  .clan-filter-bar {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .clan-search-wrap {
+    position: relative;
+  }
+
+  .clan-search-icon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: ${T.muted};
+    font-size: .9rem;
+    pointer-events: none;
+  }
+
+  .clan-search {
+    width: 100%;
+    padding: 12px 14px 12px 38px;
+    background: #fff;
+    border: 1px solid ${T.line};
+    color: ${T.ink};
+    font-family: 'DM Sans', sans-serif;
+    font-size: .85rem;
+    outline: none;
+    transition: border-color .2s, box-shadow .2s;
+  }
+  .clan-search:focus {
+    border-color: ${T.gold};
+    box-shadow: 0 0 0 3px rgba(166,124,46,.1);
+  }
   .clan-search::placeholder { color: ${T.muted}; opacity: .5; }
-  .clans-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; }
-  .clan-card { background: #fff; border: 1px solid ${T.lineSoft}; padding: 14px 13px; transition: .25s; cursor: default; position: relative; overflow: hidden; }
-  .clan-card::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: ${T.gold}; transform: scaleX(0); transition: transform .3s; transform-origin: left; }
-  .clan-card:hover { background: ${T.bg2}; border-color: ${T.line}; box-shadow: 0 2px 12px rgba(28,26,19,.06); }
-  .clan-card:hover::after { transform: scaleX(1); }
-  .clan-card.original { border-left: 2px solid ${T.gold2}; }
-  .clan-card.royal { border-left: 2px solid ${T.gold}; }
-  .clan-num { font-family: 'Bebas Neue', sans-serif; font-size: .68rem; color: ${T.gold2}; letter-spacing: 1px; margin-bottom: 4px; display: block; }
-  .clan-name { font-family: 'Cormorant Garamond', serif; font-size: .95rem; font-weight: 700; color: ${T.ink}; margin-bottom: 2px; }
-  .clan-totem { font-size: .72rem; color: ${T.muted}; line-height: 1.45; }
-  .clan-head { font-size: .62rem; color: ${T.gold2}; letter-spacing: .5px; margin-top: 5px; }
-  .clan-count { font-size: .75rem; color: ${T.muted}; text-align: right; margin-top: 12px; }
+
+  .clan-filter-pills {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  .clan-filter-pill {
+    padding: 5px 13px;
+    font-size: .6rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    border: 1px solid ${T.line};
+    background: #fff;
+    color: ${T.muted};
+    cursor: pointer;
+    transition: .2s;
+  }
+  .clan-filter-pill:hover,
+  .clan-filter-pill.active {
+    background: ${T.gold};
+    color: #fff;
+    border-color: ${T.gold};
+  }
+
+  /* Grid layout */
+  .clans-grid-pro {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 3px;
+  }
+
+  /* Individual clan card */
+  .clan-card-pro {
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    background: ${T.bg2};
+    aspect-ratio: 3/4;
+    group: true;
+  }
+
+  .clan-card-pro .clan-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(1) saturate(1);
+    transition: transform .65s cubic-bezier(.25,.46,.45,.94), filter .65s ease;
+    display: block;
+  }
+
+  .clan-card-pro:hover .clan-img {
+    filter: brightness(.85) saturate(.9);
+    transform: scale(1.08);
+  }
+
+  /* Gradient overlays */
+  .clan-card-pro .clan-gradient {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+    to top,
+    rgba(28,26,19,.85) 0%,
+    rgba(28,26,19,.25) 50%,
+    rgba(28,26,19,0) 100%
+);
+    transition: background .4s;
+  }
+
+  .clan-card-pro:hover .clan-gradient {
+    background: linear-gradient(
+    to top,
+    rgba(28,26,19,.95) 0%,
+    rgba(28,26,19,.55) 55%,
+    rgba(28,26,19,.1) 100%
+  );
+  }
+
+  /* Top badge */
+  .clan-card-pro .clan-badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    z-index: 3;
+    display: flex;
+    gap: 5px;
+  }
+
+  .clan-badge-pill {
+    padding: 3px 8px;
+    font-size: .52rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  .clan-badge-num {
+    background: rgba(28,26,19,.7);
+    color: rgba(250,245,232,.55);
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(250,245,232,.12);
+  }
+
+  .clan-badge-orig {
+    background: ${T.gold};
+    color: #fff;
+  }
+
+  .clan-badge-royal {
+    background: #7A1515;
+    color: #FAF5E8;
+  }
+
+  /* Bottom content */
+  .clan-card-pro .clan-bottom {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 18px 16px 16px;
+    z-index: 3;
+  }
+
+  .clan-card-totem-label {
+    font-size: .55rem;
+    letter-spacing: 3.5px;
+    text-transform: uppercase;
+    color: ${T.gold3};
+    font-weight: 700;
+    margin-bottom: 3px;
+    display: block;
+    opacity: .85;
+  }
+
+  .clan-card-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #FAF5E8;
+    line-height: 1.05;
+    margin-bottom: 2px;
+  }
+
+  .clan-card-totem {
+    font-size: .72rem;
+    color: rgba(250,245,232,.55);
+    line-height: 1.4;
+  }
+
+  /* Hover reveal panel */
+  .clan-hover-panel {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 16px;
+    z-index: 4;
+    background: transparent;
+    transform: translateY(100%);
+    transition: transform .4s cubic-bezier(.25,.46,.45,.94);
+  }
+
+  .clan-card-pro:hover .clan-hover-panel {
+    transform: translateY(0);
+  }
+
+  .clan-hover-panel .clan-card-name {
+    font-size: 1.3rem;
+    margin-bottom: 4px;
+  }
+
+  .clan-head-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid rgba(250,245,232,.15);
+  }
+
+  .clan-head-icon {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: ${T.gold};
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: .55rem;
+    flex-shrink: 0;
+    color: #fff;
+  }
+
+  .clan-head-label {
+    font-size: .6rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: rgba(250,245,232,.4);
+    display: block;
+    line-height: 1;
+    margin-bottom: 1px;
+  }
+
+  .clan-head-name {
+    font-size: .78rem;
+    color: rgba(250,245,232,.75);
+    font-weight: 500;
+  }
+
+  /* Non-hover bottom (visible always) */
+  .clan-static-bottom {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    padding: 16px;
+    z-index: 3;
+    transition: opacity .35s;
+  }
+  .clan-card-pro:hover .clan-static-bottom {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  /* Count footer */
+  .clan-count-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 28px;
+    padding-top: 20px;
+    border-top: 1px solid ${T.lineSoft};
+  }
+
+  .clan-count {
+    font-size: .75rem;
+    color: ${T.muted};
+  }
+
+  /* Legend */
+  .clan-legend {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .clan-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: .62rem;
+    color: ${T.muted};
+    letter-spacing: .5px;
+  }
+
+  .clan-legend-dot {
+    width: 10px;
+    height: 10px;
+    flex-shrink: 0;
+  }
+
+  /* Featured clan (first 2 clans span 2 columns) */
+  .clan-card-pro.featured {
+    aspect-ratio: unset;
+    grid-column: span 2;
+    min-height: 380px;
+  }
+
+  .clan-card-pro.featured .clan-card-name {
+    font-size: 1.6rem;
+  }
+
+  .clan-card-pro.featured .clan-card-totem {
+    font-size: .82rem;
+  }
 
   /* MASAZA */
   .masaza-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
@@ -310,7 +623,9 @@ const GLOBAL_CSS = `
 
   /* RESPONSIVE */
   @media (max-width: 1024px) {
-    .clans-grid { grid-template-columns: repeat(3, 1fr); }
+    .clans-grid-pro { grid-template-columns: repeat(3, 1fr); }
+    .clan-card-pro.featured { grid-column: span 1; min-height: auto; aspect-ratio: 3/4; }
+    .clans-header { grid-template-columns: 1fr; gap: 28px; }
     .footer-grid { grid-template-columns: 1fr 1fr; }
   }
   @media (max-width: 768px) {
@@ -321,7 +636,8 @@ const GLOBAL_CSS = `
     .split-img { min-height: 260px; }
     .split-content { padding: 36px 24px; }
     .event-grid, .gal-grid, .masaza-grid { grid-template-columns: repeat(2, 1fr); }
-    .clans-grid { grid-template-columns: repeat(2, 1fr); }
+    .clans-grid-pro { grid-template-columns: repeat(2, 1fr); }
+    .clans-section { padding: 40px 24px; }
     .hotel-grid { grid-template-columns: repeat(2, 1fr); }
     .biz-grid { grid-template-columns: 1fr; }
     .footer-grid { grid-template-columns: 1fr 1fr; gap: 28px; }
@@ -329,7 +645,7 @@ const GLOBAL_CSS = `
     .kabaka-band { padding: 40px 24px; }
   }
   @media (max-width: 480px) {
-    .event-grid, .gal-grid, .clans-grid, .masaza-grid, .hotel-grid { grid-template-columns: 1fr; }
+    .event-grid, .gal-grid, .clans-grid-pro, .masaza-grid, .hotel-grid { grid-template-columns: 1fr; }
     .footer-grid { grid-template-columns: 1fr; }
     .hero-title { font-size: 3rem; }
   }
@@ -342,7 +658,7 @@ const GLOBAL_CSS = `
 const IMG = {
   hero:      "https://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/king_Saha.png",
   drums:     "https://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/Maganda.jpeg",
-  dance:     "https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=900&q=80",
+  dance:     "https://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/maganda.png",
   market:    "https://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/Apr%2023%2C%202026%2C%2003_17_13%20PM.png",
   palace:    "https://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/Buganda.png",
   fireworks: "https://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/CountDown.png",
@@ -354,65 +670,68 @@ const IMG = {
   crowd:     "https://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/Enkkuka_Atmosphere.png",
   craft:     "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=700&q=80",
   food:      "https://images.unsplash.com/photo-1565299715199-866c917206bb?w=700&q=80",
-  kingdom:  "https://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/Buganda.png",
-  dress:  "https://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/DressCode.png",
-  traditional: "http://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/Barkcloth.png",
-  king: "http://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/Kabaka.png",
+  kingdom:   "https://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/Buganda.png",
+  dress:     "https://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/DressCode.png",
+  traditional:"http://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/Barkcloth.png",
+  king:       "http://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/Kabaka.png",
 };
 
+// ─────────────────────────────────────────────────────────────────────────────
+// CLANS DATA — with totem images
+// ─────────────────────────────────────────────────────────────────────────────
 const CLANS = [
-  { n: "Ffumbe",          totem: "African Civet",       head: "Walusimbi",           orig: true  },
-  { n: "Lugave",          totem: "Pangolin",             head: "Ndugwa",              orig: true  },
-  { n: "Ngonge",          totem: "Otter",                head: "Nakigoye Kisolo",     orig: true  },
-  { n: "Njaza",           totem: "Reedbuck",             head: "Kitanda",             orig: true  },
-  { n: "Nnyonyi",         totem: "Bird (General)",       head: "Mukwenda",            orig: true  },
-  { n: "Abalangira",      totem: "Royal — no totem",    head: "Ssaabataka (Kabaka)", royal: true },
-  { n: "Mmamba",          totem: "Lungfish",             head: "Ggunju"              },
-  { n: "Ngo",             totem: "Leopard",              head: "Muteesasira"         },
-  { n: "Ngabi",           totem: "Bushbuck",             head: "Nsamba Lukonge"      },
-  { n: "Ngaali",          totem: "Crested Crane",        head: "Mawesano"            },
-  { n: "Ngeye",           totem: "Colobus Monkey",       head: "Kasujja"             },
-  { n: "Nkejje",          totem: "Sprat Fish",           head: "Kikwata"             },
-  { n: "Njovu",           totem: "Elephant",             head: "Mukalo"              },
-  { n: "Nkima",           totem: "Monkey",               head: "Mugema"              },
-  { n: "Mbogo",           totem: "Buffalo",              head: "Kayiira Gajule"      },
-  { n: "Mbwa",            totem: "Dog",                  head: "Mutasingwa"          },
-  { n: "Nte",             totem: "Cow",                  head: "Katongole"           },
-  { n: "Musu",            totem: "Cane Rat",             head: "Jajja Muyingo"       },
-  { n: "Mutima",          totem: "Heart",                head: "Namugera Kakeeto"    },
-  { n: "Kkobe",           totem: "Creeping Plant",       head: "Bakiranze"           },
-  { n: "Kasimba",         totem: "Genet Cat",            head: "Kizito"              },
-  { n: "Kayozi",          totem: "White Ant (Nsenene)",  head: "Kafumu"              },
-  { n: "Butiko",          totem: "Mushroom",             head: "Katumba"             },
-  { n: "Nseenene",        totem: "Grasshopper",          head: "Ssenga"              },
-  { n: "Ntalaganya",      totem: "Oribi Antelope",       head: "Nakatudde"           },
-  { n: "Ejjobyo",         totem: "Oriole Bird",          head: "Ssejjemba"           },
-  { n: "Obutiko",         totem: "Fungus",               head: "Nkumba"              },
-  { n: "Mpindi",          totem: "Black-eyed Pea",       head: "Luyiga"              },
-  { n: "Nnume",           totem: "Male Reedbuck",        head: "Wasswa"              },
-  { n: "Nvuma",           totem: "Granary",              head: "Ssemwanga"           },
-  { n: "Nkula",           totem: "Red Ochre",            head: "Nkula Omutaka"       },
-  { n: "Tttege",          totem: "Francolin Bird",       head: "Sseggane"            },
-  { n: "Nkwavu",          totem: "Squirrel",             head: "Ssebukuuza"          },
-  { n: "Ndiga",           totem: "Sheep",                head: "Ssemwogerere"        },
-  { n: "Mazzi ga Kisasi", totem: "Water Droplets",       head: "Wooyo"               },
-  { n: "Mamba Kakoboza",  totem: "Lungfish (sub-clan)",  head: "Bbosa"               },
-  { n: "Ngabi Enyunga",   totem: "Bushbuck (sub-clan)",  head: "Nsamba"              },
-  { n: "Omutima Omusaggi",totem: "Brave Heart",          head: "Namugera (new clan)" },
-  { n: "Lugave Omusajja", totem: "Male Pangolin",        head: "Kizito Lukyagalula"  },
-  { n: "Kasimba Akabbiro",totem: "Genet (secondary)",    head: "Mugamba"             },
-  { n: "Nnyonyi Ennume",  totem: "Male Bird",            head: "Segawa"              },
-  { n: "Nnyonyi Omukazi", totem: "Female Bird",          head: "Nassolo"             },
-  { n: "Ngonge Omukazi",  totem: "Female Otter",         head: "Nakyeswa"            },
-  { n: "Mbogo Omukazi",   totem: "Female Buffalo",       head: "Najjemba"            },
-  { n: "Ffumbe Omukazi",  totem: "Female Civet",         head: "Nakku"               },
-  { n: "Njaza Omukazi",   totem: "Female Reedbuck",      head: "Nakirya"             },
-  { n: "Ngo Omukazi",     totem: "Female Leopard",       head: "Nakangu"             },
-  { n: "Lugave Omukazi",  totem: "Female Pangolin",      head: "Nassuna"             },
-  { n: "Enkebuka",        totem: "(Historical)",         head: "Extinct c.1993"      },
-  { n: "Olukato",         totem: "(Historical)",         head: "Extinct c.1993"      },
-  { n: "Embuzi",          totem: "Goat",                 head: "Historical clan"     },
-  { n: "Nkwavu Omukazi",  totem: "Female Squirrel",      head: "Nassolo Nkwavu"      },
+  { n: "Ffumbe",          totem: "African Civet",         head: "Walusimbi",               orig: true,  img: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/African_civet.jpg/640px-African_civet.jpg" },
+  { n: "Lugave",          totem: "Pangolin",              head: "Ndugwa",                  orig: true,  img: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/Manis_javanica_-_Crane%2C_26_June_2012.jpg/640px-Manis_javanica_-_Crane%2C_26_June_2012.jpg" },
+  { n: "Ngonge",          totem: "Otter",                 head: "Nakigoye Kisolo",         orig: true,  img: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Fischotter%2C_Lutra_Lutra.JPG/640px-Fischotter%2C_Lutra_Lutra.JPG" },
+  { n: "Njaza",           totem: "Reedbuck",              head: "Kitanda",                 orig: true,  img: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Redunca_arundinum_%28Serengeti%2C_2009%29.jpg/640px-Redunca_arundinum_%28Serengeti%2C_2009%29.jpg" },
+  { n: "Nnyonyi",         totem: "Bird (General)",        head: "Mukwenda",                orig: true,  img: "https://images.unsplash.com/photo-1444464666168-49d633b86797?w=640&q=80" },
+  { n: "Abalangira",      totem: "Royal — no totem",      head: "Ssaabataka (Kabaka)",     royal: true, img: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Flag_of_Buganda.svg/640px-Flag_of_Buganda.svg.png" },
+  { n: "Mmamba",          totem: "Lungfish",              head: "Ggunju",                              img: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Protopterus_annectens.jpg/640px-Protopterus_annectens.jpg" },
+  { n: "Ngo",             totem: "Leopard",               head: "Muteesasira",                         img: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Leopard_in_the_wild.jpg/640px-Leopard_in_the_wild.jpg" },
+  { n: "Ngabi",           totem: "Bushbuck",              head: "Nsamba Lukonge",                      img: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Tragelaphus_scriptus_sylvaticus_-_Kruger_National_Park.jpg/640px-Tragelaphus_scriptus_sylvaticus_-_Kruger_National_Park.jpg" },
+  { n: "Ngaali",          totem: "Crested Crane",         head: "Mawesano",                            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bb/Grey_crowned_crane_Balearica_regulorum.jpg/640px-Grey_crowned_crane_Balearica_regulorum.jpg" },
+  { n: "Ngeye",           totem: "Colobus Monkey",        head: "Kasujja",                             img: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Angola_colobus_monkey_%28Colobus_angolensis_palliatus%29.jpg/640px-Angola_colobus_monkey_%28Colobus_angolensis_palliatus%29.jpg" },
+  { n: "Nkejje",          totem: "Sprat Fish",            head: "Kikwata",                             img: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/Sprattus_sprattus.jpg/640px-Sprattus_sprattus.jpg" },
+  { n: "Njovu",           totem: "Elephant",              head: "Mukalo",                              img: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/African_Bush_Elephant.jpg/640px-African_Bush_Elephant.jpg" },
+  { n: "Nkima",           totem: "Monkey",                head: "Mugema",                              img: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Vervet_monkey_%28Chlorocebus_pygerythrus%29.jpg/640px-Vervet_monkey_%28Chlorocebus_pygerythrus%29.jpg" },
+  { n: "Mbogo",           totem: "Buffalo",               head: "Kayiira Gajule",                      img: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/African_Buffalo_Syncerus_caffer.jpg/640px-African_Buffalo_Syncerus_caffer.jpg" },
+  { n: "Mbwa",            totem: "Dog",                   head: "Mutasingwa",                          img: "https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=640&q=80" },
+  { n: "Nte",             totem: "Cow",                   head: "Katongole",                           img: "https://images.unsplash.com/photo-1546445317-29f4545e9d53?w=640&q=80" },
+  { n: "Musu",            totem: "Cane Rat",              head: "Jajja Muyingo",                       img: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/Thryonomys_swinderianus_1.jpg/640px-Thryonomys_swinderianus_1.jpg" },
+  { n: "Mutima",          totem: "Heart",                 head: "Namugera Kakeeto",                    img: "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=640&q=80" },
+  { n: "Kkobe",           totem: "Creeping Plant",        head: "Bakiranze",                           img: "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=640&q=80" },
+  { n: "Kasimba",         totem: "Genet Cat",             head: "Kizito",                              img: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Genetta_genetta_felina_%28Wroclaw_zoo%29-2.jpg/640px-Genetta_genetta_felina_%28Wroclaw_zoo%29-2.jpg" },
+  { n: "Kayozi",          totem: "White Ant (Nsenene)",   head: "Kafumu",                              img: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Macrotermes.jpg/640px-Macrotermes.jpg" },
+  { n: "Butiko",          totem: "Mushroom",              head: "Katumba",                             img: "https://images.unsplash.com/photo-1504545102780-26774c1bb073?w=640&q=80" },
+  { n: "Nseenene",        totem: "Grasshopper",           head: "Ssenga",                              img: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Female_Grasshopper.jpg/640px-Female_Grasshopper.jpg" },
+  { n: "Ntalaganya",      totem: "Oribi Antelope",        head: "Nakatudde",                           img: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Oribi_antelope.jpg/640px-Oribi_antelope.jpg" },
+  { n: "Ejjobyo",         totem: "Oriole Bird",           head: "Ssejjemba",                           img: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/Oriolus_oriolus_-_01.jpg/640px-Oriolus_oriolus_-_01.jpg" },
+  { n: "Obutiko",         totem: "Fungus",                head: "Nkumba",                              img: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=640&q=80" },
+  { n: "Mpindi",          totem: "Black-eyed Pea",        head: "Luyiga",                              img: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=640&q=80" },
+  { n: "Nnume",           totem: "Male Reedbuck",         head: "Wasswa",                              img: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Redunca_arundinum_%28Serengeti%2C_2009%29.jpg/640px-Redunca_arundinum_%28Serengeti%2C_2009%29.jpg" },
+  { n: "Nvuma",           totem: "Granary",               head: "Ssemwanga",                           img: "https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=640&q=80" },
+  { n: "Nkula",           totem: "Red Ochre",             head: "Nkula Omutaka",                       img: "https://images.unsplash.com/photo-1561037404-61cd46aa615b?w=640&q=80" },
+  { n: "Tttege",          totem: "Francolin Bird",        head: "Sseggane",                            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Dendroperdix_sephaena%2C_gekuifde_frankolien%2C_at_Pilanesberg.jpg/640px-Dendroperdix_sephaena%2C_gekuifde_frankolien%2C_at_Pilanesberg.jpg" },
+  { n: "Nkwavu",          totem: "Squirrel",              head: "Ssebukuuza",                          img: "https://images.unsplash.com/photo-1507666405895-422eee7d517f?w=640&q=80" },
+  { n: "Ndiga",           totem: "Sheep",                 head: "Ssemwogerere",                        img: "https://images.unsplash.com/photo-1484557985045-edf25e7864ad?w=640&q=80" },
+  { n: "Mazzi ga Kisasi", totem: "Water Droplets",        head: "Wooyo",                               img: "https://images.unsplash.com/photo-1502082553048-f009c37129b9?w=640&q=80" },
+  { n: "Mamba Kakoboza",  totem: "Lungfish (sub-clan)",   head: "Bbosa",                               img: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Protopterus_annectens.jpg/640px-Protopterus_annectens.jpg" },
+  { n: "Ngabi Enyunga",   totem: "Bushbuck (sub-clan)",   head: "Nsamba",                              img: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Tragelaphus_scriptus_sylvaticus_-_Kruger_National_Park.jpg/640px-Tragelaphus_scriptus_sylvaticus_-_Kruger_National_Park.jpg" },
+  { n: "Omutima Omusaggi",totem: "Brave Heart",           head: "Namugera (new clan)",                 img: "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=640&q=80" },
+  { n: "Lugave Omusajja", totem: "Male Pangolin",         head: "Kizito Lukyagalula",                  img: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/Manis_javanica_-_Crane%2C_26_June_2012.jpg/640px-Manis_javanica_-_Crane%2C_26_June_2012.jpg" },
+  { n: "Kasimba Akabbiro",totem: "Genet (secondary)",     head: "Mugamba",                             img: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Genetta_genetta_felina_%28Wroclaw_zoo%29-2.jpg/640px-Genetta_genetta_felina_%28Wroclaw_zoo%29-2.jpg" },
+  { n: "Nnyonyi Ennume",  totem: "Male Bird",             head: "Segawa",                              img: "https://images.unsplash.com/photo-1444464666168-49d633b86797?w=640&q=80" },
+  { n: "Nnyonyi Omukazi", totem: "Female Bird",           head: "Nassolo",                             img: "https://images.unsplash.com/photo-1444464666168-49d633b86797?w=640&q=80" },
+  { n: "Ngonge Omukazi",  totem: "Female Otter",          head: "Nakyeswa",                            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Fischotter%2C_Lutra_Lutra.JPG/640px-Fischotter%2C_Lutra_Lutra.JPG" },
+  { n: "Mbogo Omukazi",   totem: "Female Buffalo",        head: "Najjemba",                            img: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/African_Buffalo_Syncerus_caffer.jpg/640px-African_Buffalo_Syncerus_caffer.jpg" },
+  { n: "Ffumbe Omukazi",  totem: "Female Civet",          head: "Nakku",                               img: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/African_civet.jpg/640px-African_civet.jpg" },
+  { n: "Njaza Omukazi",   totem: "Female Reedbuck",       head: "Nakirya",                             img: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Redunca_arundinum_%28Serengeti%2C_2009%29.jpg/640px-Redunca_arundinum_%28Serengeti%2C_2009%29.jpg" },
+  { n: "Ngo Omukazi",     totem: "Female Leopard",        head: "Nakangu",                             img: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Leopard_in_the_wild.jpg/640px-Leopard_in_the_wild.jpg" },
+  { n: "Lugave Omukazi",  totem: "Female Pangolin",       head: "Nassuna",                             img: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/Manis_javanica_-_Crane%2C_26_June_2012.jpg/640px-Manis_javanica_-_Crane%2C_26_June_2012.jpg" },
+  { n: "Enkebuka",        totem: "(Historical)",          head: "Extinct c.1993",                      img: "https://images.unsplash.com/photo-1586348943529-beaae6c28db9?w=640&q=80" },
+  { n: "Olukato",         totem: "(Historical)",          head: "Extinct c.1993",                      img: "https://images.unsplash.com/photo-1586348943529-beaae6c28db9?w=640&q=80" },
+  { n: "Embuzi",          totem: "Goat",                  head: "Historical clan",                     img: "https://images.unsplash.com/photo-1524024973431-2ad916746881?w=640&q=80" },
+  { n: "Nkwavu Omukazi",  totem: "Female Squirrel",       head: "Nassolo Nkwavu",                      img: "https://images.unsplash.com/photo-1507666405895-422eee7d517f?w=640&q=80" },
 ];
 
 const MASAZA = [
@@ -760,7 +1079,6 @@ function HomePage({ setPage }) {
   const cd = useCountdown();
   return (
     <div className="page-enter">
-      {/* HERO — photo remains dramatic, gradient now fades to ivory */}
       <section className="hero">
         <div className="hero-bg" style={{ backgroundImage: `url(${IMG.hero})` }} />
         <div className="hero-overlay" />
@@ -789,14 +1107,12 @@ function HomePage({ setPage }) {
 
       <Ticker />
 
-      {/* STATS */}
       <div className="stats-strip">
         <div className="stat-cell"><span className="stat-num f-block">52</span><span className="stat-label">Buganda Clans</span></div>
         <div className="stat-cell"><span className="stat-num f-block">18</span><span className="stat-label">Masaza Counties</span></div>
         <div className="stat-cell"><span className="stat-num f-block">36</span><span className="stat-label">Kabakas of Buganda</span></div>
       </div>
 
-      {/* HIGHLIGHTS */}
       <div style={{ background: T.bg, padding: "64px 48px" }}>
         <FU><p className="s-label">What's On</p><h2 className="s-title f-display">Highlights at <em>Enkuuka 2025</em></h2></FU>
         <div className="event-grid" style={{ marginTop: 24 }}>
@@ -819,7 +1135,6 @@ function HomePage({ setPage }) {
         cta="Register as Vendor →" onCta={() => setPage("Business")} reverse
       />
 
-      {/* SPONSORS */}
       <div className="sponsors-band">
         <span style={{ fontSize: ".62rem", letterSpacing: 3, textTransform: "uppercase", color: T.gold, fontWeight: 700, marginRight: 8 }}>Partners</span>
         {SPONSORS.map((s) => <div key={s} className="sponsor-pill">{s}</div>)}
@@ -878,65 +1193,177 @@ function CulturePage({ setPage }) {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// CLANS PAGE
+// CLANS PAGE — PRO REDESIGN
 // ─────────────────────────────────────────────────────────────────────────────
+
+function ClanCardPro({ clan, index, featured = false }) {
+  return (
+    <div className={`clan-card-pro${featured ? " featured" : ""}`}>
+      {/* Totem image */}
+      <img
+        className="clan-img"
+        src={clan.img}
+        alt={clan.totem}
+        loading="lazy"
+        onError={(e) => { e.target.src = "https://images.unsplash.com/photo-1549366021-9f761d450615?w=640&q=80"; }}
+      />
+
+      {/* Gradient overlay */}
+      <div className="clan-gradient" />
+
+      {/* Top badge row */}
+      <div className="clan-badge">
+        <span className="clan-badge-pill clan-badge-num">
+          {String(index + 1).padStart(2, "0")}
+        </span>
+        {clan.orig && <span className="clan-badge-pill clan-badge-orig">Banansangwa</span>}
+        {clan.royal && <span className="clan-badge-pill clan-badge-royal">👑 Royal</span>}
+      </div>
+
+      {/* Static bottom (visible when not hovered) */}
+      <div className="clan-static-bottom">
+        <span className="clan-card-totem-label">Totem</span>
+        <p className="clan-card-name f-display">{clan.n}</p>
+        <p className="clan-card-totem">{clan.totem}</p>
+      </div>
+
+      {/* Hover reveal panel */}
+      <div className="clan-hover-panel">
+        <span className="clan-card-totem-label">Ekika · Clan {String(index + 1).padStart(2, "0")}</span>
+        <p className="clan-card-name f-display">{clan.n}</p>
+        <p className="clan-card-totem" style={{ color: "rgba(250,245,232,.65)", fontSize: ".78rem", lineHeight: 1.5 }}>
+          Omuziro: <strong style={{ color: T.gold3 }}>{clan.totem}</strong>
+        </p>
+        <div className="clan-head-row">
+          <div className="clan-head-icon">♛</div>
+          <div>
+            <span className="clan-head-label">Clan Head</span>
+            <p className="clan-head-name">{clan.head}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 function ClansPage({ setPage }) {
   const [query, setQuery] = useState("");
+  const [filter, setFilter] = useState("All");
+
   const filtered = useMemo(() => {
-    if (!query.trim()) return CLANS;
-    const q = query.toLowerCase();
-    return CLANS.filter(
-      (c) => c.n.toLowerCase().includes(q) || c.totem.toLowerCase().includes(q) || c.head.toLowerCase().includes(q)
-    );
-  }, [query]);
+    let list = CLANS;
+    if (filter === "Original 5")  list = list.filter(c => c.orig);
+    if (filter === "Royal")       list = list.filter(c => c.royal);
+    if (filter === "Other")       list = list.filter(c => !c.orig && !c.royal);
+    if (query.trim()) {
+      const q = query.toLowerCase();
+      list = list.filter(c =>
+        c.n.toLowerCase().includes(q) ||
+        c.totem.toLowerCase().includes(q) ||
+        c.head.toLowerCase().includes(q)
+      );
+    }
+    return list;
+  }, [query, filter]);
+
+  const FILTERS = ["All", "Original 5", "Royal", "Other"];
 
   return (
     <div className="page-enter">
       <PageHero img={IMG.culture} label="Ebika by'Obuganda" title="The 52 Clans of" titleAccent="Buganda" />
       <Ticker />
-      <div style={{ background: T.bg, padding: "52px 48px" }}>
-        <FU>
-          <p className="s-label">About the Clan System</p>
-          <h2 className="s-title f-display">Identity Through <em>Blood & Totem</em></h2>
-          <p className="s-body" style={{ maxWidth: 720, marginBottom: 10 }}>
-            Every Muganda must belong to one of Buganda's clans (<em>Ebika</em>). Clan membership is patrilineal — passed from father to child. Each clan is identified by a primary totem (<strong>Omuziro</strong>) and a secondary totem (<strong>Akabbiro</strong>), both of which clan members may not eat or harm. Marriage within the same clan is strictly prohibited.
-          </p>
-          <p style={{ fontSize: ".85rem", color: T.gold, letterSpacing: 1, marginBottom: 28 }}>
-            ★ = One of the five original Banansangwa clans &nbsp;|&nbsp; 👑 = Royal clan (Abalangira)
-          </p>
-        </FU>
-        <FU delay={0.1}>
-          <input
-            className="clan-search"
-            placeholder="Search by clan name, totem, or clan head…"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-          />
-        </FU>
+
+      <div className="clans-section">
+        {/* Header */}
+        <div className="clans-header">
+          <FU>
+            <p className="s-label">About the Clan System</p>
+            <h2 className="s-title f-display">Identity Through <em>Blood & Totem</em></h2>
+            <p className="clans-intro-text">
+              Every Muganda must belong to one of Buganda's clans (<em>Ebika</em>). Membership is patrilineal — passed from father to child. Each clan is identified by a primary totem (<strong>Omuziro</strong>) and a secondary totem (<strong>Akabbiro</strong>), both of which members may not eat or harm. Marriage within the same clan is strictly forbidden.
+            </p>
+          </FU>
+
+          <FU delay={0.1}>
+            <div className="clan-filter-bar">
+              <div className="clan-search-wrap">
+                <span className="clan-search-icon">⌕</span>
+                <input
+                  className="clan-search"
+                  placeholder="Search by clan, totem, or head…"
+                  value={query}
+                  onChange={e => setQuery(e.target.value)}
+                />
+              </div>
+              <div className="clan-filter-pills">
+                {FILTERS.map(f => (
+                  <button
+                    key={f}
+                    className={`clan-filter-pill${filter === f ? " active" : ""}`}
+                    onClick={() => setFilter(f)}
+                  >
+                    {f}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </FU>
+        </div>
+
+        {/* Clan grid */}
         <FU delay={0.15}>
-          <div className="clans-grid">
+          <div className="clans-grid-pro">
             {filtered.map((clan, i) => (
-              <div
-                key={clan.n}
-                className={`clan-card${clan.orig ? " original" : ""}${clan.royal ? " royal" : ""}`}
-              >
-                <span className="clan-num">
-                  {String(i + 1).padStart(2, "0")}
-                  {clan.orig ? " ★" : ""}
-                  {clan.royal ? " 👑" : ""}
-                </span>
-                <p className="clan-name f-display">{clan.n}</p>
-                <p className="clan-totem">{clan.totem}</p>
-                <p className="clan-head">Head: {clan.head}</p>
+              <ClanCardPro key={clan.n} clan={clan} index={CLANS.indexOf(clan)} featured={i < 2 && filter === "All" && !query} />
+            ))}
+          </div>
+
+          {filtered.length === 0 && (
+            <div style={{ textAlign: "center", padding: "60px 20px", color: T.muted }}>
+              <p style={{ fontSize: "2rem", marginBottom: 12 }}>🔍</p>
+              <p className="f-display" style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "1.4rem", color: T.ink, marginBottom: 6 }}>No clans found</p>
+              <p style={{ fontSize: ".82rem" }}>Try a different name, totem, or clan head.</p>
+            </div>
+          )}
+
+          {/* Count bar + legend */}
+          <div className="clan-count-bar">
+            <p className="clan-count">
+              Showing <strong style={{ color: T.gold }}>{filtered.length}</strong> of {CLANS.length} clans
+            </p>
+            <div className="clan-legend">
+              <div className="clan-legend-item">
+                <div className="clan-legend-dot" style={{ background: T.gold }} />
+                <span>Banansangwa (5 original clans)</span>
+              </div>
+              <div className="clan-legend-item">
+                <div className="clan-legend-dot" style={{ background: "#7A1515" }} />
+                <span>Royal (Abalangira)</span>
+              </div>
+            </div>
+          </div>
+        </FU>
+      </div>
+
+      {/* Info band */}
+      <div style={{ background: T.bg2, borderTop: `1px solid ${T.lineSoft}`, padding: "48px 48px" }}>
+        <FU>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 2, marginBottom: 0 }}>
+            {[
+              { icon: "🪶", title: "Patrilineal Heritage", body: "Clan membership passes exclusively through the father — a child takes the father's clan at birth, regardless of where they are born or raised." },
+              { icon: "🚫", title: "Clan Exogamy", body: "Marriage between members of the same clan is strictly forbidden in Kiganda custom. This ancient rule governs social structure across all 52 clans." },
+              { icon: "🐾", title: "The Sacred Totem", body: "Each clan's totem — an animal, plant, or object — is revered and protected. Members never eat, hunt, or harm their clan's totem." },
+            ].map(({ icon, title, body }) => (
+              <div key={title} style={{ padding: "32px 36px", borderRight: `1px solid ${T.lineSoft}`, background: "#fff" }}>
+                <div style={{ fontSize: "1.6rem", marginBottom: 12 }}>{icon}</div>
+                <p className="f-display" style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "1.1rem", fontWeight: 700, color: T.ink, marginBottom: 8 }}>{title}</p>
+                <p style={{ fontSize: ".8rem", color: T.muted, lineHeight: 1.85 }}>{body}</p>
               </div>
             ))}
           </div>
-          <p className="clan-count">
-            Showing <strong style={{ color: T.gold }}>{filtered.length}</strong> of {CLANS.length} clans
-          </p>
         </FU>
       </div>
+
       <PageFooter setPage={setPage} />
     </div>
   );
@@ -956,7 +1383,7 @@ function MasazaPage({ setPage }) {
           <p className="s-label">About the Counties</p>
           <h2 className="s-title f-display">The Kingdom's <em>Administrative Fabric</em></h2>
           <p className="s-body" style={{ maxWidth: 720, marginBottom: 32 }}>
-            Buganda is divided into 18 official counties (<em>Amasaza</em>), each led by a Saza Chief. The kingdom originally comprised 20 counties, but Buyaga and Bugangaizi were returned to Bunyoro following a 1964 referendum. Each Saza is sub-divided into Gombolola (sub-counties), then Miluka (parishes), and finally individual family units (<em>Enju</em>).
+            Buganda is divided into 18 official counties (<em>Amasaza</em>), each led by a Saza Chief. The kingdom originally comprised 20 counties, but Buyaga and Bugangaizi were returned to Bunyoro following a 1964 referendum.
           </p>
         </FU>
         <FU delay={0.1}>
@@ -973,16 +1400,6 @@ function MasazaPage({ setPage }) {
               </div>
             ))}
           </div>
-        </FU>
-      </div>
-      <div style={{ background: T.bg2, padding: "40px 48px", borderTop: `1px solid ${T.lineSoft}`, textAlign: "center" }}>
-        <FU>
-          <p className="s-label" style={{ justifyContent: "center" }}>Masaza Cup</p>
-          <h2 className="s-title f-display" style={{ textAlign: "center" }}>The Kingdom's <em>Football Tournament</em></h2>
-          <p className="s-body" style={{ margin: "0 auto 24px", textAlign: "center" }}>
-            Every year, Buganda Kingdom's 18 counties compete in the Masaza Cup — a beloved football tournament that unites clans, counties, and communities in the spirit of friendly rivalry and cultural pride. The tournament has been running since 2004.
-          </p>
-          <button className="btn-outline" onClick={() => setPage("Culture")}>Learn About Buganda Culture</button>
         </FU>
       </div>
       <PageFooter setPage={setPage} />
@@ -1003,27 +1420,13 @@ function EntertainmentPage({ setPage }) {
         <FU>
           <p className="s-label">The Lineup</p>
           <h2 className="s-title f-display">Artists & <em>Performers</em></h2>
-          <p className="s-body" style={{ marginBottom: 28 }}>Uganda's finest artists and cultural performers take the Lubiri stage for an evening that blends heritage with modern entertainment — culminating in the midnight countdown and fireworks.</p>
+          <p className="s-body" style={{ marginBottom: 28 }}>Uganda's finest artists and cultural performers take the Lubiri stage for an evening that blends heritage with modern entertainment.</p>
         </FU>
         <div className="event-grid">
           {ARTISTS.map((a, i) => (
             <FU key={a.title} delay={i * 0.06}><EventCard {...a} /></FU>
           ))}
         </div>
-        <FU delay={0.2}>
-          <div style={{ marginTop: 40, position: "relative", overflow: "hidden" }}>
-            <img src={IMG.fireworks} alt="Fireworks" loading="lazy" style={{ width: "100%", height: 300, objectFit: "cover", filter: "brightness(.32)", display: "block" }} />
-            <div style={{ position: "absolute", inset: 0, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", background: "rgba(28,26,19,.4)" }}>
-              <p className="s-label" style={{ justifyContent: "center", color: T.gold3 }}>December 31 · 11:59 PM</p>
-              <h2 className="s-title f-display" style={{ fontSize: "clamp(1.6rem,5vw,3rem)", textAlign: "center", color: "#FAF5E8" }}>
-                New Year <em style={{ color: T.gold3 }}>Countdown</em>
-              </h2>
-              <p style={{ color: "rgba(250,245,232,.55)", maxWidth: 440, textAlign: "center", lineHeight: 1.8, marginTop: 10, fontSize: ".85rem", padding: "0 20px" }}>
-                50,000 voices count down together. Fireworks paint the Kampala sky gold and white above Lubiri Palace.
-              </p>
-            </div>
-          </div>
-        </FU>
       </div>
       <PageFooter setPage={setPage} />
     </div>
@@ -1044,9 +1447,7 @@ function BusinessPage({ setPage }) {
         <FU>
           <p className="s-label">Why Exhibit?</p>
           <h2 className="s-title f-display">Uganda's Premier <em>End-of-Year Platform</em></h2>
-          <p className="s-body" style={{ marginBottom: 28 }}>
-            Enkuuka y'Omwaka connects 50,000 consumers with businesses of every scale — from artisan food stalls to full corporate pavilions — in one historic night at the royal grounds of Lubiri Palace.
-          </p>
+          <p className="s-body" style={{ marginBottom: 28 }}>Enkuuka y'Omwaka connects 50,000 consumers with businesses of every scale — from artisan food stalls to full corporate pavilions.</p>
         </FU>
         <FU delay={0.1}>
           <div className="tab-bar">
@@ -1066,21 +1467,6 @@ function BusinessPage({ setPage }) {
                 </div>
               </div>
             ))}
-          </div>
-        </FU>
-        <FU delay={0.2}>
-          <div style={{ marginTop: 40, display: "grid", gridTemplateColumns: "1fr auto", gap: 28, alignItems: "center", padding: "32px 40px", background: T.bg2, border: `1px solid ${T.line}` }}>
-            <div>
-              <p className="s-label">Vendor Registration</p>
-              <h2 className="s-title f-display" style={{ fontSize: "clamp(1.2rem,3vw,1.8rem)" }}>
-                Ready to exhibit at <em>Enkuuka?</em>
-              </h2>
-              <p style={{ color: T.muted, fontSize: ".83rem", lineHeight: 1.8 }}>Applications open for all categories. Preferred booth placement for early registrants. Packages start from UGX 150,000.</p>
-            </div>
-            <div style={{ display: "flex", flexDirection: "column", gap: 10, minWidth: 160 }}>
-              <button className="btn-gold" onClick={() => setPage("Contact")}>Apply Now</button>
-              <button className="btn-outline" style={{ padding: "11px 22px" }}>Download Brochure</button>
-            </div>
           </div>
         </FU>
       </div>
@@ -1104,9 +1490,7 @@ function ProgrammePage({ setPage }) {
             <FU>
               <p className="s-label">Full Schedule</p>
               <h2 className="s-title f-display">From <em>Dawn to Midnight</em></h2>
-              <p className="s-body" style={{ marginBottom: 36 }}>
-                Every hour at Enkuuka is crafted for celebration, culture and community — from the trade fair opening at 9AM to the midnight fireworks over Lubiri Palace.
-              </p>
+              <p className="s-body" style={{ marginBottom: 36 }}>Every hour at Enkuuka is crafted for celebration, culture and community.</p>
             </FU>
             {PROGRAMME.map((p, i) => (
               <FU key={p.time} delay={i * 0.05}>
@@ -1127,9 +1511,6 @@ function ProgrammePage({ setPage }) {
               <div>
                 <p className="s-label">Midnight Fireworks</p>
                 <h2 className="s-title f-display">Fireworks over <em>Lubiri Palace</em></h2>
-                <p style={{ color: T.muted, fontSize: ".82rem", lineHeight: 1.75, marginTop: 6 }}>
-                  As the clock strikes midnight, the royal grounds explode in colour — marking the New Year with the whole of Kampala watching the sky above Mengo.
-                </p>
               </div>
             </div>
           </div>
@@ -1154,9 +1535,7 @@ function GalleryPage({ setPage }) {
         <FU>
           <p className="s-label">Enkuuka Through the Lens</p>
           <h2 className="s-title f-display">Royal Culture, <em>Captured</em></h2>
-          <p className="s-body" style={{ marginBottom: 32 }}>
-            A visual journey through Enkuuka y'Omwaka — royal drumming, cultural dance, the trade fair, fireworks, and the vibrant spirit of Lubiri Palace on December 31st. Click any image to explore in full.
-          </p>
+          <p className="s-body" style={{ marginBottom: 32 }}>A visual journey through Enkuuka y'Omwaka. Click any image to explore in full.</p>
         </FU>
         <FU delay={0.1}>
           <div className="gal-grid">
@@ -1172,32 +1551,11 @@ function GalleryPage({ setPage }) {
           </div>
         </FU>
       </div>
-      <div style={{ background: T.bg2, padding: "40px 48px", borderTop: `1px solid ${T.lineSoft}` }}>
-        <FU>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 32, alignItems: "center" }}>
-            <div>
-              <p className="s-label">Share the Story</p>
-              <h2 className="s-title f-display">Capture & Share <em>Your Enkuuka</em></h2>
-              <p className="s-body" style={{ marginBottom: 18 }}>
-                Tag your festival photos with <strong style={{ color: T.gold }}>#EnkuukaYOmwaka</strong> to be featured in the official gallery and on the kingdom's social channels.
-              </p>
-              <button className="btn-outline" onClick={() => setPage("Invitation")}>Get Your E-Invitation</button>
-            </div>
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 3 }}>
-              {[IMG.drums, IMG.dance, IMG.music, IMG.fireworks].map((src, i) => (
-                <div key={i} style={{ height: 130, overflow: "hidden" }}>
-                  <img src={src} alt="" loading="lazy" style={{ width: "100%", height: "100%", objectFit: "cover", filter: "brightness(.58)", display: "block" }} />
-                </div>
-              ))}
-            </div>
-          </div>
-        </FU>
-      </div>
       <PageFooter setPage={setPage} />
       {lightbox && (
         <div className="lightbox" onClick={() => setLightbox(null)}>
           <img src={lightbox.src} alt={lightbox.title} />
-          <p className="f-display" style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "1.1rem", fontWeight: 700, color: T.ink, letterSpacing: 1 }}>{lightbox.title}</p>
+          <p className="f-display" style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "1.1rem", fontWeight: 700, color: T.ink }}>{lightbox.title}</p>
           <p style={{ color: T.gold, fontSize: ".6rem", letterSpacing: 3, textTransform: "uppercase" }}>{lightbox.sub}</p>
           <p style={{ color: T.muted, fontSize: ".72rem", marginTop: 4 }}>Click anywhere to close</p>
         </div>
@@ -1215,48 +1573,11 @@ function AccommodationPage({ setPage }) {
     <div className="page-enter">
       <PageHero img={IMG.hotel} label="Stay & Experience" title="Hospitality at" titleAccent="Enkuuka" />
       <Ticker />
-      <div style={{ background: T.bg2, padding: "52px 48px", borderBottom: `1px solid ${T.lineSoft}` }}>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 48, alignItems: "center" }}>
-          <FU>
-            <p className="s-label">About the Festival</p>
-            <h2 className="s-title f-display">The Enkuuka <em>Experience</em></h2>
-            <p style={{ fontSize: ".88rem", color: T.muted, lineHeight: 1.85, marginBottom: 14 }}>
-              <strong style={{ color: T.ink }}>Enkuuka y'Omwaka</strong> — meaning "End of the Year" in Luganda — is the Buganda Kingdom's most anticipated annual event. Held every 31st December at the historic Lubiri Palace in Mengo, Kampala, it is a grand gathering of culture, commerce, and celebration under the royal banner of the Kabaka.
-            </p>
-            <p style={{ fontSize: ".88rem", color: T.muted, lineHeight: 1.85, marginBottom: 22 }}>
-              It is simultaneously a cultural festival, a trade fair, a tourism showcase, a community service platform, and Uganda's most spectacular New Year celebration — all in one night at one of East Africa's most storied royal grounds.
-            </p>
-            <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
-              <button className="btn-gold" onClick={() => setPage("Culture")}>Explore the Culture</button>
-              <button className="btn-outline" onClick={() => setPage("Programme")}>View Programme</button>
-            </div>
-          </FU>
-          <FU delay={0.1}>
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 3 }}>
-              {[IMG.drums, IMG.hero, IMG.market, IMG.fireworks].map((src, i) => (
-                <div key={i} style={{ height: 170, overflow: "hidden" }}>
-                  <img src={src} alt="" loading="lazy" style={{ width: "100%", height: "100%", objectFit: "cover", filter: "brightness(.55)", display: "block" }} />
-                </div>
-              ))}
-            </div>
-          </FU>
-        </div>
-      </div>
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", borderBottom: `1px solid ${T.line}`, background: T.bg }}>
-        {[["50K+","Attendees"],["200+","Vendors"],["15+","Live Performers"],["1 Night","Unforgettable"]].map(([num, lbl]) => (
-          <div key={lbl} style={{ padding: "26px 20px", textAlign: "center", borderRight: `1px solid ${T.lineSoft}` }}>
-            <span className="stat-num f-block">{num}</span>
-            <span className="stat-label">{lbl}</span>
-          </div>
-        ))}
-      </div>
       <div style={{ background: T.bg, padding: "48px 48px 24px" }}>
         <FU>
           <p className="s-label">Where to Stay</p>
           <h2 className="s-title f-display">Kampala's Finest <em>Hotels</em></h2>
-          <p className="s-body" style={{ marginBottom: 28 }}>
-            Book early — Kampala fills up fast on December 31st. All hotels below are within easy reach of Lubiri Palace in Mengo.
-          </p>
+          <p className="s-body" style={{ marginBottom: 28 }}>Book early — Kampala fills up fast on December 31st.</p>
         </FU>
         <FU delay={0.1}>
           <div className="hotel-grid">
@@ -1273,12 +1594,6 @@ function AccommodationPage({ setPage }) {
               </div>
             ))}
           </div>
-        </FU>
-      </div>
-      <div style={{ padding: "36px 48px", textAlign: "center", background: T.bg, borderTop: `1px solid ${T.lineSoft}` }}>
-        <FU>
-          <p style={{ color: T.muted, fontSize: ".82rem", marginBottom: 16 }}>Entebbe International Airport is 45km from Kampala. Festival shuttle buses operate between major hotels and Lubiri Palace.</p>
-          <button className="btn-outline">Transport & Directions →</button>
         </FU>
       </div>
       <PageFooter setPage={setPage} />
@@ -1306,16 +1621,8 @@ function InvitationPage({ setPage }) {
             <FU delay={0.1}>
               <div style={{ background: T.bg2, border: `1px solid ${T.line}`, padding: "32px" }}>
                 <p style={{ color: T.muted, fontSize: ".8rem", marginBottom: 12 }}>Enter your name to personalise your invitation</p>
-                <input
-                  className="contact-input"
-                  placeholder="Your full name…"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  onKeyDown={(e) => e.key === "Enter" && setPreview(true)}
-                />
-                <button className="btn-gold" style={{ width: "100%", marginTop: 4 }} onClick={() => setPreview(true)}>
-                  Preview My Invitation →
-                </button>
+                <input className="contact-input" placeholder="Your full name…" value={name} onChange={(e) => setName(e.target.value)} onKeyDown={(e) => e.key === "Enter" && setPreview(true)} />
+                <button className="btn-gold" style={{ width: "100%", marginTop: 4 }} onClick={() => setPreview(true)}>Preview My Invitation →</button>
               </div>
             </FU>
           ) : (
@@ -1323,27 +1630,19 @@ function InvitationPage({ setPage }) {
               <div className="inv-card">
                 <div className="inv-top">
                   <p style={{ fontSize: ".62rem", letterSpacing: 4, textTransform: "uppercase", color: T.muted, marginBottom: 7 }}>The Buganda Kingdom · Lubiri Palace</p>
-                  <h2 className="f-display" style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "2.2rem", color: T.ink, fontWeight: 700, lineHeight: .95 }}>
-                    Enkuuka<br /><em style={{ color: T.gold }}>y'Omwaka</em>
-                  </h2>
+                  <h2 className="f-display" style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "2.2rem", color: T.ink, fontWeight: 700, lineHeight: .95 }}>Enkuuka<br /><em style={{ color: T.gold }}>y'Omwaka</em></h2>
                 </div>
                 <div className="inv-body">
                   <p style={{ fontSize: ".65rem", color: T.muted, letterSpacing: 3, textTransform: "uppercase", marginBottom: 10 }}>Cordially Invites</p>
-                  <p className="f-display" style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "1.7rem", color: T.ink, fontWeight: 700, marginBottom: 16, lineHeight: 1 }}>
-                    {name.trim() || "Honoured Guest"}
-                  </p>
+                  <p className="f-display" style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "1.7rem", color: T.ink, fontWeight: 700, marginBottom: 16, lineHeight: 1 }}>{name.trim() || "Honoured Guest"}</p>
                   <div className="inv-divider" />
-                  <p style={{ fontSize: ".82rem", color: T.muted, lineHeight: 1.85, marginBottom: 16 }}>
-                    to celebrate the New Year with the Baganda people in the spirit of culture, unity and joy
-                  </p>
+                  <p style={{ fontSize: ".82rem", color: T.muted, lineHeight: 1.85, marginBottom: 16 }}>to celebrate the New Year with the Baganda people in the spirit of culture, unity and joy</p>
                   <div style={{ background: T.goldBg, border: `1px solid ${T.line}`, padding: "14px 20px", marginBottom: 14 }}>
                     <p className="f-block" style={{ fontSize: ".85rem", color: T.ink }}>31st December 2025</p>
                     <p style={{ color: T.muted, fontSize: ".75rem", marginTop: 3 }}>📍 Lubiri Palace, Mengo, Kampala</p>
                     <p style={{ color: T.gold, fontSize: ".72rem", marginTop: 3, fontWeight: 600 }}>9:00 AM – Past Midnight</p>
                   </div>
-                  <p className="f-display" style={{ fontFamily: "'Cormorant Garamond',serif", fontStyle: "italic", fontSize: ".85rem", color: T.muted }}>
-                    Omuliro gw'omwaka gulabye omulembe!
-                  </p>
+                  <p className="f-display" style={{ fontFamily: "'Cormorant Garamond',serif", fontStyle: "italic", fontSize: ".85rem", color: T.muted }}>Omuliro gw'omwaka gulabye omulembe!</p>
                 </div>
               </div>
               <div style={{ display: "flex", gap: 12, justifyContent: "center", marginTop: 18, flexWrap: "wrap" }}>
@@ -1389,10 +1688,6 @@ function ContactPage({ setPage }) {
                   </div>
                 ))}
               </div>
-              <p className="s-label">Follow Us</p>
-              <div className="social-row" style={{ marginTop: 12 }}>
-                {["𝕏", "f", "▶", "📷"].map((s, i) => <div key={i} className="social-btn">{s}</div>)}
-              </div>
             </FU>
           </div>
           <div style={{ padding: "52px 48px", background: T.bg2, borderLeft: `1px solid ${T.lineSoft}` }}>
@@ -1416,16 +1711,6 @@ function ContactPage({ setPage }) {
             </FU>
           </div>
         </div>
-        <FU delay={0.2}>
-          <div style={{ position: "relative", height: 240, overflow: "hidden" }}>
-            <img src={IMG.palace} alt="Lubiri Palace" loading="lazy" style={{ width: "100%", height: "100%", objectFit: "cover", filter: "brightness(.22) saturate(.4)", display: "block" }} />
-            <div style={{ position: "absolute", inset: 0, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
-              <p className="f-display" style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "1.5rem", fontWeight: 700, color: "#FAF5E8" }}>Lubiri Palace</p>
-              <p style={{ color: "rgba(250,245,232,.5)", fontSize: ".75rem", marginTop: 3 }}>Mengo, Kampala, Uganda · 0°18′N 32°33′E</p>
-              <button className="btn-gold" style={{ marginTop: 18 }}>Get Directions →</button>
-            </div>
-          </div>
-        </FU>
       </div>
       <PageFooter setPage={setPage} />
     </div>
@@ -1461,7 +1746,6 @@ export default function App() {
       style.textContent = GLOBAL_CSS;
       document.head.appendChild(style);
     } else {
-      // update existing if already injected (hot reload)
       document.getElementById(id).textContent = GLOBAL_CSS;
     }
   }, []);
