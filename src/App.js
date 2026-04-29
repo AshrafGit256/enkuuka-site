@@ -664,6 +664,7 @@ const IMG = {
   fireworks: "https://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/CountDown.png",
   music:     "https://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/Afrigo_Band.png",
   culture:   "https://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/Cultural_Exhibition.png",
+  clans:     "https://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/Clans.png",
   hotel:     "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=700&q=80",
   hotel2:    "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=700&q=80",
   hotel3:    "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=700&q=80",
@@ -707,7 +708,7 @@ const CLANS = [
   { n: "Ntalaganya",      totem: "Oribi Antelope",        head: "Nakatudde",                           img: "https://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/Antelope.jpg" },
   { n: "Ejjobyo",         totem: "Oriole Bird",           head: "Ssejjemba",                           img: "https://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/OrioleBird.jpg" },
   { n: "Obutiko",         totem: "Fungus",                head: "Nkumba",                              img: "https://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/Mushroom.jpg" },
-  { n: "Mpindi",          totem: "Black-eyed Pea",        head: "Luyiga",                              img: "https://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/BlackEyedPea.jpg" },
+  { n: "Mpindi",          totem: "Black-eyed Pea",        head: "Luyiga",                              img: "https://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/Mpindi.png" },
   { n: "Nnume",           totem: "Male Reedbuck",         head: "Wasswa",                              img: "https://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/Reedbuck.jpg" },
   { n: "Nvuma",           totem: "Granary",               head: "Ssemwanga",                           img: "https://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/Granary.jpg" },
   { n: "Nkula",           totem: "Red Ochre",             head: "Nkula Omutaka",                       img: "https://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/Rhinocerous.jpg" },
@@ -1270,7 +1271,7 @@ function ClansPage({ setPage }) {
 
   return (
     <div className="page-enter">
-      <PageHero img={IMG.culture} label="Ebika by'Obuganda" title="The 52 Clans of" titleAccent="Buganda" />
+      <PageHero img={IMG.clans} label="Ebika by'Obuganda" title="The 52 Clans of" titleAccent="Buganda" />
       <Ticker />
 
       <div className="clans-section">
