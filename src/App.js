@@ -664,7 +664,7 @@ const IMG = {
   fireworks: "https://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/CountDown.png",
   music:     "https://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/Afrigo_Band.png",
   culture:   "https://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/Cultural_Exhibition.png",
-  clans:     "https://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/52_Clans.png",
+  clans:     "https://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/Clans.png",
   hotel:     "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=700&q=80",
   hotel2:    "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=700&q=80",
   hotel3:    "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=700&q=80",
