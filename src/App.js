@@ -699,7 +699,7 @@ const CLANS = [
   { n: "Mbwa",            totem: "Dog",                   head: "Mutasingwa",                          img: "https://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/Dog.jpg" },
   { n: "Nte",             totem: "Cow",                   head: "Katongole",                           img: "https://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/cow.jpg" },
   { n: "Musu",            totem: "Cane Rat",              head: "Jajja Muyingo",                       img: "https://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/CaneRat2.png" },
-  { n: "Mutima",          totem: "Heart",                 head: "Namugera Kakeeto",                    img: "https://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/Heart.jpg" },
+  { n: "Mutima",          totem: "Heart",                 head: "Namugera Kakeeto",                    img: "https://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/Heart1.png" },
   { n: "Kkobe",           totem: "Creeping Plant",        head: "Bakiranze",                           img: "https://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/Kkobe.jpg" },
   { n: "Kasimba",         totem: "Genet Cat",             head: "Kizito",                              img: "https://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/GenetCat.jpg" },
   { n: "Kayozi",          totem: "Jerboa",                head: "Kafumu",                              img: "https://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/Jerboa.jpg" },
