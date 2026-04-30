@@ -1092,7 +1092,7 @@ const CLANS = [
   { n: "Ndiisa",          totem: "Lark",                  head: "Kaliika",                           img: "https://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/LarkBird.jpg" },
   { n: "Obutiko",         totem: "Fungus",                head: "Nkumba",                            img: "https://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/Mushroom.jpg" },
   { n: "Mpindi",          totem: "Black-eyed Pea",        head: "Luyiga",                            img: "https://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/Mpindi.png" },
-  { n: "Nvuma",           totem: "Water plant",           head: "Ssemwanga",                         img: "https://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/Nvuma.png" },
+  { n: "Nvuma",           totem: "Water plant",           head: "Ssemwanga",                         img: "https://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/Nvuma1.png" },
   { n: "Nkula",           totem: "Red Ochre",             head: "Nkula Omutaka",                     img: "https://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/Rhinocerous.jpg" },
   { n: "Nkerebwe",        totem: "Squirrel",              head: "Ssebukuuza",                        img: "https://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/Squirrel.jpg" },
   { n: "Ndiga",           totem: "Sheep",                 head: "Ssemwogerere",                      img: "https://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/Sheep1.png" },
