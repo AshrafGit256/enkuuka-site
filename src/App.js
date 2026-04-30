@@ -1100,7 +1100,7 @@ const CLANS = [
   { n: "Ndiga",           totem: "Sheep",                 head: "Lwomwa",                      img: "https://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/Sheep1.png" },
   { n: "Mazzi ga Kisasi", totem: "Water Droplets",        head: "Wooyo",                             img: "https://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/RainWater.png" },
   { n: "Nkebuka",         totem: "(Historical)",          head: "Kayizzi",                    img: "https://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/Nkebuka.png" },
-  { n: "Lukato",          totem: "(Historical)",          head: "Magunda",                    img: "https://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/Olukato.png" },
+  { n: "Lukato",          totem: "(Historical)",          head: "Magunda",                    img: "https://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/Olukato1.png" },
   { n: "Mbuzi",           totem: "Goat",                  head: "Kisunsu",                   img: "https://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/Goat.jpg" },
   { n: "Nvubu",           totem: "Hippo",                 head: "Kayita",                   img: "https://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/Hippo.jpg" },
   { n: "Nsuma",           totem: "Snout Fish",            head: "Kibondwe",                          img: "https://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/Nsuma3.png" },
