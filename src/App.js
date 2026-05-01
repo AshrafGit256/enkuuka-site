@@ -660,7 +660,7 @@ const MASAZA = [
 // ─────────────────────────────────────────────────────────────────────────────
 // Simplified schematic positions representing the geographic arrangement
 // ── UPDATE THIS URL with your actual Buganda map image ──
-const BUGANDA_MAP_IMG = "https://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/BugandaMap.png";
+const BUGANDA_MAP_IMG = "https://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/BugandaMap2.png";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // REMAINING DATA
