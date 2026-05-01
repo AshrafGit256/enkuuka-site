@@ -628,7 +628,7 @@ const IMG = {
   speeches:   "https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=900&q=80",
   tradeShow:  "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=900&q=80",
   concert:    "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=900&q=80",
-  football:   "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=900&q=80",
+  football:   "http://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/MasazaCup.png",
 };
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -660,7 +660,7 @@ const MASAZA = [
 // ─────────────────────────────────────────────────────────────────────────────
 // Simplified schematic positions representing the geographic arrangement
 // ── UPDATE THIS URL with your actual Buganda map image ──
-const BUGANDA_MAP_IMG = "YOUR_MAP_IMAGE_URL_HERE";
+const BUGANDA_MAP_IMG = "https://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/BugandaMap.png";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // REMAINING DATA
@@ -921,7 +921,7 @@ function MasazaPage({ setPage }) {
                 <p style={{ fontSize:".72rem", color:T.muted, marginTop:2 }}>Select a county from the list to view its details</p>
               </div>
               <div className="masaza-map-wrap">
-                {BUGANDA_MAP_IMG !== "YOUR_MAP_IMAGE_URL_HERE" ? (
+                {BUGANDA_MAP_IMG !== "http://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/BugandaMap.png" ? (
                   <img
                     className="buganda-map-img"
                     src={BUGANDA_MAP_IMG}
