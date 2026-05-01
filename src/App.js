@@ -13,14 +13,14 @@ const T = {
   bgNav:    "#FDFAF3",
   ink:      "#1C1A13",
   ink2:     "#3D3925",
-  muted:    "#7A6E52",
-  gold:     "#A67C2E",
-  gold2:    "#C49A3C",
-  gold3:    "#D4AE5E",
+  muted:    "#7A5252",
+  red:      "#A62E2E",
+  red2:     "#C43C3C",
+  red3:     "#D45E5E",
   goldBg:   "rgba(166,124,46,.08)",
   line:     "rgba(166,124,46,.18)",
   lineSoft: "rgba(166,124,46,.10)",
-  red:      "#7A1515",
+  red:      "#A62E2E",
 };
 
 if (typeof document !== "undefined") {
@@ -39,8 +39,8 @@ const GLOBAL_CSS = `
   body { background: ${T.bg}; color: ${T.ink}; font-family: 'DM Sans', sans-serif; overflow-x: hidden; }
   ::-webkit-scrollbar { width: 5px; }
   ::-webkit-scrollbar-track { background: ${T.bg2}; }
-  ::-webkit-scrollbar-thumb { background: ${T.gold3}; border-radius: 2px; }
-  ::selection { background: ${T.gold3}; color: ${T.ink}; }
+  ::-webkit-scrollbar-thumb { background: ${T.red3}; border-radius: 2px; }
+  ::selection { background: ${T.red3}; color: ${T.ink}; }
   .f-display { font-family: 'Cormorant Garamond', serif; }
   .f-block   { font-family: 'Bebas Neue', sans-serif; letter-spacing: 2px; }
   .f-body    { font-family: 'DM Sans', sans-serif; }
@@ -53,49 +53,49 @@ const GLOBAL_CSS = `
   .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 999; height: 60px; padding: 0 32px; display: flex; align-items: center; justify-content: space-between; background: ${T.bgNav}; border-bottom: 1px solid ${T.line}; box-shadow: 0 1px 16px rgba(28,26,19,.06); transition: height .3s; }
   .nav.slim { height: 50px; }
   .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 700; color: ${T.ink}; cursor: pointer; letter-spacing: 0.5px; white-space: nowrap; }
-  .nav-logo em { color: ${T.gold}; font-style: italic; }
+  .nav-logo em { color: ${T.red}; font-style: italic; }
   .nav-links { display: flex; gap: 18px; list-style: none; }
   .nav-links li { font-size: .63rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: ${T.muted}; cursor: pointer; transition: color .2s; padding: 4px 0; border-bottom: 1.5px solid transparent; }
-  .nav-links li:hover, .nav-links li.active { color: ${T.ink}; border-bottom-color: ${T.gold}; }
-  .nav-cta { background: ${T.gold}; color: #fff; border: none; padding: 8px 18px; font-family: 'DM Sans', sans-serif; font-size: .68rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; transition: .2s; }
-  .nav-cta:hover { background: ${T.gold2}; }
+  .nav-links li:hover, .nav-links li.active { color: ${T.ink}; border-bottom-color: ${T.red}; }
+  .nav-cta { background: ${T.red}; color: #fff; border: none; padding: 8px 18px; font-family: 'DM Sans', sans-serif; font-size: .68rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; transition: .2s; }
+  .nav-cta:hover { background: ${T.red2}; }
   .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
   .hamburger span { display: block; width: 22px; height: 1.5px; background: ${T.ink}; border-radius: 1px; transition: .3s; }
   .mob-drawer { display: none; position: fixed; top: 60px; left: 0; right: 0; background: ${T.bgNav}; padding: 20px 24px; z-index: 998; border-bottom: 1px solid ${T.line}; box-shadow: 0 8px 24px rgba(28,26,19,.08); }
   .mob-drawer.open { display: block; }
   .mob-drawer li { list-style: none; padding: 11px 0; font-size: .8rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: ${T.muted}; cursor: pointer; border-bottom: 1px solid ${T.lineSoft}; transition: color .2s; }
-  .mob-drawer li:hover { color: ${T.gold}; }
+  .mob-drawer li:hover { color: ${T.red}; }
 
   /* TICKER */
-  .ticker { background: ${T.gold}; padding: 9px 0; overflow: hidden; }
+  .ticker { background: ${T.red}; padding: 9px 0; overflow: hidden; }
   .ticker-track { display: flex; gap: 52px; white-space: nowrap; animation: tickerScroll 28s linear infinite; }
   .ticker-item { font-family: 'Bebas Neue', sans-serif; font-size: .85rem; letter-spacing: 3px; color: rgba(255,255,255,.88); display: inline-flex; align-items: center; gap: 16px; flex-shrink: 0; }
   .ticker-dot { width: 4px; height: 4px; background: rgba(255,255,255,.5); border-radius: 50%; }
   @keyframes tickerScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
   /* BUTTONS */
-  .btn-gold { background: ${T.gold}; color: #fff; border: none; padding: 13px 30px; font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: .75rem; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; transition: .25s; }
-  .btn-gold:hover { background: ${T.gold2}; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(166,124,46,.22); }
-  .btn-outline { background: transparent; color: ${T.gold}; border: 1.5px solid ${T.gold}; padding: 13px 30px; font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: .75rem; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; transition: .25s; }
+  .btn-red { background: ${T.red}; color: #fff; border: none; padding: 13px 30px; font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: .75rem; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; transition: .25s; }
+  .btn-red:hover { background: ${T.red2}; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(166,124,46,.22); }
+  .btn-outline { background: transparent; color: ${T.red}; border: 1.5px solid ${T.red}; padding: 13px 30px; font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: .75rem; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; transition: .25s; }
   .btn-outline:hover { background: ${T.goldBg}; transform: translateY(-1px); }
 
   /* SECTION LABELS */
-  .s-label { display: inline-flex; align-items: center; gap: 8px; font-size: .65rem; letter-spacing: 5px; text-transform: uppercase; color: ${T.gold}; font-weight: 700; margin-bottom: 10px; }
-  .s-label::before { content: ''; display: block; width: 20px; height: 1px; background: ${T.gold}; }
+  .s-label { display: inline-flex; align-items: center; gap: 8px; font-size: .65rem; letter-spacing: 5px; text-transform: uppercase; color: ${T.red}; font-weight: 700; margin-bottom: 10px; }
+  .s-label::before { content: ''; display: block; width: 20px; height: 1px; background: ${T.red}; }
   .s-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.6rem, 4vw, 3rem); line-height: 1.05; color: ${T.ink}; margin-bottom: 14px; font-weight: 700; }
-  .s-title em { color: ${T.gold}; font-style: italic; }
+  .s-title em { color: ${T.red}; font-style: italic; }
   .s-body { font-size: .9rem; color: ${T.muted}; line-height: 1.85; max-width: 560px; }
 
   /* HERO */
   .hero { position: relative; min-height: 100vh; display: flex; align-items: flex-end; padding-bottom: 80px; overflow: hidden; }
   .hero-bg { position: absolute; inset: 0; background-size: cover; background-position: center; filter: brightness(.36) saturate(.9); }
   .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(247,242,232,.05) 0%, rgba(247,242,232,.12) 40%, ${T.bg} 100%); }
-  .hero-deco { position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: linear-gradient(to right, transparent, ${T.gold}, ${T.gold2}, ${T.gold}, transparent); }
+  .hero-deco { position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: linear-gradient(to right, transparent, ${T.red}, ${T.red2}, ${T.red}, transparent); }
   .hero-content { position: relative; z-index: 2; padding: 0 48px; max-width: 960px; }
-  .hero-eyebrow { display: inline-flex; align-items: center; gap: 8px; font-size: .65rem; letter-spacing: 5px; text-transform: uppercase; color: ${T.gold3}; font-weight: 700; margin-bottom: 18px; }
-  .hero-eyebrow::before { content: ''; display: block; width: 24px; height: 1px; background: ${T.gold3}; }
+  .hero-eyebrow { display: inline-flex; align-items: center; gap: 8px; font-size: .65rem; letter-spacing: 5px; text-transform: uppercase; color: ${T.red3}; font-weight: 700; margin-bottom: 18px; }
+  .hero-eyebrow::before { content: ''; display: block; width: 24px; height: 1px; background: ${T.red3}; }
   .hero-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(3.2rem, 9vw, 7.5rem); line-height: .92; color: #FAF5E8; font-weight: 700; margin-bottom: 8px; text-shadow: 0 2px 40px rgba(28,26,19,.3); }
-  .hero-title em { color: ${T.gold3}; font-style: italic; }
+  .hero-title em { color: ${T.red3}; font-style: italic; }
   .hero-sub { font-size: .8rem; font-weight: 300; letter-spacing: 6px; text-transform: uppercase; color: rgba(250,245,232,.55); margin-bottom: 28px; }
 
   /* COUNTDOWN */
@@ -103,17 +103,17 @@ const GLOBAL_CSS = `
   .cd-block { background: rgba(247,242,232,.12); border: 1px solid rgba(250,245,232,.25); padding: 12px 16px; min-width: 68px; text-align: center; backdrop-filter: blur(4px); }
   .cd-num { font-family: 'Bebas Neue', sans-serif; font-size: clamp(1.6rem, 4vw, 2.4rem); color: #FAF5E8; line-height: 1; display: block; }
   .cd-label { font-size: .55rem; letter-spacing: 2.5px; text-transform: uppercase; color: rgba(250,245,232,.45); margin-top: 4px; display: block; }
-  .cd-sep { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; color: ${T.gold3}; align-self: center; line-height: 1; padding-bottom: 14px; opacity: .55; }
+  .cd-sep { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; color: ${T.red3}; align-self: center; line-height: 1; padding-bottom: 14px; opacity: .55; }
 
   /* PAGE HERO */
   .phero { position: relative; height: 340px; overflow: hidden; display: flex; align-items: flex-end; padding-bottom: 44px; }
   .phero > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: brightness(.28) saturate(.85); }
   .phero-ov { position: absolute; inset: 0; background: linear-gradient(to top, ${T.bg} 0%, rgba(247,242,232,.2) 55%, transparent 100%); }
   .phero-content { position: relative; z-index: 2; padding: 0 48px; }
-  .phero-content .s-label { color: ${T.gold3}; }
-  .phero-content .s-label::before { background: ${T.gold3}; }
+  .phero-content .s-label { color: ${T.red3}; }
+  .phero-content .s-label::before { background: ${T.red3}; }
   .phero-content .s-title { color: #FAF5E8; }
-  .phero-content .s-title em { color: ${T.gold3}; }
+  .phero-content .s-title em { color: ${T.red3}; }
 
   /* SPLIT */
   .split { display: grid; grid-template-columns: 1fr 1fr; overflow: hidden; }
@@ -125,7 +125,7 @@ const GLOBAL_CSS = `
   .split-img-overlay { position: absolute; inset: 0; background: linear-gradient(to right, rgba(247,242,232,.12), transparent); }
   .split.rev .split-img-overlay { background: linear-gradient(to left, rgba(247,242,232,.12), transparent); }
   .split-content { background: ${T.bg2}; padding: 60px 52px; display: flex; flex-direction: column; justify-content: center; position: relative; }
-  .split-content::before { content: ''; position: absolute; top: 0; left: 0; bottom: 0; width: 2px; background: linear-gradient(to bottom, ${T.gold}, transparent); }
+  .split-content::before { content: ''; position: absolute; top: 0; left: 0; bottom: 0; width: 2px; background: linear-gradient(to bottom, ${T.red}, transparent); }
   .split.rev .split-content::before { left: auto; right: 0; }
 
   /* EVENT CARDS */
@@ -135,13 +135,13 @@ const GLOBAL_CSS = `
   .event-card:hover img { filter: brightness(.28); transform: scale(1.06); }
   .event-card-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(28,26,19,.96) 0%, rgba(28,26,19,.12) 55%, transparent 100%); }
   .event-card-body { position: absolute; bottom: 0; left: 0; right: 0; padding: 20px; }
-  .event-card-tag { font-size: .58rem; letter-spacing: 3px; text-transform: uppercase; color: ${T.gold3}; font-weight: 700; margin-bottom: 6px; display: block; }
+  .event-card-tag { font-size: .58rem; letter-spacing: 3px; text-transform: uppercase; color: ${T.red3}; font-weight: 700; margin-bottom: 6px; display: block; }
   .event-card-title { font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; color: #FAF5E8; line-height: 1.1; font-weight: 700; }
   .event-card-desc { font-size: .75rem; color: rgba(250,245,232,.45); line-height: 1.55; max-height: 0; overflow: hidden; transition: max-height .4s ease; margin-top: 4px; }
   .event-card:hover .event-card-desc { max-height: 70px; }
 
   /* KABAKA */
-  .kabaka-band { background: linear-gradient(135deg, ${T.bg3}, ${T.bg2}); padding: 60px 48px; text-align: center; border-top: 2px solid ${T.gold3}; border-bottom: 2px solid ${T.gold3}; }
+  .kabaka-band { background: linear-gradient(135deg, ${T.bg3}, ${T.bg2}); padding: 60px 48px; text-align: center; border-top: 2px solid ${T.red3}; border-bottom: 2px solid ${T.red3}; }
   .kab-stat { padding: 18px 22px; border: 1px solid ${T.line}; background: rgba(255,255,255,.45); text-align: center; min-width: 120px; }
 
   /* CLANS */
@@ -152,11 +152,11 @@ const GLOBAL_CSS = `
   .clan-search-wrap { position: relative; }
   .clan-search-icon { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: ${T.muted}; font-size: .9rem; pointer-events: none; }
   .clan-search { width: 100%; padding: 12px 14px 12px 38px; background: #fff; border: 1px solid ${T.line}; color: ${T.ink}; font-family: 'DM Sans', sans-serif; font-size: .85rem; outline: none; transition: border-color .2s, box-shadow .2s; }
-  .clan-search:focus { border-color: ${T.gold}; box-shadow: 0 0 0 3px rgba(166,124,46,.1); }
+  .clan-search:focus { border-color: ${T.red}; box-shadow: 0 0 0 3px rgba(166,124,46,.1); }
   .clan-search::placeholder { color: ${T.muted}; opacity: .5; }
   .clan-filter-pills { display: flex; gap: 6px; flex-wrap: wrap; }
   .clan-filter-pill { padding: 5px 13px; font-size: .6rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; border: 1px solid ${T.line}; background: #fff; color: ${T.muted}; cursor: pointer; transition: .2s; }
-  .clan-filter-pill:hover, .clan-filter-pill.active { background: ${T.gold}; color: #fff; border-color: ${T.gold}; }
+  .clan-filter-pill:hover, .clan-filter-pill.active { background: ${T.red}; color: #fff; border-color: ${T.red}; }
   .clans-grid-pro { display: grid; grid-template-columns: repeat(4, 1fr); gap: 3px; }
   .clan-card-pro { position: relative; overflow: hidden; cursor: pointer; background: ${T.bg2}; aspect-ratio: 3/4; }
   .clan-card-pro .clan-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .65s cubic-bezier(.25,.46,.45,.94), filter .65s ease; display: block; }
@@ -166,16 +166,16 @@ const GLOBAL_CSS = `
   .clan-card-pro .clan-badge { position: absolute; top: 12px; left: 12px; z-index: 3; display: flex; gap: 5px; }
   .clan-badge-pill { padding: 3px 8px; font-size: .52rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; }
   .clan-badge-num { background: rgba(28,26,19,.7); color: rgba(250,245,232,.55); backdrop-filter: blur(4px); border: 1px solid rgba(250,245,232,.12); }
-  .clan-badge-orig { background: ${T.gold}; color: #fff; }
+  .clan-badge-orig { background: ${T.red}; color: #fff; }
   .clan-badge-royal { background: #7A1515; color: #FAF5E8; }
-  .clan-card-totem-label { font-size: .55rem; letter-spacing: 3.5px; text-transform: uppercase; color: ${T.gold3}; font-weight: 700; margin-bottom: 3px; display: block; opacity: .85; }
+  .clan-card-totem-label { font-size: .55rem; letter-spacing: 3.5px; text-transform: uppercase; color: ${T.red3}; font-weight: 700; margin-bottom: 3px; display: block; opacity: .85; }
   .clan-card-name { font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; font-weight: 700; color: #FAF5E8; line-height: 1.05; margin-bottom: 2px; }
   .clan-card-totem { font-size: .72rem; color: rgba(250,245,232,.55); line-height: 1.4; }
   .clan-hover-panel { position: absolute; bottom: 0; left: 0; right: 0; padding: 16px; z-index: 4; background: transparent; transform: translateY(100%); transition: transform .4s cubic-bezier(.25,.46,.45,.94); }
   .clan-card-pro:hover .clan-hover-panel { transform: translateY(0); }
   .clan-hover-panel .clan-card-name { font-size: 1.3rem; margin-bottom: 4px; }
   .clan-head-row { display: flex; align-items: center; gap: 8px; margin-top: 8px; padding-top: 8px; border-top: 1px solid rgba(250,245,232,.15); }
-  .clan-head-icon { width: 20px; height: 20px; border-radius: 50%; background: ${T.gold}; display: flex; align-items: center; justify-content: center; font-size: .55rem; flex-shrink: 0; color: #fff; }
+  .clan-head-icon { width: 20px; height: 20px; border-radius: 50%; background: ${T.red}; display: flex; align-items: center; justify-content: center; font-size: .55rem; flex-shrink: 0; color: #fff; }
   .clan-head-label { font-size: .6rem; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(250,245,232,.4); display: block; line-height: 1; margin-bottom: 1px; }
   .clan-head-name { font-size: .78rem; color: rgba(250,245,232,.75); font-weight: 500; }
   .clan-static-bottom { position: absolute; bottom: 0; left: 0; right: 0; padding: 16px; z-index: 3; transition: opacity .35s; }
@@ -208,7 +208,7 @@ const GLOBAL_CSS = `
   }
   .masaza-list-panel::-webkit-scrollbar { width: 4px; }
   .masaza-list-panel::-webkit-scrollbar-track { background: ${T.bg2}; }
-  .masaza-list-panel::-webkit-scrollbar-thumb { background: ${T.gold3}; border-radius: 2px; }
+  .masaza-list-panel::-webkit-scrollbar-thumb { background: ${T.red3}; border-radius: 2px; }
 
   .saza-list-item {
     display: flex;
@@ -227,7 +227,7 @@ const GLOBAL_CSS = `
     font-family: 'Bebas Neue', sans-serif;
     font-size: .75rem;
     letter-spacing: 2px;
-    color: ${T.gold};
+    color: ${T.red};
     min-width: 48px;
     text-align: center;
     padding: 20px 0;
@@ -246,7 +246,7 @@ const GLOBAL_CSS = `
   .saza-list-chief { font-size: .68rem; color: ${T.muted}; }
   .saza-list-arrow {
     font-size: .7rem;
-    color: ${T.gold};
+    color: ${T.red};
     padding: 0 16px;
     opacity: 0;
     transition: opacity .2s;
@@ -310,7 +310,7 @@ const GLOBAL_CSS = `
     font-size: .68rem;
     letter-spacing: 1.5px;
     text-transform: uppercase;
-    color: ${T.gold};
+    color: ${T.red};
     margin-bottom: 8px;
     font-weight: 600;
   }
@@ -345,7 +345,7 @@ const GLOBAL_CSS = `
     background: linear-gradient(to top, rgba(28,26,19,.95) 0%, rgba(28,26,19,.1) 55%, transparent 100%);
   }
   .masaza-card-body { position: absolute; bottom: 0; left: 0; right: 0; padding: 14px 12px; }
-  .masaza-card-num { font-family: 'Bebas Neue', sans-serif; font-size: .6rem; letter-spacing: 2px; color: ${T.gold3}; display: block; margin-bottom: 2px; }
+  .masaza-card-num { font-family: 'Bebas Neue', sans-serif; font-size: .6rem; letter-spacing: 2px; color: ${T.red3}; display: block; margin-bottom: 2px; }
   .masaza-card-name { font-family: 'Cormorant Garamond', serif; font-size: .9rem; font-weight: 700; color: #FAF5E8; line-height: 1.1; }
   .masaza-card-chief { font-size: .6rem; color: rgba(250,245,232,.45); margin-top: 2px; display: none; }
   .masaza-card:hover .masaza-card-chief { display: block; }
@@ -365,7 +365,7 @@ const GLOBAL_CSS = `
     align-items: center;
   }
   .masaza-history-text h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.8rem,4vw,2.8rem); font-weight: 700; color: #FAF5E8; margin-bottom: 16px; line-height: 1; }
-  .masaza-history-text h2 em { color: ${T.gold3}; font-style: italic; }
+  .masaza-history-text h2 em { color: ${T.red3}; font-style: italic; }
   .masaza-history-text p { font-size: .88rem; color: rgba(250,245,232,.5); line-height: 1.9; margin-bottom: 14px; }
   .masaza-history-facts { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
   .masaza-history-fact {
@@ -374,7 +374,7 @@ const GLOBAL_CSS = `
     padding: 22px 20px;
     text-align: center;
   }
-  .masaza-history-fact-num { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; color: ${T.gold3}; display: block; line-height: 1; margin-bottom: 4px; }
+  .masaza-history-fact-num { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; color: ${T.red3}; display: block; line-height: 1; margin-bottom: 4px; }
   .masaza-history-fact-label { font-size: .58rem; letter-spacing: 2.5px; text-transform: uppercase; color: rgba(250,245,232,.3); }
 
   /* Masaza Cup */
@@ -398,7 +398,7 @@ const GLOBAL_CSS = `
   .masaza-cup-img-wrap:hover img { transform: scale(1.04); }
   .masaza-cup-badge {
     position: absolute; top: 16px; left: 16px;
-    background: ${T.gold}; color: #fff;
+    background: ${T.red}; color: #fff;
     font-size: .6rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
     padding: 6px 12px;
   }
@@ -408,9 +408,9 @@ const GLOBAL_CSS = `
   .tl-item { display: grid; grid-template-columns: 70px 1fr; gap: 0 16px; padding-bottom: 24px; position: relative; }
   .tl-item::before { content: ''; position: absolute; left: 69px; top: 10px; bottom: -14px; width: 1px; background: ${T.line}; }
   .tl-item:last-child::before { display: none; }
-  .tl-time { font-family: 'Bebas Neue', sans-serif; font-size: .85rem; color: ${T.gold}; text-align: right; padding-top: 2px; letter-spacing: .5px; }
+  .tl-time { font-family: 'Bebas Neue', sans-serif; font-size: .85rem; color: ${T.red}; text-align: right; padding-top: 2px; letter-spacing: .5px; }
   .tl-body { position: relative; padding-left: 14px; }
-  .tl-dot { width: 8px; height: 8px; background: ${T.gold}; border-radius: 50%; position: absolute; left: -14px; top: 4px; box-shadow: 0 0 0 3px rgba(166,124,46,.15); }
+  .tl-dot { width: 8px; height: 8px; background: ${T.red}; border-radius: 50%; position: absolute; left: -14px; top: 4px; box-shadow: 0 0 0 3px rgba(166,124,46,.15); }
   .tl-title { font-family: 'Cormorant Garamond', serif; font-size: .95rem; color: ${T.ink}; font-weight: 700; margin-bottom: 2px; }
   .tl-desc { font-size: .75rem; color: ${T.muted}; line-height: 1.65; }
 
@@ -418,17 +418,17 @@ const GLOBAL_CSS = `
   .tab-bar { display: flex; overflow-x: auto; border-bottom: 1px solid ${T.line}; margin-bottom: 28px; scrollbar-width: none; }
   .tab-bar::-webkit-scrollbar { display: none; }
   .tab-btn { padding: 11px 20px; white-space: nowrap; border: none; background: none; font-family: 'DM Sans', sans-serif; font-size: .68rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: ${T.muted}; cursor: pointer; border-bottom: 1.5px solid transparent; margin-bottom: -1px; transition: .2s; }
-  .tab-btn.active, .tab-btn:hover { color: ${T.ink}; border-bottom-color: ${T.gold}; }
+  .tab-btn.active, .tab-btn:hover { color: ${T.ink}; border-bottom-color: ${T.red}; }
   .biz-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
   .biz-card { background: #fff; border: 1px solid ${T.lineSoft}; overflow: hidden; transition: .3s; }
   .biz-card:hover { border-color: ${T.line}; transform: translateY(-3px); box-shadow: 0 8px 24px rgba(28,26,19,.08); }
   .biz-card img { width: 100%; height: 130px; object-fit: cover; filter: brightness(.62); transition: .4s; display: block; }
   .biz-card:hover img { filter: brightness(.38); transform: scale(1.04); }
   .biz-body { padding: 16px; }
-  .biz-tag { font-size: .6rem; letter-spacing: 3px; text-transform: uppercase; color: ${T.gold}; margin-bottom: 4px; display: block; }
+  .biz-tag { font-size: .6rem; letter-spacing: 3px; text-transform: uppercase; color: ${T.red}; margin-bottom: 4px; display: block; }
   .biz-title { font-family: 'Cormorant Garamond', serif; font-size: 1rem; font-weight: 700; color: ${T.ink}; margin-bottom: 4px; }
   .biz-desc { font-size: .77rem; color: ${T.muted}; line-height: 1.65; margin-bottom: 10px; }
-  .biz-cta { font-size: .62rem; letter-spacing: 2px; text-transform: uppercase; color: ${T.gold}; cursor: pointer; transition: letter-spacing .2s; display: inline-block; font-weight: 700; }
+  .biz-cta { font-size: .62rem; letter-spacing: 2px; text-transform: uppercase; color: ${T.red}; cursor: pointer; transition: letter-spacing .2s; display: inline-block; font-weight: 700; }
   .biz-cta:hover { letter-spacing: 3px; }
 
   /* GALLERY */
@@ -439,7 +439,7 @@ const GLOBAL_CSS = `
   .gal-item-overlay { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; background: rgba(28,26,19,.35); opacity: 0; transition: opacity .3s; }
   .gal-item:hover .gal-item-overlay { opacity: 1; }
   .gal-item-title { font-family: 'Cormorant Garamond', serif; font-size: .95rem; font-weight: 700; color: #FAF5E8; letter-spacing: 1px; }
-  .gal-item-sub { font-size: .6rem; letter-spacing: 3px; text-transform: uppercase; color: ${T.gold3}; margin-top: 4px; }
+  .gal-item-sub { font-size: .6rem; letter-spacing: 3px; text-transform: uppercase; color: ${T.red3}; margin-top: 4px; }
 
   /* LIGHTBOX */
   .lightbox { position: fixed; inset: 0; background: rgba(247,242,232,.97); z-index: 2000; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 14px; cursor: pointer; padding: 20px; }
@@ -451,13 +451,13 @@ const GLOBAL_CSS = `
   .hotel-card img { width: 100%; height: 220px; object-fit: cover; filter: brightness(.52); transition: .5s; display: block; }
   .hotel-card:hover img { filter: brightness(.28); transform: scale(1.04); }
   .hotel-body { position: absolute; bottom: 0; left: 0; right: 0; padding: 20px; background: linear-gradient(to top, rgba(28,26,19,.97), transparent); }
-  .hotel-stars { font-size: .8rem; color: ${T.gold3}; margin-bottom: 3px; }
+  .hotel-stars { font-size: .8rem; color: ${T.red3}; margin-bottom: 3px; }
   .hotel-name { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 700; color: #FAF5E8; margin-bottom: 2px; }
   .hotel-loc { font-size: .7rem; color: rgba(250,245,232,.45); margin-bottom: 7px; }
-  .hotel-price { font-size: .78rem; color: ${T.gold3}; font-weight: 600; }
-  .hotel-book { display: none; background: ${T.gold}; color: #fff; border: none; padding: 7px 18px; font-size: .65rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; cursor: pointer; margin-top: 8px; transition: .2s; }
+  .hotel-price { font-size: .78rem; color: ${T.red3}; font-weight: 600; }
+  .hotel-book { display: none; background: ${T.red}; color: #fff; border: none; padding: 7px 18px; font-size: .65rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; cursor: pointer; margin-top: 8px; transition: .2s; }
   .hotel-card:hover .hotel-book { display: block; }
-  .hotel-book:hover { background: ${T.gold2}; }
+  .hotel-book:hover { background: ${T.red2}; }
 
   /* INVITATION */
   .inv-card { max-width: 440px; margin: 0 auto; background: #fff; border: 1px solid ${T.line}; overflow: hidden; box-shadow: 0 8px 40px rgba(28,26,19,.1); }
@@ -467,28 +467,28 @@ const GLOBAL_CSS = `
 
   /* CONTACT */
   .contact-input { width: 100%; padding: 12px 14px; background: #fff; border: 1px solid ${T.line}; color: ${T.ink}; font-family: 'DM Sans', sans-serif; font-size: .85rem; outline: none; transition: border-color .2s; margin-bottom: 12px; resize: none; }
-  .contact-input:focus { border-color: ${T.gold}; box-shadow: 0 0 0 3px rgba(166,124,46,.1); }
+  .contact-input:focus { border-color: ${T.red}; box-shadow: 0 0 0 3px rgba(166,124,46,.1); }
   .contact-input::placeholder { color: ${T.muted}; opacity: .55; }
 
   /* SPONSORS */
   .sponsors-band { background: ${T.bg2}; border-top: 1px solid ${T.lineSoft}; border-bottom: 1px solid ${T.lineSoft}; padding: 28px; display: flex; gap: 10px; flex-wrap: wrap; align-items: center; justify-content: center; }
   .sponsor-pill { padding: 8px 20px; border: 1px solid ${T.line}; font-size: .65rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: ${T.muted}; cursor: pointer; transition: .2s; background: #fff; }
-  .sponsor-pill:hover { border-color: ${T.gold}; color: ${T.ink}; background: ${T.goldBg}; }
+  .sponsor-pill:hover { border-color: ${T.red}; color: ${T.ink}; background: ${T.goldBg}; }
 
   /* STATS */
   .stats-strip { display: grid; grid-template-columns: repeat(3, 1fr); border-bottom: 1px solid ${T.line}; background: ${T.bg2}; }
   .stat-cell { padding: 28px 20px; text-align: center; border-right: 1px solid ${T.line}; }
   .stat-cell:last-child { border-right: none; }
-  .stat-num { font-family: 'Bebas Neue', sans-serif; font-size: 2.2rem; color: ${T.gold}; display: block; line-height: 1; }
+  .stat-num { font-family: 'Bebas Neue', sans-serif; font-size: 2.2rem; color: ${T.red}; display: block; line-height: 1; }
   .stat-label { font-size: .62rem; letter-spacing: 3px; text-transform: uppercase; color: ${T.muted}; margin-top: 4px; display: block; }
 
   /* FOOTER */
-  .footer { background: ${T.bg3}; border-top: 2px solid ${T.gold2}; padding: 52px 48px 28px; }
+  .footer { background: ${T.bg3}; border-top: 2px solid ${T.red2}; padding: 52px 48px 28px; }
   .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 44px; margin-bottom: 44px; padding-bottom: 36px; border-bottom: 1px solid ${T.line}; }
   .footer-brand { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 700; color: ${T.ink}; }
-  .footer-brand em { color: ${T.gold}; }
+  .footer-brand em { color: ${T.red}; }
   .footer-tagline { font-size: .82rem; color: ${T.muted}; line-height: 1.75; margin: 10px 0 18px; max-width: 280px; }
-  .footer-col-head { font-size: .62rem; letter-spacing: 3px; text-transform: uppercase; color: ${T.gold}; margin-bottom: 14px; font-weight: 700; }
+  .footer-col-head { font-size: .62rem; letter-spacing: 3px; text-transform: uppercase; color: ${T.red}; margin-bottom: 14px; font-weight: 700; }
   .footer-links { list-style: none; display: flex; flex-direction: column; gap: 9px; }
   .footer-links li { font-size: .82rem; color: ${T.muted}; cursor: pointer; transition: color .2s; }
   .footer-links li:hover { color: ${T.ink}; }
@@ -496,13 +496,13 @@ const GLOBAL_CSS = `
   .footer-copy { font-size: .72rem; color: ${T.muted}; opacity: .6; }
   .social-row { display: flex; gap: 7px; }
   .social-btn { width: 32px; height: 32px; border: 1px solid ${T.line}; display: flex; align-items: center; justify-content: center; font-size: .78rem; color: ${T.muted}; cursor: pointer; transition: .2s; background: #fff; }
-  .social-btn:hover { border-color: ${T.gold}; color: ${T.gold}; }
+  .social-btn:hover { border-color: ${T.red}; color: ${T.red}; }
 
   /* EVENTS PAGE */
   .ev-phase-nav { position: sticky; top: 60px; z-index: 90; background: ${T.bgNav}; border-bottom: 1px solid ${T.line}; padding: 0 48px; display: flex; gap: 0; overflow-x: auto; scrollbar-width: none; box-shadow: 0 2px 12px rgba(28,26,19,.06); }
   .ev-phase-nav::-webkit-scrollbar { display: none; }
   .ev-phase-btn { padding: 14px 22px; white-space: nowrap; border: none; background: none; font-family: 'DM Sans', sans-serif; font-size: .65rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: ${T.muted}; cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -1px; transition: .2s; display: flex; align-items: center; gap: 7px; }
-  .ev-phase-btn:hover, .ev-phase-btn.active { color: ${T.ink}; border-bottom-color: ${T.gold}; }
+  .ev-phase-btn:hover, .ev-phase-btn.active { color: ${T.ink}; border-bottom-color: ${T.red}; }
   .ev-phase-icon { font-size: .9rem; }
   .ev-block { padding: 0; border-bottom: 1px solid ${T.lineSoft}; }
   .ev-row { display: grid; grid-template-columns: 1fr 1fr; min-height: 520px; }
@@ -515,18 +515,18 @@ const GLOBAL_CSS = `
   .ev-video-wrap::before { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(-45deg, rgba(166,124,46,.03) 0px, rgba(166,124,46,.03) 1px, transparent 1px, transparent 12px); }
   .ev-video-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: brightness(.25) saturate(.4); display: block; }
   .ev-video-play-btn { position: relative; z-index: 2; width: 72px; height: 72px; border-radius: 50%; background: rgba(255,255,255,.1); border: 2px solid rgba(255,255,255,.35); display: flex; align-items: center; justify-content: center; margin-bottom: 16px; transition: .3s; backdrop-filter: blur(4px); }
-  .ev-video-wrap:hover .ev-video-play-btn { background: ${T.gold}; border-color: ${T.gold}; transform: scale(1.08); }
+  .ev-video-wrap:hover .ev-video-play-btn { background: ${T.red}; border-color: ${T.red}; transform: scale(1.08); }
   .ev-video-play-icon { font-size: 1.4rem; margin-left: 4px; color: #fff; }
   .ev-video-label { position: relative; z-index: 2; font-size: .65rem; letter-spacing: 3px; text-transform: uppercase; color: rgba(255,255,255,.5); font-weight: 600; }
   .ev-video-title { position: relative; z-index: 2; font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 700; color: rgba(255,255,255,.82); margin-top: 6px; text-align: center; padding: 0 24px; }
-  .ev-replace-badge { position: absolute; top: 14px; right: 14px; z-index: 5; background: ${T.gold}; color: #fff; font-size: .52rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 4px 10px; }
+  .ev-replace-badge { position: absolute; top: 14px; right: 14px; z-index: 5; background: ${T.red}; color: #fff; font-size: .52rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 4px 10px; }
   .ev-text { background: ${T.bg2}; padding: 56px 52px; display: flex; flex-direction: column; justify-content: center; position: relative; }
   .ev-time-chip { display: inline-flex; align-items: center; gap: 8px; margin-bottom: 18px; }
-  .ev-time-line { width: 28px; height: 1px; background: ${T.gold}; }
-  .ev-time-val { font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; color: ${T.gold}; letter-spacing: 3px; }
+  .ev-time-line { width: 28px; height: 1px; background: ${T.red}; }
+  .ev-time-val { font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; color: ${T.red}; letter-spacing: 3px; }
   .ev-time-phase { font-size: .58rem; letter-spacing: 3px; text-transform: uppercase; color: ${T.muted}; font-weight: 600; margin-left: 4px; }
   .ev-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 700; color: ${T.ink}; line-height: 1.0; margin-bottom: 6px; }
-  .ev-title em { color: ${T.gold}; font-style: italic; }
+  .ev-title em { color: ${T.red}; font-style: italic; }
   .ev-subtitle { font-size: .72rem; letter-spacing: 2px; text-transform: uppercase; color: ${T.muted}; font-weight: 600; margin-bottom: 20px; }
   .ev-desc { font-size: .88rem; color: ${T.muted}; line-height: 1.9; margin-bottom: 24px; }
   .ev-facts { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
@@ -534,9 +534,9 @@ const GLOBAL_CSS = `
   .ev-fact-icon { font-size: .82rem; }
   .ev-highlights { border-top: 1px solid ${T.line}; padding-top: 20px; display: flex; flex-direction: column; gap: 10px; }
   .ev-highlight-item { display: flex; align-items: flex-start; gap: 10px; font-size: .8rem; color: ${T.muted}; line-height: 1.6; }
-  .ev-highlight-dot { width: 6px; height: 6px; background: ${T.gold}; border-radius: 50%; flex-shrink: 0; margin-top: 6px; }
+  .ev-highlight-dot { width: 6px; height: 6px; background: ${T.red}; border-radius: 50%; flex-shrink: 0; margin-top: 6px; }
   .ev-phase-divider { padding: 20px 48px; display: flex; align-items: center; gap: 20px; background: ${T.bg}; border-bottom: 1px solid ${T.lineSoft}; }
-  .ev-phase-divider-label { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 4px; color: ${T.gold}; white-space: nowrap; }
+  .ev-phase-divider-label { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 4px; color: ${T.red}; white-space: nowrap; }
   .ev-phase-divider-line { flex: 1; height: 1px; background: ${T.line}; }
   .ev-phase-divider-time { font-family: 'Bebas Neue', sans-serif; font-size: .85rem; letter-spacing: 3px; color: ${T.muted}; white-space: nowrap; }
   .ev-midnight { position: relative; min-height: 600px; display: flex; align-items: center; justify-content: center; overflow: hidden; text-align: center; }
@@ -547,7 +547,7 @@ const GLOBAL_CSS = `
   .ev-video-mini { position: relative; aspect-ratio: 16/10; background: ${T.ink}; overflow: hidden; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 8px; }
   .ev-video-mini-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: brightness(.3) saturate(.5); display: block; }
   .ev-video-mini-play { position: relative; z-index: 2; width: 44px; height: 44px; border-radius: 50%; border: 1.5px solid rgba(255,255,255,.4); display: flex; align-items: center; justify-content: center; font-size: .9rem; color: #fff; transition: .3s; backdrop-filter: blur(4px); background: rgba(255,255,255,.1); }
-  .ev-video-mini:hover .ev-video-mini-play { background: ${T.gold}; border-color: ${T.gold}; transform: scale(1.1); }
+  .ev-video-mini:hover .ev-video-mini-play { background: ${T.red}; border-color: ${T.red}; transform: scale(1.1); }
   .ev-video-mini-label { position: relative; z-index: 2; font-size: .58rem; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,.5); font-weight: 600; text-align: center; padding: 0 8px; }
 
   /* RESPONSIVE */
@@ -635,24 +635,167 @@ const IMG = {
 // MASAZA DATA — enriched
 // ─────────────────────────────────────────────────────────────────────────────
 const MASAZA = [
-  { n: "Kyadondo",  chief: "Ssabaganzi",        img: IMG.palace,    area: "Kampala & Metro", desc: "Home to Kampala. One of the four original Buganda counties — the royal heartland where Lubiri Palace stands. Seat of political and cultural power.", known: "Lubiri Palace · Kampala City" },
-  { n: "Busiro",    chief: "Mugema",             img: IMG.culture,   area: "Central",         desc: "Ancient heartland of Buganda containing the UNESCO World Heritage Kasubi Royal Tombs. Home to the sacred burial grounds of four Kabakas.", known: "Kasubi Royal Tombs · Naggalabi" },
-  { n: "Kyaggwe",   chief: "Kago",               img: IMG.crowd,     area: "Eastern",         desc: "Eastern county rich in Lake Victoria islands and fertile agricultural land. The Ssese island chains extend into its territory.", known: "Mukono · Lake Victoria Islands" },
-  { n: "Buddu",     chief: "Pokino",             img: IMG.market,    area: "Southern",        desc: "Southern county with the Katonga River border. Fertile soils make it Buganda's agricultural breadbasket, rich in coffee and bananas.", known: "Masaka · Katonga River" },
-  { n: "Ssingo",    chief: "Kasujju",            img: IMG.drums,     area: "Northern",        desc: "Largest county in Buganda by area. Major northern county with significant cultural and agricultural heritage stretching to the equator.", known: "Luwero · Zirobwe" },
-  { n: "Mawokota",  chief: "Kangawo",            img: IMG.dance,     area: "Central-West",    desc: "Original Buganda county west of Kyadondo, known for Lake Victoria shores and fertile fishing communities.", known: "Mpigi · Lake Victoria Shore" },
-  { n: "Busujju",   chief: "Kitunzi",            img: IMG.craft,     area: "Western",         desc: "Western county historically part of the core Buganda territory. Rolling hills and traditional homesteads.", known: "Mityana · Kiboga boundary" },
-  { n: "Bulemeezi", chief: "Kimbugwe",           img: IMG.food,      area: "Northwest",       desc: "Northwestern county bordering Ssingo and Buruuli. Rolling landscape with diverse agriculture and cattle farming.", known: "Luweero Triangle · Makulubita" },
-  { n: "Buruuli",   chief: "Kimbugwe",           img: IMG.fireworks, area: "North",           desc: "Northern county situated on the shores of Lake Kyoga. Known for its fishing and the vast papyrus wetlands.", known: "Lake Kyoga · Nakasongola" },
-  { n: "Bugerere",  chief: "Mugema wa Bugerere", img: IMG.music,     area: "Northeast",       desc: "Eastern county bordered by the River Nile and Lake Kyoga. Gateway between Buganda and the Eastern region.", known: "River Nile · Kayunga" },
-  { n: "Gomba",     chief: "Kasujju wa Gomba",   img: IMG.palace,    area: "Southwest",       desc: "Southwestern county bordering the greater Ankole region. Historically a frontier county with rich pastoralist traditions.", known: "Mpigi · Kabulasoke" },
-  { n: "Butambala", chief: "Namasole",           img: IMG.culture,   area: "Central",         desc: "Small but culturally significant county in central Buganda. Named after the royal drum maker clan.", known: "Gombe · Bulo" },
-  { n: "Mubende",   chief: "Mugema wa Mubende",  img: IMG.crowd,     area: "Western",         desc: "Western county historically contested with the Bunyoro Kingdom. Site of Nakayima Hill, a sacred Buganda spiritual site.", known: "Nakayima Tree · Mubende Town" },
-  { n: "Buwekula",  chief: "Katambala",          img: IMG.market,    area: "Northwest",       desc: "Northwestern county known for rolling hills, pastoral farming, and the Kiboga forests.", known: "Kiboga · Kalangaala" },
-  { n: "Ssese",     chief: "Gabunga",            img: IMG.drums,     area: "Lake Victoria",   desc: "Sacred island county on Lake Victoria — the autonomous islands of the gods. 84 islands, revered for spiritual significance since ancient times.", known: "84 Islands · Bugala Island · Lwazi" },
-  { n: "Kabula",    chief: "Mukwenda",           img: IMG.dance,     area: "Southern",        desc: "Southern county, site of historically significant battles and migrations. Borders modern-day Tanzania across Lake Victoria.", known: "Lyantonde · Rakai District" },
-  { n: "Kooki",     chief: "Ssabaganzi wa Kooki",img: IMG.craft,     area: "Southwest",       desc: "Southwestern county with close cultural ties to Rwanda. Has its own royal tradition as a sub-kingdom within Buganda.", known: "Rakai · Rwanda border region" },
-  { n: "Buvuma",    chief: "Mugema wa Buvuma",   img: IMG.fireworks, area: "Lake Victoria",   desc: "Island county in Lake Victoria, renowned for its fishing communities and unique island culture. Buvuma Island is the largest.", known: "Buvuma Island · Lake Victoria" },
+  { 
+    n: "Kyaddondo",
+    chief: "Ssabaganzi",
+    img: "http://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/Kampala_Kyadondo.jpg",
+    area: "Kampala & Metro",
+    desc: "Home to Kampala. One of the four original Buganda counties — the royal heartland where Lubiri Palace stands. Seat of political and cultural power.",
+    known: "Lubiri Palace · Kampala City"
+  },
+
+  { 
+    n: "Busiro",
+    chief: "Mugema",
+    img: "http://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/MengoPalace_Busiro.jpg",
+    area: "Central",
+    desc: "Ancient heartland of Buganda containing the UNESCO Kasubi Royal Tombs. Burial grounds of Buganda kings.",
+    known: "Kasubi Royal Tombs · Naggalabi"
+  },
+
+  { 
+    n: "Kyaggwe",
+    chief: "Kago",
+    img: "http://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/SsezibwaFalls_Kyagwe1.jpg",
+    area: "Eastern",
+    desc: "Eastern county rich in fertile land and cultural heritage, home to iconic natural sites.",
+    known: "Sezibwa Falls · Mukono"
+  },
+
+  { 
+    n: "Buddu",
+    chief: "Pokino",
+    img: "http://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/KitovuCathedral_Buddu.png",
+    area: "Southern",
+    desc: "Fertile agricultural region known for bananas and coffee production.",
+    known: "Masaka · Katonga River"
+  },
+
+  { 
+    n: "Ssingo",
+    chief: "Kasujju",
+    img: "http://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/MityanaTeaEstate_Ssingo.png",
+    area: "Northern",
+    desc: "Largest Buganda county with strong agricultural presence and tea growing.",
+    known: "Mityana · Tea Estates"
+  },
+
+  { 
+    n: "Mawokota",
+    chief: "Kangawo",
+    img: "http://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/Equator_Mawokota.jpg",
+    area: "Central-West",
+    desc: "Known for the Uganda Equator landmark and lakeside communities.",
+    known: "Mpigi · Equator Monument"
+  },
+
+  { 
+    n: "Busujju",
+    chief: "Kitunzi",
+    img: "http://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/BwindiForest_Busujju2.jpg",
+    area: "Western",
+    desc: "Traditional Buganda countryside with deep cultural roots.",
+    known: "Mityana region"
+  },
+
+  { 
+    n: "Bulemeezi",
+    chief: "Kimbugwe",
+    img: "http://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/Pineapple_Bulemeezi.png",
+    area: "Northwest",
+    desc: "Known for pineapple farming and mixed agriculture.",
+    known: "Zirobwe · Luweero"
+  },
+
+  { 
+    n: "Buluuli",
+    chief: "Kimbugwe",
+    img: "http://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/Grazing_Buluuli1.jpg",
+    area: "North",
+    desc: "Savannah grasslands with pastoral farming and cattle keeping.",
+    known: "Nakasongola · Lake Kyoga"
+  },
+
+  { 
+    n: "Bugerere",
+    chief: "Mugema wa Bugerere",
+    img: "http://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/SugarcaneFields_Bugerere.png",
+    area: "Northeast",
+    desc: "Major sugarcane growing region and agricultural hub.",
+    known: "Kayunga · Sugar plantations"
+  },
+
+  { 
+    n: "Gomba",
+    chief: "Kasujju wa Gomba",
+    img: "http://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/Grazing_Gomba.jpg",
+    area: "Southwest",
+    desc: "Pastoral county known for long-horned cattle and ranching.",
+    known: "Kabulasoke · Ranches"
+  },
+
+  { 
+    n: "Butambala",
+    chief: "Namasole",
+    img: "http://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/Ginger_Butambala.png",
+    area: "Central",
+    desc: "Culturally rich rural county with traditional homesteads.",
+    known: "Gombe · Bulo"
+  },
+
+  { 
+    n: "Buwekula",
+    chief: "Katambala",
+    img: "http://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/NakayimaTree_Buwekula.jpg",
+    area: "Northwest",
+    desc: "Home to sacred traditional sites and rolling hills.",
+    known: "Nakayima Tree · Mubende"
+  },
+
+  { 
+    n: "Kabula",
+    chief: "Mukwenda",
+    img: "http://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/Grazing_Kabula.jpg",
+    area: "Southern",
+    desc: "Coffee-growing region with strong agricultural identity.",
+    known: "Lyantonde · Rakai"
+  },
+
+  { 
+    n: "Kooki",
+    chief: "Ssabaganzi wa Kooki",
+    img: "http://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/Boarder_Kooki.png",
+    area: "Southwest",
+    desc: "Semi-arid region with cattle keeping and unique sub-kingdom identity.",
+    known: "Rakai · Border region"
+  },
+
+  { 
+    n: "Mawogola",
+    chief: "Kangawo wa Mawogola",
+    img: "http://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/Grazing_Mawogola.jpg",
+    area: "South",
+    desc: "Cattle corridor region with expansive grazing land.",
+    known: "Sembabule"
+  },
+
+  { 
+    n: "Ssese",
+    chief: "Gabunga",
+    img: "http://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/Beach_Ssese.jpg",
+    area: "Lake Victoria",
+    desc: "Island county with palm beaches and strong spiritual heritage.",
+    known: "Bugala Island · Ssese Islands"
+  },
+
+  { 
+    n: "Buvuma",
+    chief: "Mugema wa Buvuma",
+    img: "http://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/Fishing_Buvuma.png",
+    area: "Lake Victoria",
+    desc: "Island district known for fishing communities.",
+    known: "Buvuma Island · Lake Victoria"
+  }
 ];
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -660,7 +803,7 @@ const MASAZA = [
 // ─────────────────────────────────────────────────────────────────────────────
 // Simplified schematic positions representing the geographic arrangement
 // ── UPDATE THIS URL with your actual Buganda map image ──
-const BUGANDA_MAP_IMG = "https://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/BugandaMap2.png";
+const BUGANDA_MAP_IMG = "http://raw.githubusercontent.com/AshrafGit256/enkuuka-site/main/public/assets/images/BugandaMap2.png";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // REMAINING DATA
@@ -847,7 +990,7 @@ const pad=n=>String(n).padStart(2,"0");
 function Ticker(){const items=[...TICKER_WORDS,...TICKER_WORDS];return(<div className="ticker"><div className="ticker-track">{items.map((t,i)=><span key={i} className="ticker-item">{t}<span className="ticker-dot"/></span>)}</div></div>);}
 function PageHero({img,label,title,titleAccent}){return(<div className="phero"><img src={img} alt={label} loading="lazy"/><div className="phero-ov"/><div className="phero-content"><p className="s-label">{label}</p><h1 className="s-title f-display" style={{fontSize:"clamp(1.8rem,5vw,3.6rem)"}}>{title} {titleAccent&&<em>{titleAccent}</em>}</h1></div></div>);}
 function EventCard({tag,title,desc,img}){return(<div className="event-card"><img src={img} alt={title} loading="lazy"/><div className="event-card-overlay"/><div className="event-card-body"><span className="event-card-tag">{tag}</span><p className="event-card-title f-display">{title}</p><p className="event-card-desc">{desc}</p></div></div>);}
-function SplitSection({img,label,title,titleAccent,body,cta,onCta,reverse=false,children}){return(<div className={`split${reverse?" rev":""}`}><div className="split-img"><img src={img} alt={title} loading="lazy"/><div className="split-img-overlay"/></div><div className="split-content"><FU><p className="s-label">{label}</p><h2 className="s-title f-display">{title}{titleAccent&&<> <em>{titleAccent}</em></>}</h2>{body&&<p className="s-body" style={{marginBottom:22}}>{body}</p>}{children}{cta&&<button className="btn-gold" onClick={onCta} style={{alignSelf:"flex-start"}}>{cta}</button>}</FU></div></div>);}
+function SplitSection({img,label,title,titleAccent,body,cta,onCta,reverse=false,children}){return(<div className={`split${reverse?" rev":""}`}><div className="split-img"><img src={img} alt={title} loading="lazy"/><div className="split-img-overlay"/></div><div className="split-content"><FU><p className="s-label">{label}</p><h2 className="s-title f-display">{title}{titleAccent&&<> <em>{titleAccent}</em></>}</h2>{body&&<p className="s-body" style={{marginBottom:22}}>{body}</p>}{children}{cta&&<button className="btn-red" onClick={onCta} style={{alignSelf:"flex-start"}}>{cta}</button>}</FU></div></div>);}
 function PageFooter({setPage}){const go=p=>{setPage(p);window.scrollTo(0,0);};return(<footer className="footer"><div className="footer-grid"><div><p className="footer-brand f-display">Enkuuka <em>y'Omwaka</em></p><p className="footer-tagline">Uganda's premier cultural and economic festival. Every 31st December at Lubiri Palace, Mengo.</p><div className="social-row">{["𝕏","f","▶","📷"].map((s,i)=><div key={i} className="social-btn">{s}</div>)}</div></div><div><p className="footer-col-head">Event</p><ul className="footer-links">{["Home","Culture","Clans","Masaza","Entertainment","Events","Programme"].map(p=><li key={p} onClick={()=>go(p)}>{p}</li>)}</ul></div><div><p className="footer-col-head">Attend</p><ul className="footer-links">{["Accommodation","Business","Gallery","Invitation","Contact"].map(p=><li key={p} onClick={()=>go(p)}>{p}</li>)}</ul></div><div><p className="footer-col-head">Contact</p><ul className="footer-links"><li>Lubiri Palace, Mengo</li><li>Kampala, Uganda</li><li>info@enkuuka.ug</li><li>+256 414 000 000</li></ul></div></div><div className="footer-bottom"><p className="footer-copy">© 2025 Enkuuka y'Omwaka · Buganda Kingdom</p><div className="social-row">{["𝕏","f","▶","📷"].map((s,i)=><div key={i} className="social-btn">{s}</div>)}</div></div></footer>);}
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -870,7 +1013,7 @@ function MasazaPage({ setPage }) {
 
   return (
     <div className="page-enter">
-      <PageHero img={IMG.palace} label="Amasaza ga Buganda" title="The 18 Counties of" titleAccent="Buganda" />
+      <PageHero img={IMG.football} label="Amasaza ga Buganda" title="The 18 Counties of" titleAccent="Buganda" />
       <Ticker />
 
       {/* ── INTRO BAR ── */}
@@ -917,7 +1060,7 @@ function MasazaPage({ setPage }) {
             {/* Right: map image + detail */}
             <div className="masaza-map-panel">
               <div className="masaza-map-header">
-                <p style={{ fontSize:".6rem", letterSpacing:3, textTransform:"uppercase", color:T.gold, fontWeight:700 }}>Buganda Kingdom — Official Map</p>
+                <p style={{ fontSize:".6rem", letterSpacing:3, textTransform:"uppercase", color:T.red, fontWeight:700 }}>Buganda Kingdom — Official Map</p>
                 <p style={{ fontSize:".72rem", color:T.muted, marginTop:2 }}>Select a county from the list to view its details</p>
               </div>
               <div className="masaza-map-wrap">
@@ -934,15 +1077,15 @@ function MasazaPage({ setPage }) {
                     width: "100%", height: "100%", minHeight: 320,
                     display: "flex", flexDirection: "column",
                     alignItems: "center", justifyContent: "center",
-                    background: T.bg3, border: `2px dashed ${T.gold3}`,
+                    background: T.bg3, border: `2px dashed ${T.red3}`,
                     gap: 12, padding: 24, textAlign: "center",
                   }}>
                     <span style={{ fontSize: "2.2rem" }}>🗺️</span>
                     <p style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"1.1rem", fontWeight:700, color:T.ink }}>Buganda Kingdom Map</p>
                     <p style={{ fontSize:".75rem", color:T.muted, lineHeight:1.7, maxWidth:240 }}>
-                      Replace <code style={{ background:T.bg2, padding:"1px 5px", borderRadius:2, fontSize:".7rem", color:T.gold }}>BUGANDA_MAP_IMG</code> at the top of the file with your actual map image URL to display it here.
+                      Replace <code style={{ background:T.bg2, padding:"1px 5px", borderRadius:2, fontSize:".7rem", color:T.red }}>BUGANDA_MAP_IMG</code> at the top of the file with your actual map image URL to display it here.
                     </p>
-                    <div style={{ marginTop:6, padding:"6px 14px", background:T.gold, color:"#fff", fontSize:".6rem", fontWeight:700, letterSpacing:2, textTransform:"uppercase" }}>
+                    <div style={{ marginTop:6, padding:"6px 14px", background:T.red, color:"#fff", fontSize:".6rem", fontWeight:700, letterSpacing:2, textTransform:"uppercase" }}>
                       Awaiting Map Image
                     </div>
                   </div>
@@ -999,10 +1142,10 @@ function MasazaPage({ setPage }) {
       <FU>
         <div className="masaza-history">
           <div className="masaza-history-text">
-            <p style={{ fontSize:".65rem", letterSpacing:4, textTransform:"uppercase", color:T.gold3, fontWeight:700, marginBottom:14 }}>Historical Context</p>
+            <p style={{ fontSize:".65rem", letterSpacing:4, textTransform:"uppercase", color:T.red3, fontWeight:700, marginBottom:14 }}>Historical Context</p>
             <h2>The Kingdom's <em>Administrative Genius</em></h2>
             <p>Buganda's county system is one of the most sophisticated pre-colonial administrative structures in sub-Saharan Africa. Each Masaza was governed by a Saza Chief appointed by the Kabaka, answerable to the Lukiiko (Parliament), and responsible for tax collection, military recruitment, and judicial matters.</p>
-            <p>The counties are sub-divided into Gombolola (sub-counties), then Miluka (parishes), and finally individual family units called <em style={{ color:T.gold3 }}>Enju</em> — creating a hierarchy of governance that endured for centuries before colonial reorganisation.</p>
+            <p>The counties are sub-divided into Gombolola (sub-counties), then Miluka (parishes), and finally individual family units called <em style={{ color:T.red3 }}>Enju</em> — creating a hierarchy of governance that endured for centuries before colonial reorganisation.</p>
             <p style={{ marginBottom:0 }}>Buganda originally had 20 counties. In 1964, following a referendum, Buyaga and Bugangaizi counties were ceded to the Bunyoro Kingdom — reducing the total to the current 18 Masaza.</p>
           </div>
           <div>
@@ -1018,11 +1161,11 @@ function MasazaPage({ setPage }) {
               ))}
             </div>
             <div style={{ marginTop:2, background:"rgba(255,255,255,.04)", border:"1px solid rgba(201,168,76,.12)", padding:"20px" }}>
-              <p style={{ fontSize:".65rem", letterSpacing:3, textTransform:"uppercase", color:T.gold3, marginBottom:8, fontWeight:700 }}>The Hierarchy</p>
+              <p style={{ fontSize:".65rem", letterSpacing:3, textTransform:"uppercase", color:T.red3, marginBottom:8, fontWeight:700 }}>The Hierarchy</p>
               {["Masaza (County)","Gombolola (Sub-county)","Miluka (Parish)","Mutala (Village)","Enju (Family Unit)"].map((level,i)=>(
                 <div key={level} style={{ display:"flex", alignItems:"center", gap:10, marginBottom: i<4?8:0 }}>
                   <div style={{ width:20, height:20, background:"rgba(212,174,94,.15)", border:"1px solid rgba(212,174,94,.25)", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0 }}>
-                    <span style={{ fontFamily:"'Bebas Neue',sans-serif", fontSize:".65rem", color:T.gold3 }}>{i+1}</span>
+                    <span style={{ fontFamily:"'Bebas Neue',sans-serif", fontSize:".65rem", color:T.red3 }}>{i+1}</span>
                   </div>
                   <span style={{ fontSize:".8rem", color:"rgba(250,245,232,.55)" }}>{level}</span>
                 </div>
@@ -1051,13 +1194,13 @@ function MasazaPage({ setPage }) {
             <div style={{ display:"flex", gap:14, flexWrap:"wrap", marginBottom:28 }}>
               {[["18","Counties Compete"],["2004","Year Founded"],["Uganda Cranes","Talent Source"]].map(([top,bot])=>(
                 <div key={bot} style={{ padding:"12px 16px", border:`1px solid ${T.line}`, background:"#fff", textAlign:"center", minWidth:110 }}>
-                  <p className="f-block" style={{ color:T.gold, fontSize:".85rem" }}>{top}</p>
+                  <p className="f-block" style={{ color:T.red, fontSize:".85rem" }}>{top}</p>
                   <p style={{ fontSize:".6rem", color:T.muted, letterSpacing:1.5, textTransform:"uppercase", marginTop:2 }}>{bot}</p>
                 </div>
               ))}
             </div>
             <div style={{ display:"flex", gap:12, flexWrap:"wrap" }}>
-              <button className="btn-gold" onClick={() => setPage("Culture")}>Explore Buganda Culture →</button>
+              <button className="btn-red" onClick={() => setPage("Culture")}>Explore Buganda Culture →</button>
               <button className="btn-outline" onClick={() => setPage("Events")}>Day Events at Enkuuka</button>
             </div>
           </div>
@@ -1072,14 +1215,14 @@ function MasazaPage({ setPage }) {
 // ─────────────────────────────────────────────────────────────────────────────
 // HOME PAGE
 // ─────────────────────────────────────────────────────────────────────────────
-function HomePage({setPage}){const cd=useCountdown();return(<div className="page-enter"><section className="hero"><div className="hero-bg" style={{backgroundImage:`url(${IMG.hero})`}}/><div className="hero-overlay"/><div className="hero-deco"/><div className="hero-content"><p className="hero-eyebrow">Lubiri Palace · Mengo · Kampala</p><h1 className="hero-title f-display">Enkuuka<br/><em>y'Omwaka</em></h1><p className="hero-sub">The Royal Buganda New Year Festival</p><div className="countdown"><div className="cd-block"><span className="cd-num">{pad(cd.d)}</span><span className="cd-label">Days</span></div><span className="cd-sep">:</span><div className="cd-block"><span className="cd-num">{pad(cd.h)}</span><span className="cd-label">Hours</span></div><span className="cd-sep">:</span><div className="cd-block"><span className="cd-num">{pad(cd.m)}</span><span className="cd-label">Mins</span></div><span className="cd-sep">:</span><div className="cd-block"><span className="cd-num">{pad(cd.s)}</span><span className="cd-label">Secs</span></div></div><div style={{display:"flex",gap:12,flexWrap:"wrap"}}><button className="btn-gold" onClick={()=>setPage("Invitation")}>Secure Your Tickets →</button><button className="btn-outline" style={{color:"rgba(250,245,232,.85)",borderColor:"rgba(250,245,232,.4)"}} onClick={()=>setPage("Events")}>See Day Events</button></div></div></section><Ticker/><div className="stats-strip"><div className="stat-cell"><span className="stat-num f-block">52</span><span className="stat-label">Buganda Clans</span></div><div className="stat-cell"><span className="stat-num f-block">18</span><span className="stat-label">Masaza Counties</span></div><div className="stat-cell"><span className="stat-num f-block">36</span><span className="stat-label">Kabakas of Buganda</span></div></div><div style={{background:T.bg,padding:"64px 48px"}}><FU><p className="s-label">What's On</p><h2 className="s-title f-display">Highlights at <em>Enkuuka 2025</em></h2></FU><div className="event-grid" style={{marginTop:24}}>{HOME_EVENTS.map((e,i)=><FU key={e.title} delay={i*.06}><EventCard {...e}/></FU>)}</div><FU delay={0.3} style={{marginTop:28,textAlign:"center"}}><button className="btn-outline" onClick={()=>setPage("Events")}>View Full Day Events →</button></FU></div><SplitSection img={IMG.drums} label="Culture & Heritage" title="600 Years of" titleAccent="Kiganda Pride" body="The Buganda Kingdom — one of East Africa's oldest and most organised kingdoms. Royal drumming, Baakisimba dance, bark cloth and the sacred clan system come alive at Lubiri Palace every 31st December." cta="Explore Culture →" onCta={()=>setPage("Culture")}/><SplitSection img={IMG.market} label="Business & Trade Fair" title="50,000 People." titleAccent="One Marketplace." body="Uganda's most impactful end-of-year economic platform. 200+ vendors, SMEs and corporates united under the royal roof of Lubiri." cta="Register as Vendor →" onCta={()=>setPage("Business")} reverse/><div className="sponsors-band"><span style={{fontSize:".62rem",letterSpacing:3,textTransform:"uppercase",color:T.gold,fontWeight:700,marginRight:8}}>Partners</span>{SPONSORS.map(s=><div key={s} className="sponsor-pill">{s}</div>)}</div><PageFooter setPage={setPage}/></div>);}
+function HomePage({setPage}){const cd=useCountdown();return(<div className="page-enter"><section className="hero"><div className="hero-bg" style={{backgroundImage:`url(${IMG.hero})`}}/><div className="hero-overlay"/><div className="hero-deco"/><div className="hero-content"><p className="hero-eyebrow">Lubiri Palace · Mengo · Kampala</p><h1 className="hero-title f-display">Enkuuka<br/><em>y'Omwaka</em></h1><p className="hero-sub">The Royal Buganda New Year Festival</p><div className="countdown"><div className="cd-block"><span className="cd-num">{pad(cd.d)}</span><span className="cd-label">Days</span></div><span className="cd-sep">:</span><div className="cd-block"><span className="cd-num">{pad(cd.h)}</span><span className="cd-label">Hours</span></div><span className="cd-sep">:</span><div className="cd-block"><span className="cd-num">{pad(cd.m)}</span><span className="cd-label">Mins</span></div><span className="cd-sep">:</span><div className="cd-block"><span className="cd-num">{pad(cd.s)}</span><span className="cd-label">Secs</span></div></div><div style={{display:"flex",gap:12,flexWrap:"wrap"}}><button className="btn-red" onClick={()=>setPage("Invitation")}>Secure Your Tickets →</button><button className="btn-outline" style={{color:"rgba(250,245,232,.85)",borderColor:"rgba(250,245,232,.4)"}} onClick={()=>setPage("Events")}>See Day Events</button></div></div></section><Ticker/><div className="stats-strip"><div className="stat-cell"><span className="stat-num f-block">52</span><span className="stat-label">Buganda Clans</span></div><div className="stat-cell"><span className="stat-num f-block">18</span><span className="stat-label">Masaza Counties</span></div><div className="stat-cell"><span className="stat-num f-block">36</span><span className="stat-label">Kabakas of Buganda</span></div></div><div style={{background:T.bg,padding:"64px 48px"}}><FU><p className="s-label">What's On</p><h2 className="s-title f-display">Highlights at <em>Enkuuka 2025</em></h2></FU><div className="event-grid" style={{marginTop:24}}>{HOME_EVENTS.map((e,i)=><FU key={e.title} delay={i*.06}><EventCard {...e}/></FU>)}</div><FU delay={0.3} style={{marginTop:28,textAlign:"center"}}><button className="btn-outline" onClick={()=>setPage("Events")}>View Full Day Events →</button></FU></div><SplitSection img={IMG.drums} label="Culture & Heritage" title="600 Years of" titleAccent="Kiganda Pride" body="The Buganda Kingdom — one of East Africa's oldest and most organised kingdoms. Royal drumming, Baakisimba dance, bark cloth and the sacred clan system come alive at Lubiri Palace every 31st December." cta="Explore Culture →" onCta={()=>setPage("Culture")}/><SplitSection img={IMG.market} label="Business & Trade Fair" title="50,000 People." titleAccent="One Marketplace." body="Uganda's most impactful end-of-year economic platform. 200+ vendors, SMEs and corporates united under the royal roof of Lubiri." cta="Register as Vendor →" onCta={()=>setPage("Business")} reverse/><div className="sponsors-band"><span style={{fontSize:".62rem",letterSpacing:3,textTransform:"uppercase",color:T.red,fontWeight:700,marginRight:8}}>Partners</span>{SPONSORS.map(s=><div key={s} className="sponsor-pill">{s}</div>)}</div><PageFooter setPage={setPage}/></div>);}
 
 // CULTURE
-function CulturePage({setPage}){const traditions=[{img:IMG.king,label:"Royalty",title:"Kabaka",accent:"of Buganda",body:"The Kabaka is the living embodiment of the Buganda Kingdom — sovereign, spiritual symbol, and guardian of Kiganda tradition."},{img:IMG.dance,label:"Tradition",title:"Traditional",accent:"Dance",body:"Baakisimba, Nankasa and Mbaga are sacred dances at royal gatherings. Every movement is a language of Kiganda identity.",reverse:true},{img:IMG.traditional,label:"Tradition",title:"Bark Cloth",accent:"(Olubugo)",body:"UNESCO-recognised bark cloth crafted entirely by hand from the mutuba fig tree — the defining textile of Buganda."},{img:IMG.dress,label:"Tradition",title:"Gomesi &",accent:"Kanzu",body:"The elegant gomesi and flowing kanzu are the formal traditional dress of the Baganda. Seeing thousands of them at Lubiri on December 31st is extraordinary.",reverse:true}];return(<div className="page-enter"><PageHero img={IMG.kingdom} label="Show Culture · Have Heritage" title="Buganda —" titleAccent="Kingdom of Grace"/><Ticker/>{traditions.map(t=><SplitSection key={t.title} {...t}/>)}<div className="kabaka-band"><FU style={{textAlign:"center"}}><p className="s-label" style={{justifyContent:"center"}}>His Majesty</p><h2 className="s-title f-display" style={{fontSize:"clamp(1.8rem,5vw,3.4rem)",textAlign:"center"}}>The Kabaka of <em>Buganda</em></h2><p style={{color:T.muted,lineHeight:1.9,maxWidth:620,margin:"16px auto 28px",fontSize:".9rem"}}>His Majesty Ronald Muwenda Mutebi II, the 36th Kabaka, has presided over the kingdom since 1993. At Enkuuka y'Omwaka, his presence transforms the celebration into a royal gathering.</p><div style={{display:"flex",gap:14,justifyContent:"center",flexWrap:"wrap"}}>{[["👑","36th Kabaka","Since 1993"],["🏛","Lubiri Palace","Royal Seat"],["🌍","6M+ Baganda","Kingdom People"],["📜","52 Clans","All United"]].map(([icon,t1,t2])=>(<div key={t1} className="kab-stat"><div style={{fontSize:"1.4rem",marginBottom:6}}>{icon}</div><p className="f-block" style={{color:T.ink,fontSize:".9rem"}}>{t1}</p><p style={{fontSize:".62rem",color:T.muted,letterSpacing:2,textTransform:"uppercase",marginTop:2}}>{t2}</p></div>))}</div><div style={{display:"flex",gap:12,justifyContent:"center",marginTop:28,flexWrap:"wrap"}}><button className="btn-gold" onClick={()=>setPage("Clans")}>Explore All 52 Clans →</button><button className="btn-outline" onClick={()=>setPage("Masaza")}>View 18 Masaza</button></div></FU></div><PageFooter setPage={setPage}/></div>);}
+function CulturePage({setPage}){const traditions=[{img:IMG.king,label:"Royalty",title:"Kabaka",accent:"of Buganda",body:"The Kabaka is the living embodiment of the Buganda Kingdom — sovereign, spiritual symbol, and guardian of Kiganda tradition."},{img:IMG.dance,label:"Tradition",title:"Traditional",accent:"Dance",body:"Baakisimba, Nankasa and Mbaga are sacred dances at royal gatherings. Every movement is a language of Kiganda identity.",reverse:true},{img:IMG.traditional,label:"Tradition",title:"Bark Cloth",accent:"(Olubugo)",body:"UNESCO-recognised bark cloth crafted entirely by hand from the mutuba fig tree — the defining textile of Buganda."},{img:IMG.dress,label:"Tradition",title:"Gomesi &",accent:"Kanzu",body:"The elegant gomesi and flowing kanzu are the formal traditional dress of the Baganda. Seeing thousands of them at Lubiri on December 31st is extraordinary.",reverse:true}];return(<div className="page-enter"><PageHero img={IMG.kingdom} label="Show Culture · Have Heritage" title="Buganda —" titleAccent="Kingdom of Grace"/><Ticker/>{traditions.map(t=><SplitSection key={t.title} {...t}/>)}<div className="kabaka-band"><FU style={{textAlign:"center"}}><p className="s-label" style={{justifyContent:"center"}}>His Majesty</p><h2 className="s-title f-display" style={{fontSize:"clamp(1.8rem,5vw,3.4rem)",textAlign:"center"}}>The Kabaka of <em>Buganda</em></h2><p style={{color:T.muted,lineHeight:1.9,maxWidth:620,margin:"16px auto 28px",fontSize:".9rem"}}>His Majesty Ronald Muwenda Mutebi II, the 36th Kabaka, has presided over the kingdom since 1993. At Enkuuka y'Omwaka, his presence transforms the celebration into a royal gathering.</p><div style={{display:"flex",gap:14,justifyContent:"center",flexWrap:"wrap"}}>{[["👑","36th Kabaka","Since 1993"],["🏛","Lubiri Palace","Royal Seat"],["🌍","6M+ Baganda","Kingdom People"],["📜","52 Clans","All United"]].map(([icon,t1,t2])=>(<div key={t1} className="kab-stat"><div style={{fontSize:"1.4rem",marginBottom:6}}>{icon}</div><p className="f-block" style={{color:T.ink,fontSize:".9rem"}}>{t1}</p><p style={{fontSize:".62rem",color:T.muted,letterSpacing:2,textTransform:"uppercase",marginTop:2}}>{t2}</p></div>))}</div><div style={{display:"flex",gap:12,justifyContent:"center",marginTop:28,flexWrap:"wrap"}}><button className="btn-red" onClick={()=>setPage("Clans")}>Explore All 52 Clans →</button><button className="btn-outline" onClick={()=>setPage("Masaza")}>View 18 Masaza</button></div></FU></div><PageFooter setPage={setPage}/></div>);}
 
 // CLANS
-function ClanCardPro({clan,index,featured=false}){return(<div className={`clan-card-pro${featured?" featured":""}`}><img className="clan-img" src={clan.img} alt={clan.totem} loading="lazy" onError={e=>{e.target.src="https://images.unsplash.com/photo-1549366021-9f761d450615?w=640&q=80";}}/><div className="clan-gradient"/><div className="clan-badge"><span className="clan-badge-pill clan-badge-num">{String(index+1).padStart(2,"00")}</span>{clan.orig&&<span className="clan-badge-pill clan-badge-orig">Banansangwa</span>}{clan.royal&&<span className="clan-badge-pill clan-badge-royal">👑 Royal</span>}</div><div className="clan-static-bottom"><span className="clan-card-totem-label">Totem</span><p className="clan-card-name f-display">{clan.n}</p><p className="clan-card-totem">{clan.totem}</p></div><div className="clan-hover-panel"><span className="clan-card-totem-label">Ekika · Clan {String(index+1).padStart(2,"0")}</span><p className="clan-card-name f-display">{clan.n}</p><p className="clan-card-totem" style={{color:"rgba(250,245,232,.65)",fontSize:".78rem",lineHeight:1.5}}>Omuziro: <strong style={{color:T.gold3}}>{clan.totem}</strong></p><div className="clan-head-row"><div className="clan-head-icon">♛</div><div><span className="clan-head-label">Clan Head</span><p className="clan-head-name">{clan.head}</p></div></div></div></div>);}
-function ClansPage({setPage}){const[query,setQuery]=useState("");const[filter,setFilter]=useState("All");const filtered=useMemo(()=>{let list=CLANS;if(filter==="Original 5")list=list.filter(c=>c.orig);if(filter==="Royal")list=list.filter(c=>c.royal);if(filter==="Other")list=list.filter(c=>!c.orig&&!c.royal);if(query.trim()){const q=query.toLowerCase();list=list.filter(c=>c.n.toLowerCase().includes(q)||c.totem.toLowerCase().includes(q)||c.head.toLowerCase().includes(q));}return list;},[query,filter]);const FILTERS=["All","Original 5","Royal","Other"];return(<div className="page-enter"><PageHero img={IMG.clans} label="Ebika by'Obuganda" title="The 52 Clans of" titleAccent="Buganda"/><Ticker/><div className="clans-section"><div className="clans-header"><FU><p className="s-label">About the Clan System</p><h2 className="s-title f-display">Identity Through <em>Blood & Totem</em></h2><p className="clans-intro-text">Every Muganda must belong to one of Buganda's clans (<em>Ebika</em>). Membership is patrilineal — passed from father to child. Each clan is identified by a primary totem (<strong>Omuziro</strong>) and secondary totem (<strong>Akabbiro</strong>).</p></FU><FU delay={0.1}><div className="clan-filter-bar"><div className="clan-search-wrap"><span className="clan-search-icon">⌕</span><input className="clan-search" placeholder="Search by clan, totem, or head…" value={query} onChange={e=>setQuery(e.target.value)}/></div><div className="clan-filter-pills">{FILTERS.map(f=><button key={f} className={`clan-filter-pill${filter===f?" active":""}`} onClick={()=>setFilter(f)}>{f}</button>)}</div></div></FU></div><FU delay={0.15}><div className="clans-grid-pro">{filtered.map((clan,i)=><ClanCardPro key={clan.n} clan={clan} index={CLANS.indexOf(clan)} featured={i<2&&filter==="All"&&!query}/>)}</div>{filtered.length===0&&(<div style={{textAlign:"center",padding:"60px 20px",color:T.muted}}><p style={{fontSize:"2rem",marginBottom:12}}>🔍</p><p className="f-display" style={{fontFamily:"'Cormorant Garamond',serif",fontSize:"1.4rem",color:T.ink,marginBottom:6}}>No clans found</p></div>)}<div className="clan-count-bar"><p className="clan-count">Showing <strong style={{color:T.gold}}>{filtered.length}</strong> of {CLANS.length} clans</p><div className="clan-legend"><div className="clan-legend-item"><div className="clan-legend-dot" style={{background:T.gold}}/><span>Banansangwa</span></div><div className="clan-legend-item"><div className="clan-legend-dot" style={{background:"#7A1515"}}/><span>Royal</span></div></div></div></FU></div><div style={{background:T.bg2,borderTop:`1px solid ${T.lineSoft}`,padding:"48px 48px"}}><FU><div style={{display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:2}}>{[{icon:"🪶",title:"Patrilineal Heritage",body:"Clan membership passes exclusively through the father."},{icon:"🚫",title:"Clan Exogamy",body:"Marriage between members of the same clan is strictly forbidden."},{icon:"🐾",title:"The Sacred Totem",body:"Members never eat, hunt, or harm their clan's totem."}].map(({icon,title,body})=>(<div key={title} style={{padding:"32px 36px",borderRight:`1px solid ${T.lineSoft}`,background:"#fff"}}><div style={{fontSize:"1.6rem",marginBottom:12}}>{icon}</div><p className="f-display" style={{fontFamily:"'Cormorant Garamond',serif",fontSize:"1.1rem",fontWeight:700,color:T.ink,marginBottom:8}}>{title}</p><p style={{fontSize:".8rem",color:T.muted,lineHeight:1.85}}>{body}</p></div>))}</div></FU></div><PageFooter setPage={setPage}/></div>);}
+function ClanCardPro({clan,index,featured=false}){return(<div className={`clan-card-pro${featured?" featured":""}`}><img className="clan-img" src={clan.img} alt={clan.totem} loading="lazy" onError={e=>{e.target.src="https://images.unsplash.com/photo-1549366021-9f761d450615?w=640&q=80";}}/><div className="clan-gradient"/><div className="clan-badge"><span className="clan-badge-pill clan-badge-num">{String(index+1).padStart(2,"00")}</span>{clan.orig&&<span className="clan-badge-pill clan-badge-orig">Banansangwa</span>}{clan.royal&&<span className="clan-badge-pill clan-badge-royal">👑 Royal</span>}</div><div className="clan-static-bottom"><span className="clan-card-totem-label">Totem</span><p className="clan-card-name f-display">{clan.n}</p><p className="clan-card-totem">{clan.totem}</p></div><div className="clan-hover-panel"><span className="clan-card-totem-label">Ekika · Clan {String(index+1).padStart(2,"0")}</span><p className="clan-card-name f-display">{clan.n}</p><p className="clan-card-totem" style={{color:"rgba(250,245,232,.65)",fontSize:".78rem",lineHeight:1.5}}>Omuziro: <strong style={{color:T.red3}}>{clan.totem}</strong></p><div className="clan-head-row"><div className="clan-head-icon">♛</div><div><span className="clan-head-label">Clan Head</span><p className="clan-head-name">{clan.head}</p></div></div></div></div>);}
+function ClansPage({setPage}){const[query,setQuery]=useState("");const[filter,setFilter]=useState("All");const filtered=useMemo(()=>{let list=CLANS;if(filter==="Original 5")list=list.filter(c=>c.orig);if(filter==="Royal")list=list.filter(c=>c.royal);if(filter==="Other")list=list.filter(c=>!c.orig&&!c.royal);if(query.trim()){const q=query.toLowerCase();list=list.filter(c=>c.n.toLowerCase().includes(q)||c.totem.toLowerCase().includes(q)||c.head.toLowerCase().includes(q));}return list;},[query,filter]);const FILTERS=["All","Original 5","Royal","Other"];return(<div className="page-enter"><PageHero img={IMG.clans} label="Ebika by'Obuganda" title="The 52 Clans of" titleAccent="Buganda"/><Ticker/><div className="clans-section"><div className="clans-header"><FU><p className="s-label">About the Clan System</p><h2 className="s-title f-display">Identity Through <em>Blood & Totem</em></h2><p className="clans-intro-text">Every Muganda must belong to one of Buganda's clans (<em>Ebika</em>). Membership is patrilineal — passed from father to child. Each clan is identified by a primary totem (<strong>Omuziro</strong>) and secondary totem (<strong>Akabbiro</strong>).</p></FU><FU delay={0.1}><div className="clan-filter-bar"><div className="clan-search-wrap"><span className="clan-search-icon">⌕</span><input className="clan-search" placeholder="Search by clan, totem, or head…" value={query} onChange={e=>setQuery(e.target.value)}/></div><div className="clan-filter-pills">{FILTERS.map(f=><button key={f} className={`clan-filter-pill${filter===f?" active":""}`} onClick={()=>setFilter(f)}>{f}</button>)}</div></div></FU></div><FU delay={0.15}><div className="clans-grid-pro">{filtered.map((clan,i)=><ClanCardPro key={clan.n} clan={clan} index={CLANS.indexOf(clan)} featured={i<2&&filter==="All"&&!query}/>)}</div>{filtered.length===0&&(<div style={{textAlign:"center",padding:"60px 20px",color:T.muted}}><p style={{fontSize:"2rem",marginBottom:12}}>🔍</p><p className="f-display" style={{fontFamily:"'Cormorant Garamond',serif",fontSize:"1.4rem",color:T.ink,marginBottom:6}}>No clans found</p></div>)}<div className="clan-count-bar"><p className="clan-count">Showing <strong style={{color:T.red}}>{filtered.length}</strong> of {CLANS.length} clans</p><div className="clan-legend"><div className="clan-legend-item"><div className="clan-legend-dot" style={{background:T.red}}/><span>Banansangwa</span></div><div className="clan-legend-item"><div className="clan-legend-dot" style={{background:"#7A1515"}}/><span>Royal</span></div></div></div></FU></div><div style={{background:T.bg2,borderTop:`1px solid ${T.lineSoft}`,padding:"48px 48px"}}><FU><div style={{display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:2}}>{[{icon:"🪶",title:"Patrilineal Heritage",body:"Clan membership passes exclusively through the father."},{icon:"🚫",title:"Clan Exogamy",body:"Marriage between members of the same clan is strictly forbidden."},{icon:"🐾",title:"The Sacred Totem",body:"Members never eat, hunt, or harm their clan's totem."}].map(({icon,title,body})=>(<div key={title} style={{padding:"32px 36px",borderRight:`1px solid ${T.lineSoft}`,background:"#fff"}}><div style={{fontSize:"1.6rem",marginBottom:12}}>{icon}</div><p className="f-display" style={{fontFamily:"'Cormorant Garamond',serif",fontSize:"1.1rem",fontWeight:700,color:T.ink,marginBottom:8}}>{title}</p><p style={{fontSize:".8rem",color:T.muted,lineHeight:1.85}}>{body}</p></div>))}</div></FU></div><PageFooter setPage={setPage}/></div>);}
 
 // ENTERTAINMENT
 function EntertainmentPage({setPage}){return(<div className="page-enter"><PageHero img={IMG.music} label="Live Performances" title="A Night of" titleAccent="Pure Magic"/><Ticker/><div style={{background:T.bg,padding:"52px 48px"}}><FU><p className="s-label">The Lineup</p><h2 className="s-title f-display">Artists & <em>Performers</em></h2><p className="s-body" style={{marginBottom:28}}>Uganda's finest artists and cultural performers take the Lubiri stage.</p></FU><div className="event-grid">{ARTISTS.map((a,i)=><FU key={a.title} delay={i*.06}><EventCard {...a}/></FU>)}</div></div><PageFooter setPage={setPage}/></div>);}
@@ -1087,7 +1230,7 @@ function EntertainmentPage({setPage}){return(<div className="page-enter"><PageHe
 // EVENTS PAGE
 function EventVideoPlaceholder({bg,title,label="Video Placeholder"}){return(<div className="ev-video-wrap">{bg&&<img className="ev-video-bg" src={bg} alt="" loading="lazy"/>}<span className="ev-replace-badge">Replace with Video</span><div className="ev-video-play-btn"><span className="ev-video-play-icon">▶</span></div><p className="ev-video-label">{label}</p>{title&&<p className="ev-video-title">{title}</p>}</div>);}
 function EvBlock({ev,index}){return(<FU delay={index*.04}><div className="ev-block"><div className={`ev-row${ev.flip?" flip":""}`}><div className="ev-media">{ev.mediaType==="video"?<EventVideoPlaceholder bg={ev.videoBg} title={ev.videoTitle}/>:<img className="ev-media-img" src={ev.img} alt={ev.title} loading="lazy"/>}</div><div className="ev-text"><div className="ev-time-chip"><div className="ev-time-line"/><span className="ev-time-val">{ev.time}</span><span className="ev-time-phase">Dec 31</span></div><h2 className="ev-title f-display">{ev.title} <em>{ev.titleAccent}</em></h2><p className="ev-subtitle">{ev.subtitle}</p><p className="ev-desc">{ev.desc}</p>{ev.facts&&<div className="ev-facts">{ev.facts.map((f,i)=><div key={i} className="ev-fact"><span className="ev-fact-icon">{f.icon}</span><span>{f.text}</span></div>)}</div>}{ev.highlights&&<div className="ev-highlights">{ev.highlights.map((h,i)=><div key={i} className="ev-highlight-item"><div className="ev-highlight-dot"/><span>{h}</span></div>)}</div>}</div></div></div></FU>);}
-function EventsPage({setPage}){const[activePhase,setActivePhase]=useState("morning");const scrollToPhase=id=>{setActivePhase(id);const el=document.getElementById("ev-"+id);if(el)el.scrollIntoView({behavior:"smooth",block:"start"});};useEffect(()=>{const handler=()=>{for(const p of EVENTS_DATA){const el=document.getElementById("ev-"+p.id);if(el){const rect=el.getBoundingClientRect();if(rect.top<=140&&rect.bottom>=140){setActivePhase(p.id);break;}}}};window.addEventListener("scroll",handler,{passive:true});return()=>window.removeEventListener("scroll",handler);},[]);return(<div className="page-enter"><PageHero img={IMG.crowd} label="31st December · Lubiri Palace" title="A Day at" titleAccent="Enkuuka"/><Ticker/><div style={{background:T.bg2,padding:"48px 48px",borderBottom:`1px solid ${T.line}`}}><div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:52,alignItems:"center"}}><FU><p className="s-label">The Full Day Chronicle</p><h2 className="s-title f-display">From Helicopter to <em>Fireworks</em></h2><p className="s-body">Enkuuka y'Omwaka is a full ceremonial day — from the royal helicopter's dawn arrival to the sacred bonfire and fireworks that light Kampala's sky.</p></FU><FU delay={0.1}><div style={{display:"grid",gridTemplateColumns:"repeat(2,1fr)",gap:3}}>{[IMG.heli,IMG.drums,IMG.concert,IMG.fireworks].map((src,i)=><div key={i} style={{height:150,overflow:"hidden"}}><img src={src} alt="" loading="lazy" style={{width:"100%",height:"100%",objectFit:"cover",filter:"brightness(.55)",display:"block"}}/></div>)}</div></FU></div></div><div className="ev-phase-nav">{EVENTS_DATA.map(p=><button key={p.id} className={`ev-phase-btn${activePhase===p.id?" active":""}`} onClick={()=>scrollToPhase(p.id)}><span className="ev-phase-icon">{p.phaseIcon}</span>{p.phase}<span style={{fontSize:".55rem",color:T.muted,fontWeight:400,letterSpacing:1,marginLeft:2}}>{p.phaseTime}</span></button>)}<button className={`ev-phase-btn${activePhase==="midnight"?" active":""}`} onClick={()=>scrollToPhase("midnight")}><span className="ev-phase-icon">🎆</span>Midnight<span style={{fontSize:".55rem",color:T.muted,fontWeight:400,letterSpacing:1,marginLeft:2}}>12:00 AM</span></button></div>{EVENTS_DATA.map(phase=><section key={phase.id} id={"ev-"+phase.id}><div className="ev-phase-divider"><div className="ev-phase-divider-line"/><span className="ev-phase-divider-label">{phase.phaseIcon} {phase.phase}</span><div className="ev-phase-divider-line"/><span className="ev-phase-divider-time">{phase.phaseTime}</span></div>{phase.events.map((ev,ei)=><EvBlock key={ev.time} ev={ev} index={ei}/>)}</section>)}<section id="ev-midnight"><div className="ev-phase-divider"><div className="ev-phase-divider-line"/><span className="ev-phase-divider-label">🎆 Midnight Climax</span><div className="ev-phase-divider-line"/><span className="ev-phase-divider-time">11:58 PM – 12:15 AM</span></div><div className="ev-midnight"><img className="ev-midnight-bg" src={IMG.fireworks} alt="Fireworks" loading="lazy"/><div className="ev-midnight-overlay"/><div className="ev-midnight-content"><FU><p style={{fontSize:".65rem",letterSpacing:5,textTransform:"uppercase",color:T.gold3,fontWeight:700,marginBottom:16}}>12:00 AM · 31st December → 1st January</p><h2 style={{fontFamily:"'Cormorant Garamond',serif",fontSize:"clamp(2.8rem,7vw,5.5rem)",fontWeight:700,color:"#FAF5E8",lineHeight:.9,marginBottom:12}}>Enkuuka<br/><em style={{color:T.gold3,fontStyle:"italic"}}>Fireworks</em></h2><p style={{fontFamily:"'Bebas Neue',sans-serif",letterSpacing:4,color:"rgba(250,245,232,.4)",fontSize:".85rem",marginBottom:24}}>OMULIRO GW'OMWAKA GULABYE OMULEMBE</p><p style={{fontSize:".9rem",color:"rgba(250,245,232,.6)",lineHeight:1.9,maxWidth:540,margin:"0 auto 36px"}}>At the stroke of midnight, the night sky above Lubiri Palace explodes in gold, red and white. 50,000 Baganda raise their voices together. The fireworks last twelve full minutes. Happy New Year, Uganda.</p><div style={{display:"flex",gap:12,justifyContent:"center",flexWrap:"wrap"}}><button className="btn-gold" onClick={()=>setPage("Invitation")}>Secure Your Place →</button><button className="btn-outline" style={{color:"rgba(250,245,232,.7)",borderColor:"rgba(250,245,232,.3)"}} onClick={()=>setPage("Programme")}>Full Programme</button></div></FU></div></div><div style={{background:T.ink,padding:"4px 0"}}><div className="ev-video-grid">{[{bg:IMG.fireworks,label:"Replace · Fireworks Show"},{bg:IMG.crowd,label:"Replace · Crowd Reaction"},{bg:IMG.music,label:"Replace · Stage Final Moment"}].map((v,i)=><div key={i} className="ev-video-mini"><img className="ev-video-mini-bg" src={v.bg} alt="" loading="lazy"/><div className="ev-video-mini-play">▶</div><p className="ev-video-mini-label">{v.label}</p></div>)}</div></div></section><div style={{background:T.bg2,padding:"52px 48px",borderTop:`1px solid ${T.line}`,textAlign:"center"}}><FU><p className="s-label" style={{justifyContent:"center"}}>Be Part of It</p><h2 className="s-title f-display" style={{textAlign:"center"}}>Don't Miss <em>Enkuuka 2025</em></h2><p style={{color:T.muted,fontSize:".88rem",lineHeight:1.85,maxWidth:540,margin:"0 auto 28px"}}>From the helicopter arrival at dawn to the fireworks at midnight.</p><div style={{display:"flex",gap:12,justifyContent:"center",flexWrap:"wrap"}}><button className="btn-gold" onClick={()=>setPage("Invitation")}>Get Your Invitation →</button><button className="btn-outline" onClick={()=>setPage("Programme")}>View Full Programme</button></div></FU></div><PageFooter setPage={setPage}/></div>);}
+function EventsPage({setPage}){const[activePhase,setActivePhase]=useState("morning");const scrollToPhase=id=>{setActivePhase(id);const el=document.getElementById("ev-"+id);if(el)el.scrollIntoView({behavior:"smooth",block:"start"});};useEffect(()=>{const handler=()=>{for(const p of EVENTS_DATA){const el=document.getElementById("ev-"+p.id);if(el){const rect=el.getBoundingClientRect();if(rect.top<=140&&rect.bottom>=140){setActivePhase(p.id);break;}}}};window.addEventListener("scroll",handler,{passive:true});return()=>window.removeEventListener("scroll",handler);},[]);return(<div className="page-enter"><PageHero img={IMG.crowd} label="31st December · Lubiri Palace" title="A Day at" titleAccent="Enkuuka"/><Ticker/><div style={{background:T.bg2,padding:"48px 48px",borderBottom:`1px solid ${T.line}`}}><div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:52,alignItems:"center"}}><FU><p className="s-label">The Full Day Chronicle</p><h2 className="s-title f-display">From Helicopter to <em>Fireworks</em></h2><p className="s-body">Enkuuka y'Omwaka is a full ceremonial day — from the royal helicopter's dawn arrival to the sacred bonfire and fireworks that light Kampala's sky.</p></FU><FU delay={0.1}><div style={{display:"grid",gridTemplateColumns:"repeat(2,1fr)",gap:3}}>{[IMG.heli,IMG.drums,IMG.concert,IMG.fireworks].map((src,i)=><div key={i} style={{height:150,overflow:"hidden"}}><img src={src} alt="" loading="lazy" style={{width:"100%",height:"100%",objectFit:"cover",filter:"brightness(.55)",display:"block"}}/></div>)}</div></FU></div></div><div className="ev-phase-nav">{EVENTS_DATA.map(p=><button key={p.id} className={`ev-phase-btn${activePhase===p.id?" active":""}`} onClick={()=>scrollToPhase(p.id)}><span className="ev-phase-icon">{p.phaseIcon}</span>{p.phase}<span style={{fontSize:".55rem",color:T.muted,fontWeight:400,letterSpacing:1,marginLeft:2}}>{p.phaseTime}</span></button>)}<button className={`ev-phase-btn${activePhase==="midnight"?" active":""}`} onClick={()=>scrollToPhase("midnight")}><span className="ev-phase-icon">🎆</span>Midnight<span style={{fontSize:".55rem",color:T.muted,fontWeight:400,letterSpacing:1,marginLeft:2}}>12:00 AM</span></button></div>{EVENTS_DATA.map(phase=><section key={phase.id} id={"ev-"+phase.id}><div className="ev-phase-divider"><div className="ev-phase-divider-line"/><span className="ev-phase-divider-label">{phase.phaseIcon} {phase.phase}</span><div className="ev-phase-divider-line"/><span className="ev-phase-divider-time">{phase.phaseTime}</span></div>{phase.events.map((ev,ei)=><EvBlock key={ev.time} ev={ev} index={ei}/>)}</section>)}<section id="ev-midnight"><div className="ev-phase-divider"><div className="ev-phase-divider-line"/><span className="ev-phase-divider-label">🎆 Midnight Climax</span><div className="ev-phase-divider-line"/><span className="ev-phase-divider-time">11:58 PM – 12:15 AM</span></div><div className="ev-midnight"><img className="ev-midnight-bg" src={IMG.fireworks} alt="Fireworks" loading="lazy"/><div className="ev-midnight-overlay"/><div className="ev-midnight-content"><FU><p style={{fontSize:".65rem",letterSpacing:5,textTransform:"uppercase",color:T.red3,fontWeight:700,marginBottom:16}}>12:00 AM · 31st December → 1st January</p><h2 style={{fontFamily:"'Cormorant Garamond',serif",fontSize:"clamp(2.8rem,7vw,5.5rem)",fontWeight:700,color:"#FAF5E8",lineHeight:.9,marginBottom:12}}>Enkuuka<br/><em style={{color:T.red3,fontStyle:"italic"}}>Fireworks</em></h2><p style={{fontFamily:"'Bebas Neue',sans-serif",letterSpacing:4,color:"rgba(250,245,232,.4)",fontSize:".85rem",marginBottom:24}}>OMULIRO GW'OMWAKA GULABYE OMULEMBE</p><p style={{fontSize:".9rem",color:"rgba(250,245,232,.6)",lineHeight:1.9,maxWidth:540,margin:"0 auto 36px"}}>At the stroke of midnight, the night sky above Lubiri Palace explodes in red, red and white. 50,000 Baganda raise their voices together. The fireworks last twelve full minutes. Happy New Year, Uganda.</p><div style={{display:"flex",gap:12,justifyContent:"center",flexWrap:"wrap"}}><button className="btn-red" onClick={()=>setPage("Invitation")}>Secure Your Place →</button><button className="btn-outline" style={{color:"rgba(250,245,232,.7)",borderColor:"rgba(250,245,232,.3)"}} onClick={()=>setPage("Programme")}>Full Programme</button></div></FU></div></div><div style={{background:T.ink,padding:"4px 0"}}><div className="ev-video-grid">{[{bg:IMG.fireworks,label:"Replace · Fireworks Show"},{bg:IMG.crowd,label:"Replace · Crowd Reaction"},{bg:IMG.music,label:"Replace · Stage Final Moment"}].map((v,i)=><div key={i} className="ev-video-mini"><img className="ev-video-mini-bg" src={v.bg} alt="" loading="lazy"/><div className="ev-video-mini-play">▶</div><p className="ev-video-mini-label">{v.label}</p></div>)}</div></div></section><div style={{background:T.bg2,padding:"52px 48px",borderTop:`1px solid ${T.line}`,textAlign:"center"}}><FU><p className="s-label" style={{justifyContent:"center"}}>Be Part of It</p><h2 className="s-title f-display" style={{textAlign:"center"}}>Don't Miss <em>Enkuuka 2025</em></h2><p style={{color:T.muted,fontSize:".88rem",lineHeight:1.85,maxWidth:540,margin:"0 auto 28px"}}>From the helicopter arrival at dawn to the fireworks at midnight.</p><div style={{display:"flex",gap:12,justifyContent:"center",flexWrap:"wrap"}}><button className="btn-red" onClick={()=>setPage("Invitation")}>Get Your Invitation →</button><button className="btn-outline" onClick={()=>setPage("Programme")}>View Full Programme</button></div></FU></div><PageFooter setPage={setPage}/></div>);}
 
 // BUSINESS
 function BusinessPage({setPage}){const[activeTab,setActiveTab]=useState("Small Businesses");return(<div className="page-enter"><PageHero img={IMG.market} label="Trade Fair & Opportunities" title="Business at" titleAccent="Enkuuka"/><Ticker/><div style={{background:T.bg,padding:"52px 48px"}}><FU><p className="s-label">Why Exhibit?</p><h2 className="s-title f-display">Uganda's Premier <em>End-of-Year Platform</em></h2><p className="s-body" style={{marginBottom:28}}>Enkuuka y'Omwaka connects 50,000 consumers with businesses of every scale.</p></FU><FU delay={0.1}><div className="tab-bar">{BIZ_TABS.map(t=><button key={t} className={`tab-btn${activeTab===t?" active":""}`} onClick={()=>setActiveTab(t)}>{t}</button>)}</div><div className="biz-grid">{(BIZ_DATA[activeTab]||[]).map(item=><div key={item.title} className="biz-card"><img src={item.img} alt={item.title} loading="lazy"/><div className="biz-body"><span className="biz-tag">{item.tag}</span><p className="biz-title f-display">{item.title}</p><p className="biz-desc">{item.desc}</p><span className="biz-cta">Register Now →</span></div></div>)}</div></FU></div><PageFooter setPage={setPage}/></div>);}
@@ -1096,16 +1239,16 @@ function BusinessPage({setPage}){const[activeTab,setActiveTab]=useState("Small B
 function ProgrammePage({setPage}){return(<div className="page-enter"><PageHero img={IMG.crowd} label="31st December" title="The Day's" titleAccent="Programme"/><Ticker/><div style={{background:T.bg}}><div className="timeline-grid"><div style={{padding:"48px 48px"}}><FU><p className="s-label">Full Schedule</p><h2 className="s-title f-display">From <em>Dawn to Midnight</em></h2><p className="s-body" style={{marginBottom:36}}>Every hour at Enkuuka is crafted for celebration, culture and community.</p></FU>{PROGRAMME.map((p,i)=><FU key={p.time} delay={i*.05}><div className="tl-item"><div className="tl-time">{p.time}</div><div className="tl-body"><div className="tl-dot"/><p className="tl-title f-display">{p.title}</p><p className="tl-desc">{p.desc}</p></div></div></FU>)}</div><div style={{position:"relative",overflow:"hidden",minHeight:500}}><img src={IMG.fireworks} alt="Fireworks" loading="lazy" style={{width:"100%",height:"100%",objectFit:"cover",filter:"brightness(.38)",display:"block"}}/><div style={{position:"absolute",inset:0,background:`linear-gradient(to top, ${T.bg}, transparent 50%)`,display:"flex",alignItems:"flex-end",padding:"36px 40px"}}><div><p className="s-label">Midnight Fireworks</p><h2 className="s-title f-display">Fireworks over <em>Lubiri Palace</em></h2></div></div></div></div></div><PageFooter setPage={setPage}/></div>);}
 
 // GALLERY
-function GalleryPage({setPage}){const[lightbox,setLightbox]=useState(null);return(<div className="page-enter"><PageHero img={IMG.crowd} label="Visual Memories" title="The" titleAccent="Gallery"/><Ticker/><div style={{background:T.bg,padding:"48px 48px 24px"}}><FU><p className="s-label">Enkuuka Through the Lens</p><h2 className="s-title f-display">Royal Culture, <em>Captured</em></h2><p className="s-body" style={{marginBottom:32}}>Click any image to explore in full.</p></FU><FU delay={0.1}><div className="gal-grid">{GALLERY_ITEMS.map(g=><div key={g.title} className="gal-item" onClick={()=>setLightbox(g)}><img src={g.src} alt={g.title} loading="lazy"/><div className="gal-item-overlay"><p className="gal-item-title f-display">{g.title}</p><p className="gal-item-sub">{g.sub}</p></div></div>)}</div></FU></div><PageFooter setPage={setPage}/>{lightbox&&<div className="lightbox" onClick={()=>setLightbox(null)}><img src={lightbox.src} alt={lightbox.title}/><p className="f-display" style={{fontFamily:"'Cormorant Garamond',serif",fontSize:"1.1rem",fontWeight:700,color:T.ink}}>{lightbox.title}</p><p style={{color:T.gold,fontSize:".6rem",letterSpacing:3,textTransform:"uppercase"}}>{lightbox.sub}</p><p style={{color:T.muted,fontSize:".72rem",marginTop:4}}>Click anywhere to close</p></div>}</div>);}
+function GalleryPage({setPage}){const[lightbox,setLightbox]=useState(null);return(<div className="page-enter"><PageHero img={IMG.crowd} label="Visual Memories" title="The" titleAccent="Gallery"/><Ticker/><div style={{background:T.bg,padding:"48px 48px 24px"}}><FU><p className="s-label">Enkuuka Through the Lens</p><h2 className="s-title f-display">Royal Culture, <em>Captured</em></h2><p className="s-body" style={{marginBottom:32}}>Click any image to explore in full.</p></FU><FU delay={0.1}><div className="gal-grid">{GALLERY_ITEMS.map(g=><div key={g.title} className="gal-item" onClick={()=>setLightbox(g)}><img src={g.src} alt={g.title} loading="lazy"/><div className="gal-item-overlay"><p className="gal-item-title f-display">{g.title}</p><p className="gal-item-sub">{g.sub}</p></div></div>)}</div></FU></div><PageFooter setPage={setPage}/>{lightbox&&<div className="lightbox" onClick={()=>setLightbox(null)}><img src={lightbox.src} alt={lightbox.title}/><p className="f-display" style={{fontFamily:"'Cormorant Garamond',serif",fontSize:"1.1rem",fontWeight:700,color:T.ink}}>{lightbox.title}</p><p style={{color:T.red,fontSize:".6rem",letterSpacing:3,textTransform:"uppercase"}}>{lightbox.sub}</p><p style={{color:T.muted,fontSize:".72rem",marginTop:4}}>Click anywhere to close</p></div>}</div>);}
 
 // ACCOMMODATION
 function AccommodationPage({setPage}){return(<div className="page-enter"><PageHero img={IMG.hotel} label="Stay & Experience" title="Hospitality at" titleAccent="Enkuuka"/><Ticker/><div style={{background:T.bg,padding:"48px 48px 24px"}}><FU><p className="s-label">Where to Stay</p><h2 className="s-title f-display">Kampala's Finest <em>Hotels</em></h2><p className="s-body" style={{marginBottom:28}}>Book early — Kampala fills up fast on December 31st.</p></FU><FU delay={0.1}><div className="hotel-grid">{HOTELS.map(h=><div key={h.name} className="hotel-card"><img src={h.img} alt={h.name} loading="lazy"/><div className="hotel-body"><p className="hotel-stars">{h.stars}</p><p className="hotel-name f-display">{h.name}</p><p className="hotel-loc">📍 {h.loc}</p><p className="hotel-price">From {h.price}</p><button className="hotel-book">Book Now</button></div></div>)}</div></FU></div><PageFooter setPage={setPage}/></div>);}
 
 // INVITATION
-function InvitationPage({setPage}){const[name,setName]=useState("");const[preview,setPreview]=useState(false);return(<div className="page-enter"><div style={{background:T.bg,minHeight:"100vh",paddingTop:60}}><div style={{maxWidth:640,margin:"0 auto",padding:"64px 24px"}}><FU style={{textAlign:"center"}}><p className="s-label" style={{justifyContent:"center"}}>Digital E-Invitation</p><h1 className="s-title f-display" style={{textAlign:"center",marginBottom:8}}>Your <em>Royal Invitation</em></h1><p style={{color:T.muted,fontSize:".85rem",marginBottom:32}}>Personalise and share your digital invitation</p></FU>{!preview?<FU delay={0.1}><div style={{background:T.bg2,border:`1px solid ${T.line}`,padding:"32px"}}><p style={{color:T.muted,fontSize:".8rem",marginBottom:12}}>Enter your name to personalise</p><input className="contact-input" placeholder="Your full name…" value={name} onChange={e=>setName(e.target.value)} onKeyDown={e=>e.key==="Enter"&&setPreview(true)}/><button className="btn-gold" style={{width:"100%",marginTop:4}} onClick={()=>setPreview(true)}>Preview My Invitation →</button></div></FU>:<FU delay={0.05}><div className="inv-card"><div className="inv-top"><p style={{fontSize:".62rem",letterSpacing:4,textTransform:"uppercase",color:T.muted,marginBottom:7}}>The Buganda Kingdom · Lubiri Palace</p><h2 className="f-display" style={{fontFamily:"'Cormorant Garamond',serif",fontSize:"2.2rem",color:T.ink,fontWeight:700,lineHeight:.95}}>Enkuuka<br/><em style={{color:T.gold}}>y'Omwaka</em></h2></div><div className="inv-body"><p style={{fontSize:".65rem",color:T.muted,letterSpacing:3,textTransform:"uppercase",marginBottom:10}}>Cordially Invites</p><p className="f-display" style={{fontFamily:"'Cormorant Garamond',serif",fontSize:"1.7rem",color:T.ink,fontWeight:700,marginBottom:16,lineHeight:1}}>{name.trim()||"Honoured Guest"}</p><div className="inv-divider"/><p style={{fontSize:".82rem",color:T.muted,lineHeight:1.85,marginBottom:16}}>to celebrate the New Year with the Baganda people</p><div style={{background:T.goldBg,border:`1px solid ${T.line}`,padding:"14px 20px",marginBottom:14}}><p className="f-block" style={{fontSize:".85rem",color:T.ink}}>31st December 2025</p><p style={{color:T.muted,fontSize:".75rem",marginTop:3}}>📍 Lubiri Palace, Mengo, Kampala</p><p style={{color:T.gold,fontSize:".72rem",marginTop:3,fontWeight:600}}>8:00 AM – Past Midnight</p></div><p className="f-display" style={{fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic",fontSize:".85rem",color:T.muted}}>Omuliro gw'omwaka gulabye omulembe!</p></div></div><div style={{display:"flex",gap:12,justifyContent:"center",marginTop:18,flexWrap:"wrap"}}><button className="btn-gold">Share Invitation 🔗</button><button className="btn-outline" onClick={()=>setPreview(false)} style={{padding:"12px 22px"}}>Edit Name</button></div></FU>}</div></div><PageFooter setPage={setPage}/></div>);}
+function InvitationPage({setPage}){const[name,setName]=useState("");const[preview,setPreview]=useState(false);return(<div className="page-enter"><div style={{background:T.bg,minHeight:"100vh",paddingTop:60}}><div style={{maxWidth:640,margin:"0 auto",padding:"64px 24px"}}><FU style={{textAlign:"center"}}><p className="s-label" style={{justifyContent:"center"}}>Digital E-Invitation</p><h1 className="s-title f-display" style={{textAlign:"center",marginBottom:8}}>Your <em>Royal Invitation</em></h1><p style={{color:T.muted,fontSize:".85rem",marginBottom:32}}>Personalise and share your digital invitation</p></FU>{!preview?<FU delay={0.1}><div style={{background:T.bg2,border:`1px solid ${T.line}`,padding:"32px"}}><p style={{color:T.muted,fontSize:".8rem",marginBottom:12}}>Enter your name to personalise</p><input className="contact-input" placeholder="Your full name…" value={name} onChange={e=>setName(e.target.value)} onKeyDown={e=>e.key==="Enter"&&setPreview(true)}/><button className="btn-red" style={{width:"100%",marginTop:4}} onClick={()=>setPreview(true)}>Preview My Invitation →</button></div></FU>:<FU delay={0.05}><div className="inv-card"><div className="inv-top"><p style={{fontSize:".62rem",letterSpacing:4,textTransform:"uppercase",color:T.muted,marginBottom:7}}>The Buganda Kingdom · Lubiri Palace</p><h2 className="f-display" style={{fontFamily:"'Cormorant Garamond',serif",fontSize:"2.2rem",color:T.ink,fontWeight:700,lineHeight:.95}}>Enkuuka<br/><em style={{color:T.red}}>y'Omwaka</em></h2></div><div className="inv-body"><p style={{fontSize:".65rem",color:T.muted,letterSpacing:3,textTransform:"uppercase",marginBottom:10}}>Cordially Invites</p><p className="f-display" style={{fontFamily:"'Cormorant Garamond',serif",fontSize:"1.7rem",color:T.ink,fontWeight:700,marginBottom:16,lineHeight:1}}>{name.trim()||"Honoured Guest"}</p><div className="inv-divider"/><p style={{fontSize:".82rem",color:T.muted,lineHeight:1.85,marginBottom:16}}>to celebrate the New Year with the Baganda people</p><div style={{background:T.goldBg,border:`1px solid ${T.line}`,padding:"14px 20px",marginBottom:14}}><p className="f-block" style={{fontSize:".85rem",color:T.ink}}>31st December 2025</p><p style={{color:T.muted,fontSize:".75rem",marginTop:3}}>📍 Lubiri Palace, Mengo, Kampala</p><p style={{color:T.red,fontSize:".72rem",marginTop:3,fontWeight:600}}>8:00 AM – Past Midnight</p></div><p className="f-display" style={{fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic",fontSize:".85rem",color:T.muted}}>Omuliro gw'omwaka gulabye omulembe!</p></div></div><div style={{display:"flex",gap:12,justifyContent:"center",marginTop:18,flexWrap:"wrap"}}><button className="btn-red">Share Invitation 🔗</button><button className="btn-outline" onClick={()=>setPreview(false)} style={{padding:"12px 22px"}}>Edit Name</button></div></FU>}</div></div><PageFooter setPage={setPage}/></div>);}
 
 // CONTACT
-function ContactPage({setPage}){const[form,setForm]=useState({name:"",email:"",subject:"",msg:""});const[sent,setSent]=useState(false);const f=k=>e=>setForm({...form,[k]:e.target.value});return(<div className="page-enter"><PageHero img={IMG.palace} label="Reach Out" title="Contact" titleAccent="Us"/><Ticker/><div style={{background:T.bg}}><div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:0}}><div style={{padding:"52px 48px"}}><FU><p className="s-label">Get in Touch</p><h2 className="s-title f-display">We'd Love to <em>Hear from You</em></h2><p className="s-body" style={{marginBottom:32}}>For vendor inquiries, sponsorships, media partnerships or general information.</p><div style={{display:"flex",flexDirection:"column",gap:18,marginBottom:36}}>{[["📍","Location","Lubiri Palace, Mengo, Kampala"],["📞","Phone","+256 414 000 000"],["✉","Email","info@enkuuka.ug"],["🕒","Hours","Mon–Fri, 9:00 AM – 5:00 PM EAT"]].map(([icon,label,val])=><div key={label} style={{display:"flex",gap:14,alignItems:"flex-start"}}><span style={{fontSize:".95rem",marginTop:2}}>{icon}</span><div><p style={{fontSize:".6rem",letterSpacing:2,textTransform:"uppercase",color:T.gold,marginBottom:1}}>{label}</p><p style={{fontSize:".85rem",color:T.muted}}>{val}</p></div></div>)}</div></FU></div><div style={{padding:"52px 48px",background:T.bg2,borderLeft:`1px solid ${T.lineSoft}`}}><FU delay={0.1}>{!sent?<div><p className="f-display" style={{fontFamily:"'Cormorant Garamond',serif",fontSize:"1.4rem",fontWeight:700,color:T.ink,marginBottom:22}}>Send a Message</p><input className="contact-input" placeholder="Your name" value={form.name} onChange={f("name")}/><input className="contact-input" placeholder="Email address" value={form.email} onChange={f("email")}/><input className="contact-input" placeholder="Subject" value={form.subject} onChange={f("subject")}/><textarea className="contact-input" rows={5} placeholder="Your message…" value={form.msg} onChange={f("msg")}/><button className="btn-gold" style={{width:"100%"}} onClick={()=>setSent(true)}>Send Message →</button></div>:<div style={{textAlign:"center",padding:"48px 20px"}}><p className="f-display" style={{fontFamily:"'Cormorant Garamond',serif",fontSize:"1.8rem",fontWeight:700,color:T.gold,marginBottom:8}}>Message Sent!</p><p style={{color:T.muted,fontSize:".85rem",marginBottom:22}}>We'll get back to you within 24 hours.</p><button className="btn-outline" onClick={()=>{setSent(false);setForm({name:"",email:"",subject:"",msg:""});}}>Send Another</button></div>}</FU></div></div></div><PageFooter setPage={setPage}/></div>);}
+function ContactPage({setPage}){const[form,setForm]=useState({name:"",email:"",subject:"",msg:""});const[sent,setSent]=useState(false);const f=k=>e=>setForm({...form,[k]:e.target.value});return(<div className="page-enter"><PageHero img={IMG.palace} label="Reach Out" title="Contact" titleAccent="Us"/><Ticker/><div style={{background:T.bg}}><div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:0}}><div style={{padding:"52px 48px"}}><FU><p className="s-label">Get in Touch</p><h2 className="s-title f-display">We'd Love to <em>Hear from You</em></h2><p className="s-body" style={{marginBottom:32}}>For vendor inquiries, sponsorships, media partnerships or general information.</p><div style={{display:"flex",flexDirection:"column",gap:18,marginBottom:36}}>{[["📍","Location","Lubiri Palace, Mengo, Kampala"],["📞","Phone","+256 414 000 000"],["✉","Email","info@enkuuka.ug"],["🕒","Hours","Mon–Fri, 9:00 AM – 5:00 PM EAT"]].map(([icon,label,val])=><div key={label} style={{display:"flex",gap:14,alignItems:"flex-start"}}><span style={{fontSize:".95rem",marginTop:2}}>{icon}</span><div><p style={{fontSize:".6rem",letterSpacing:2,textTransform:"uppercase",color:T.red,marginBottom:1}}>{label}</p><p style={{fontSize:".85rem",color:T.muted}}>{val}</p></div></div>)}</div></FU></div><div style={{padding:"52px 48px",background:T.bg2,borderLeft:`1px solid ${T.lineSoft}`}}><FU delay={0.1}>{!sent?<div><p className="f-display" style={{fontFamily:"'Cormorant Garamond',serif",fontSize:"1.4rem",fontWeight:700,color:T.ink,marginBottom:22}}>Send a Message</p><input className="contact-input" placeholder="Your name" value={form.name} onChange={f("name")}/><input className="contact-input" placeholder="Email address" value={form.email} onChange={f("email")}/><input className="contact-input" placeholder="Subject" value={form.subject} onChange={f("subject")}/><textarea className="contact-input" rows={5} placeholder="Your message…" value={form.msg} onChange={f("msg")}/><button className="btn-red" style={{width:"100%"}} onClick={()=>setSent(true)}>Send Message →</button></div>:<div style={{textAlign:"center",padding:"48px 20px"}}><p className="f-display" style={{fontFamily:"'Cormorant Garamond',serif",fontSize:"1.8rem",fontWeight:700,color:T.red,marginBottom:8}}>Message Sent!</p><p style={{color:T.muted,fontSize:".85rem",marginBottom:22}}>We'll get back to you within 24 hours.</p><button className="btn-outline" onClick={()=>{setSent(false);setForm({name:"",email:"",subject:"",msg:""});}}>Send Another</button></div>}</FU></div></div></div><PageFooter setPage={setPage}/></div>);}
 
 // ─────────────────────────────────────────────────────────────────────────────
 // ROOT APP
