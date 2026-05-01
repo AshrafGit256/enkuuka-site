@@ -280,27 +280,14 @@ const GLOBAL_CSS = `
     position: relative;
   }
 
-  /* SVG county map */
-  .buganda-map { width: 100%; height: 100%; }
-  .buganda-map .county {
-    fill: ${T.bg3};
-    stroke: ${T.gold3};
-    stroke-width: 1.5;
-    transition: fill .25s, stroke .25s;
-    cursor: pointer;
+  /* Buganda map image */
+  .buganda-map-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+    border-radius: 2px;
   }
-  .buganda-map .county:hover, .buganda-map .county.active {
-    fill: ${T.gold};
-    stroke: ${T.gold2};
-  }
-  .buganda-map .county-label {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 7px;
-    fill: ${T.ink};
-    pointer-events: none;
-    font-weight: 600;
-  }
-  .buganda-map .county.active .county-label { fill: #fff; }
 
   /* Detail card below map */
   .masaza-detail-card {
@@ -672,90 +659,8 @@ const MASAZA = [
 // BUGANDA MAP — Schematic SVG (18 counties as abstract geographic shapes)
 // ─────────────────────────────────────────────────────────────────────────────
 // Simplified schematic positions representing the geographic arrangement
-const MAP_COUNTIES = [
-  { id: 0,  name: "Kyadondo",  cx: 195, cy: 220, w: 58,  h: 48  },
-  { id: 1,  name: "Busiro",    cx: 130, cy: 240, w: 52,  h: 44  },
-  { id: 2,  name: "Kyaggwe",   cx: 278, cy: 230, w: 64,  h: 50  },
-  { id: 3,  name: "Buddu",     cx: 150, cy: 320, w: 70,  h: 52  },
-  { id: 4,  name: "Ssingo",    cx: 110, cy: 160, w: 70,  h: 60  },
-  { id: 5,  name: "Mawokota",  cx: 148, cy: 275, w: 54,  h: 42  },
-  { id: 6,  name: "Busujju",   cx: 88,  cy: 215, w: 52,  h: 44  },
-  { id: 7,  name: "Bulemeezi", cx: 175, cy: 138, w: 66,  h: 50  },
-  { id: 8,  name: "Buruuli",   cx: 175, cy: 80,  w: 72,  h: 44  },
-  { id: 9,  name: "Bugerere",  cx: 268, cy: 160, w: 58,  h: 52  },
-  { id: 10, name: "Gomba",     cx: 88,  cy: 295, w: 50,  h: 44  },
-  { id: 11, name: "Butambala", cx: 120, cy: 305, w: 46,  h: 38  },
-  { id: 12, name: "Mubende",   cx: 55,  cy: 185, w: 54,  h: 50  },
-  { id: 13, name: "Buwekula",  cx: 58,  cy: 135, w: 52,  h: 46  },
-  { id: 14, name: "Ssese",     cx: 210, cy: 340, w: 52,  h: 38  },
-  { id: 15, name: "Kabula",    cx: 155, cy: 368, w: 62,  h: 40  },
-  { id: 16, name: "Kooki",     cx: 92,  cy: 358, w: 56,  h: 40  },
-  { id: 17, name: "Buvuma",    cx: 300, cy: 295, w: 52,  h: 40  },
-];
-
-function BugandaMap({ activeId, onSelect }) {
-  return (
-    <svg
-      className="buganda-map"
-      viewBox="0 0 380 420"
-      xmlns="http://www.w3.org/2000/svg"
-      style={{ maxHeight: 380 }}
-    >
-      {/* Lake Victoria hint */}
-      <ellipse cx="270" cy="360" rx="85" ry="50" fill="rgba(166,124,46,.08)" stroke="rgba(166,124,46,.15)" strokeWidth="1" strokeDasharray="4,3" />
-      <text x="270" y="363" textAnchor="middle" fill="rgba(122,110,82,.45)" fontSize="8" fontFamily="'DM Sans',sans-serif" fontStyle="italic">Lake Victoria</text>
-
-      {/* Lake Kyoga hint */}
-      <ellipse cx="210" cy="60" rx="90" ry="30" fill="rgba(166,124,46,.06)" stroke="rgba(166,124,46,.1)" strokeWidth="1" strokeDasharray="4,3" />
-      <text x="210" y="63" textAnchor="middle" fill="rgba(122,110,82,.4)" fontSize="7" fontFamily="'DM Sans',sans-serif" fontStyle="italic">Lake Kyoga</text>
-
-      {/* County rectangles */}
-      {MAP_COUNTIES.map((c) => {
-        const isActive = activeId === c.id;
-        return (
-          <g key={c.id} onClick={() => onSelect(c.id)} style={{ cursor: "pointer" }}>
-            <rect
-              x={c.cx - c.w / 2} y={c.cy - c.h / 2}
-              width={c.w} height={c.h}
-              rx="3"
-              fill={isActive ? T.gold : T.bg3}
-              stroke={isActive ? T.gold2 : T.gold3}
-              strokeWidth={isActive ? 2 : 1}
-              style={{ transition: "fill .25s, stroke .25s" }}
-            />
-            <text
-              x={c.cx} y={c.cy + 2}
-              textAnchor="middle" dominantBaseline="middle"
-              fill={isActive ? "#fff" : T.ink}
-              fontSize={c.w > 60 ? "7.5" : "6.5"}
-              fontFamily="'DM Sans',sans-serif"
-              fontWeight="600"
-              style={{ pointerEvents: "none", transition: "fill .25s" }}
-            >
-              {c.name.length > 9 ? c.name.slice(0, 8) + "…" : c.name}
-            </text>
-          </g>
-        );
-      })}
-
-      {/* Compass rose */}
-      <g transform="translate(344,30)">
-        <circle cx="0" cy="0" r="14" fill="rgba(255,255,255,.7)" stroke={T.line} strokeWidth="1" />
-        <text x="0" y="-6" textAnchor="middle" fill={T.gold} fontSize="8" fontWeight="700" fontFamily="'Bebas Neue',sans-serif">N</text>
-        <line x1="0" y1="-3" x2="0" y2="3" stroke={T.gold} strokeWidth="1.5" />
-        <line x1="-3" y1="0" x2="3" y2="0" stroke={T.muted} strokeWidth="1" />
-      </g>
-
-      {/* Legend */}
-      <g transform="translate(10,395)">
-        <rect x="0" y="0" width="10" height="10" rx="1" fill={T.gold} />
-        <text x="14" y="8" fill={T.muted} fontSize="7" fontFamily="'DM Sans',sans-serif">Selected county</text>
-        <rect x="90" y="0" width="10" height="10" rx="1" fill={T.bg3} stroke={T.gold3} strokeWidth="1" />
-        <text x="104" y="8" fill={T.muted} fontSize="7" fontFamily="'DM Sans',sans-serif">Other county</text>
-      </g>
-    </svg>
-  );
-}
+// ── UPDATE THIS URL with your actual Buganda map image ──
+const BUGANDA_MAP_IMG = "YOUR_MAP_IMAGE_URL_HERE";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // REMAINING DATA
@@ -1009,14 +914,39 @@ function MasazaPage({ setPage }) {
               ))}
             </div>
 
-            {/* Right: map + detail */}
+            {/* Right: map image + detail */}
             <div className="masaza-map-panel">
               <div className="masaza-map-header">
-                <p style={{ fontSize:".6rem", letterSpacing:3, textTransform:"uppercase", color:T.gold, fontWeight:700 }}>Buganda Kingdom — Schematic Map</p>
-                <p style={{ fontSize:".72rem", color:T.muted, marginTop:2 }}>Click any county block to explore</p>
+                <p style={{ fontSize:".6rem", letterSpacing:3, textTransform:"uppercase", color:T.gold, fontWeight:700 }}>Buganda Kingdom — Official Map</p>
+                <p style={{ fontSize:".72rem", color:T.muted, marginTop:2 }}>Select a county from the list to view its details</p>
               </div>
               <div className="masaza-map-wrap">
-                <BugandaMap activeId={activeIdx} onSelect={setActiveIdx} />
+                {BUGANDA_MAP_IMG !== "YOUR_MAP_IMAGE_URL_HERE" ? (
+                  <img
+                    className="buganda-map-img"
+                    src={BUGANDA_MAP_IMG}
+                    alt="Map of Buganda Kingdom showing the 18 Masaza counties"
+                    loading="lazy"
+                  />
+                ) : (
+                  /* ── PLACEHOLDER shown until you set BUGANDA_MAP_IMG above ── */
+                  <div style={{
+                    width: "100%", height: "100%", minHeight: 320,
+                    display: "flex", flexDirection: "column",
+                    alignItems: "center", justifyContent: "center",
+                    background: T.bg3, border: `2px dashed ${T.gold3}`,
+                    gap: 12, padding: 24, textAlign: "center",
+                  }}>
+                    <span style={{ fontSize: "2.2rem" }}>🗺️</span>
+                    <p style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"1.1rem", fontWeight:700, color:T.ink }}>Buganda Kingdom Map</p>
+                    <p style={{ fontSize:".75rem", color:T.muted, lineHeight:1.7, maxWidth:240 }}>
+                      Replace <code style={{ background:T.bg2, padding:"1px 5px", borderRadius:2, fontSize:".7rem", color:T.gold }}>BUGANDA_MAP_IMG</code> at the top of the file with your actual map image URL to display it here.
+                    </p>
+                    <div style={{ marginTop:6, padding:"6px 14px", background:T.gold, color:"#fff", fontSize:".6rem", fontWeight:700, letterSpacing:2, textTransform:"uppercase" }}>
+                      Awaiting Map Image
+                    </div>
+                  </div>
+                )}
               </div>
               <div className="masaza-detail-card">
                 <div style={{ display:"flex", alignItems:"flex-start", justifyContent:"space-between", gap:12 }}>
