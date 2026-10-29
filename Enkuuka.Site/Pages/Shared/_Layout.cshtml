@@ -24,26 +24,30 @@
                 <a href="@(string.IsNullOrEmpty(item.Slug) ? "/" : $"/{item.Slug}")" class="@(active ? "active" : "")" aria-current="@(active ? "page" : null)">@item.Label</a>
             }
         </nav>
+        <div class="header-radio" data-radio-player data-state="ready">
+            <div class="header-radio-control">
+                <button class="header-radio-open" type="button" data-radio-panel-toggle aria-expanded="false" aria-controls="radio-panel" aria-label="Choose a CBS FM station">
+                    <span class="header-radio-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M4 9.5a11 11 0 0 0 0 5M8 7a7 7 0 0 0 0 10m4-12a3 3 0 0 0 0 14m0-9a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm4-5a7 7 0 0 1 0 14m4-17a11 11 0 0 1 0 20" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span>
+                    <span class="header-radio-copy"><strong>CBS FM</strong><small data-radio-current>89.2 FM · Emmanduso</small></span>
+                    <span class="header-radio-chevron" aria-hidden="true">⌄</span>
+                </button>
+                <button class="header-radio-toggle" type="button" data-radio-toggle aria-label="Play CBS FM" aria-pressed="false"><span data-radio-toggle-icon aria-hidden="true">▶</span></button>
+            </div>
+            <section class="header-radio-panel" id="radio-panel" data-radio-panel aria-label="CBS FM radio controls" hidden>
+                <div class="header-radio-panel-heading"><div><span class="header-radio-kicker">CBS FM · LIVE RADIO</span><strong>Choose your station</strong></div><span class="header-radio-status" data-radio-status role="status" aria-live="polite">Ready to play</span></div>
+                <div class="header-radio-stations" role="group" aria-label="Choose a CBS FM station">
+                    <button class="header-radio-station is-selected" type="button" data-radio-station data-stream="https://s5.voscast.com:9905/EMMANDUSO" data-display="89.2 FM · Emmanduso" data-name="Emmanduso" aria-pressed="true"><span class="header-radio-frequency">89.2</span><span class="header-radio-station-copy"><strong>Emmanduso</strong><small>CBS FM</small></span><span class="header-radio-fm">FM</span></button>
+                    <button class="header-radio-station" type="button" data-radio-station data-stream="https://s5.voscast.com:9909/EYOBUJJAJJA" data-display="88.8 FM · Ey'obujjajja" data-name="Ey'obujjajja" aria-pressed="false"><span class="header-radio-frequency">88.8</span><span class="header-radio-station-copy"><strong>Ey'obujjajja</strong><small>CBS FM</small></span><span class="header-radio-fm">FM</span></button>
+                </div>
+                <label class="header-radio-volume"><span>−</span><span>Volume</span><input type="range" min="0" max="1" step="0.05" value="0.8" data-radio-volume aria-label="Radio volume" /><span>+</span></label>
+                <a class="header-radio-link" href="https://cbsfm.ug/" target="_blank" rel="noopener noreferrer">Visit CBS FM <span aria-hidden="true">↗</span></a>
+            </section>
+            <audio data-radio-audio preload="none" src="https://s5.voscast.com:9905/EMMANDUSO"></audio>
+        </div>
         <a class="header-cta" href="/invitation">Plan your visit</a>
     </header>
 
     <main id="main-content" tabindex="-1">@RenderBody()</main>
-
-    <aside class="radio-player" data-radio-player aria-label="CBS FM live radio player">
-        <div class="radio-player-brand">
-            <span class="radio-player-mark" aria-hidden="true">CBS</span>
-            <div><strong>Listen to CBS FM</strong><span data-radio-status role="status" aria-live="polite">Choose a station, then press play.</span></div>
-        </div>
-        <label class="visually-hidden" for="radio-station">CBS FM station</label>
-        <select class="radio-station" id="radio-station" data-radio-station>
-            <option value="https://s5.voscast.com:9905/EMMANDUSO">89.2 FM · Emmanduso</option>
-            <option value="https://s5.voscast.com:9909/EYOBUJJAJJA">88.8 FM · Ey'obujjajja</option>
-        </select>
-        <button class="radio-toggle" type="button" data-radio-toggle aria-label="Play CBS FM" aria-pressed="false">Play</button>
-        <label class="radio-volume">Volume <input type="range" min="0" max="1" step="0.05" value="0.8" data-radio-volume aria-label="Radio volume" /></label>
-        <a class="radio-official" href="https://cbsfm.ug/" target="_blank" rel="noopener noreferrer">CBS FM site ↗</a>
-        <audio data-radio-audio preload="none" src="https://s5.voscast.com:9905/EMMANDUSO"></audio>
-    </aside>
 
     <footer class="site-footer">
         <div class="footer-main wrap">

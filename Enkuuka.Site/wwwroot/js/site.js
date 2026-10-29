@@ -307,68 +307,103 @@
 
   const radio = document.querySelector("[data-radio-player]");
   const radioAudio = document.querySelector("[data-radio-audio]");
-  const radioStation = document.querySelector("[data-radio-station]");
+  const radioStations = [...document.querySelectorAll("[data-radio-station]")];
   const radioToggle = document.querySelector("[data-radio-toggle]");
   const radioVolume = document.querySelector("[data-radio-volume]");
   const radioStatus = document.querySelector("[data-radio-status]");
-  if (radio && radioAudio && radioStation && radioToggle) {
-    const stationName = () => radioStation.selectedOptions[0]?.textContent?.trim() || "CBS FM";
-    const showStatus = message => { if (radioStatus) radioStatus.textContent = message; };
+  const radioCurrent = document.querySelector("[data-radio-current]");
+  const radioPanel = document.querySelector("[data-radio-panel]");
+  const radioPanelToggle = document.querySelector("[data-radio-panel-toggle]");
+  const radioToggleIcon = document.querySelector("[data-radio-toggle-icon]");
+  if (radio && radioAudio && radioStations.length && radioToggle) {
+    let selectedStation = radioStations.find(station => station.getAttribute("aria-pressed") === "true") || radioStations[0];
+    const stationName = () => selectedStation.dataset.name || "CBS FM";
+    const showStatus = (message, state = "ready") => {
+      if (radioStatus) radioStatus.textContent = message;
+      radio.dataset.state = state;
+    };
     const updateButton = playing => {
-      radioToggle.textContent = playing ? "Pause" : "Play";
+      if (radioToggleIcon) radioToggleIcon.textContent = playing ? "Ⅱ" : "▶";
       radioToggle.setAttribute("aria-label", playing ? "Pause CBS FM" : "Play CBS FM");
       radioToggle.setAttribute("aria-pressed", String(playing));
-      radio.classList.toggle("is-playing", playing);
+      radio.dataset.playing = String(playing);
     };
 
     radioAudio.volume = Number(radioVolume?.value ?? 0.8);
     radioToggle.addEventListener("click", async () => {
       if (!radioAudio.paused) {
         radioAudio.pause();
+        showStatus("Radio paused.");
         return;
       }
-      showStatus(`Connecting to ${stationName()}…`);
+      showStatus(`Connecting to ${stationName()}…`, "connecting");
       try {
         await radioAudio.play();
       } catch {
         updateButton(false);
-        showStatus("Could not start the stream. Try the CBS FM website.");
+        showStatus("Could not connect. Check your internet and try again.", "error");
       }
     });
 
-    radioStation.addEventListener("change", async () => {
+    radioPanelToggle?.addEventListener("click", () => {
+      const open = radioPanelToggle.getAttribute("aria-expanded") !== "true";
+      radioPanelToggle.setAttribute("aria-expanded", String(open));
+      radioPanel?.toggleAttribute("hidden", !open);
+    });
+    document.addEventListener("click", event => {
+      if (!radio.contains(event.target)) {
+        radioPanel?.setAttribute("hidden", "");
+        radioPanelToggle?.setAttribute("aria-expanded", "false");
+      }
+    });
+    document.addEventListener("keydown", event => {
+      if (event.key === "Escape" && radioPanel && !radioPanel.hidden) {
+        radioPanel.setAttribute("hidden", "");
+        radioPanelToggle?.setAttribute("aria-expanded", "false");
+        radioPanelToggle?.focus();
+      }
+    });
+
+    radioStations.forEach(station => station.addEventListener("click", async () => {
       const wasPlaying = !radioAudio.paused;
       radioAudio.pause();
-      radioAudio.src = radioStation.value;
+      selectedStation = station;
+      radioStations.forEach(option => {
+        const active = option === selectedStation;
+        option.classList.toggle("is-selected", active);
+        option.setAttribute("aria-pressed", String(active));
+      });
+      if (radioCurrent) radioCurrent.textContent = station.dataset.display || stationName();
+      radioAudio.src = station.dataset.stream;
       radioAudio.load();
       updateButton(false);
       if (wasPlaying) {
-        showStatus(`Connecting to ${stationName()}…`);
+        showStatus(`Connecting to ${stationName()}…`, "connecting");
         try { await radioAudio.play(); }
         catch {
           updateButton(false);
-          showStatus("Could not start the stream. Try the CBS FM website.");
+          showStatus("Could not connect. Check your internet and try again.", "error");
         }
       } else {
-        showStatus(`${stationName()} selected · press play to listen.`);
+        showStatus(`${stationName()} selected · ready to play.`);
       }
-    });
+    }));
 
     radioVolume?.addEventListener("input", () => { radioAudio.volume = Number(radioVolume.value); });
     radioAudio.addEventListener("playing", () => {
       updateButton(true);
-      showStatus(`Live · ${stationName()}`);
+      showStatus(`You’re listening · ${stationName()}`, "playing");
     });
     radioAudio.addEventListener("waiting", () => {
-      if (!radioAudio.paused) showStatus(`Connecting to ${stationName()}…`);
+      if (!radioAudio.paused) showStatus(`Connecting to ${stationName()}…`, "connecting");
     });
     radioAudio.addEventListener("pause", () => {
       updateButton(false);
-      showStatus("Radio paused.");
+      if (radio.dataset.state !== "error") showStatus("Radio paused.");
     });
     radioAudio.addEventListener("error", () => {
       updateButton(false);
-      showStatus("This stream is unavailable right now. Try the CBS FM website.");
+      showStatus("Could not connect. Check your internet and try again.", "error");
     });
   }
 })();
