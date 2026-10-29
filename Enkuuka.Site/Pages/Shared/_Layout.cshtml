@@ -29,6 +29,22 @@
 
     <main id="main-content" tabindex="-1">@RenderBody()</main>
 
+    <aside class="radio-player" data-radio-player aria-label="CBS FM live radio player">
+        <div class="radio-player-brand">
+            <span class="radio-player-mark" aria-hidden="true">CBS</span>
+            <div><strong>Listen to CBS FM</strong><span data-radio-status role="status" aria-live="polite">Choose a station, then press play.</span></div>
+        </div>
+        <label class="visually-hidden" for="radio-station">CBS FM station</label>
+        <select class="radio-station" id="radio-station" data-radio-station>
+            <option value="https://s5.voscast.com:9905/EMMANDUSO">89.2 FM · Emmanduso</option>
+            <option value="https://s5.voscast.com:9909/EYOBUJJAJJA">88.8 FM · Ey'obujjajja</option>
+        </select>
+        <button class="radio-toggle" type="button" data-radio-toggle aria-label="Play CBS FM" aria-pressed="false">Play</button>
+        <label class="radio-volume">Volume <input type="range" min="0" max="1" step="0.05" value="0.8" data-radio-volume aria-label="Radio volume" /></label>
+        <a class="radio-official" href="https://cbsfm.ug/" target="_blank" rel="noopener noreferrer">CBS FM site ↗</a>
+        <audio data-radio-audio preload="none" src="https://s5.voscast.com:9905/EMMANDUSO"></audio>
+    </aside>
+
     <footer class="site-footer">
         <div class="footer-main wrap">
             <div class="footer-brand-block"><a class="brand" href="/"><img class="brand-logo" src="~/assets/images/enkuuka-logo.png" alt="" asp-append-version="true" /><span class="brand-wordmark">Enkuuka <i>y’Omwaka</i></span></a><p>A royal celebration of Buganda’s culture, community and new year.</p></div>

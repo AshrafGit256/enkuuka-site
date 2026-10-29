@@ -304,4 +304,71 @@
       if (button) button.textContent = "Invitation copied";
     }
   });
+
+  const radio = document.querySelector("[data-radio-player]");
+  const radioAudio = document.querySelector("[data-radio-audio]");
+  const radioStation = document.querySelector("[data-radio-station]");
+  const radioToggle = document.querySelector("[data-radio-toggle]");
+  const radioVolume = document.querySelector("[data-radio-volume]");
+  const radioStatus = document.querySelector("[data-radio-status]");
+  if (radio && radioAudio && radioStation && radioToggle) {
+    const stationName = () => radioStation.selectedOptions[0]?.textContent?.trim() || "CBS FM";
+    const showStatus = message => { if (radioStatus) radioStatus.textContent = message; };
+    const updateButton = playing => {
+      radioToggle.textContent = playing ? "Pause" : "Play";
+      radioToggle.setAttribute("aria-label", playing ? "Pause CBS FM" : "Play CBS FM");
+      radioToggle.setAttribute("aria-pressed", String(playing));
+      radio.classList.toggle("is-playing", playing);
+    };
+
+    radioAudio.volume = Number(radioVolume?.value ?? 0.8);
+    radioToggle.addEventListener("click", async () => {
+      if (!radioAudio.paused) {
+        radioAudio.pause();
+        return;
+      }
+      showStatus(`Connecting to ${stationName()}…`);
+      try {
+        await radioAudio.play();
+      } catch {
+        updateButton(false);
+        showStatus("Could not start the stream. Try the CBS FM website.");
+      }
+    });
+
+    radioStation.addEventListener("change", async () => {
+      const wasPlaying = !radioAudio.paused;
+      radioAudio.pause();
+      radioAudio.src = radioStation.value;
+      radioAudio.load();
+      updateButton(false);
+      if (wasPlaying) {
+        showStatus(`Connecting to ${stationName()}…`);
+        try { await radioAudio.play(); }
+        catch {
+          updateButton(false);
+          showStatus("Could not start the stream. Try the CBS FM website.");
+        }
+      } else {
+        showStatus(`${stationName()} selected · press play to listen.`);
+      }
+    });
+
+    radioVolume?.addEventListener("input", () => { radioAudio.volume = Number(radioVolume.value); });
+    radioAudio.addEventListener("playing", () => {
+      updateButton(true);
+      showStatus(`Live · ${stationName()}`);
+    });
+    radioAudio.addEventListener("waiting", () => {
+      if (!radioAudio.paused) showStatus(`Connecting to ${stationName()}…`);
+    });
+    radioAudio.addEventListener("pause", () => {
+      updateButton(false);
+      showStatus("Radio paused.");
+    });
+    radioAudio.addEventListener("error", () => {
+      updateButton(false);
+      showStatus("This stream is unavailable right now. Try the CBS FM website.");
+    });
+  }
 })();
