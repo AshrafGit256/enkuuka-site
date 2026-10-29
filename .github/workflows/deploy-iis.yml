@@ -82,3 +82,4 @@ jobs:
               Remove-Item -LiteralPath $offlinePath -Force
             }
           }
+          $global:LASTEXITCODE = 0
