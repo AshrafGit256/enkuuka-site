@@ -1,0 +1,82 @@
+name: Deploy Enkuuka to IIS
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: enkuuka-iis-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: Publish and deploy to IIS
+    if: github.ref == 'refs/heads/main'
+    environment:
+      name: production
+    runs-on: [self-hosted, windows, x64, enkuuka-iis]
+    timeout-minutes: 30
+
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v7
+
+      - name: Install .NET SDK
+        uses: actions/setup-dotnet@v6
+        with:
+          dotnet-version: 9.0.x
+
+      - name: Publish self-contained Windows app
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $publishPath = Join-Path $env:RUNNER_TEMP ("enkuuka-publish-" + $env:GITHUB_RUN_ID + "-" + $env:GITHUB_RUN_ATTEMPT)
+
+          dotnet publish .\Enkuuka.Site\Enkuuka.Site.csproj -c Release -r win-x64 --self-contained true --output $publishPath
+          $publishExitCode = $LASTEXITCODE
+          if ($publishExitCode -ne 0) {
+            throw "dotnet publish failed with exit code $publishExitCode"
+          }
+          if (-not (Test-Path -LiteralPath (Join-Path $publishPath 'Enkuuka.Site.exe'))) {
+            throw 'Publish output is missing Enkuuka.Site.exe.'
+          }
+          if (-not (Test-Path -LiteralPath (Join-Path $publishPath 'web.config'))) {
+            throw 'Publish output is missing web.config.'
+          }
+
+      - name: Deploy to IIS folder
+        shell: pwsh
+        env:
+          IIS_PATH: C:\inetpub\wwwroot\Enkuuka
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $expectedPath = 'C:\inetpub\wwwroot\Enkuuka'
+          $targetPath = [System.IO.Path]::GetFullPath($env:IIS_PATH).TrimEnd('\')
+          if ($targetPath -ine $expectedPath) {
+            throw "Refusing unexpected IIS target path: $targetPath"
+          }
+          if (-not (Test-Path -LiteralPath $targetPath -PathType Container)) {
+            throw "IIS deployment folder does not exist: $targetPath"
+          }
+
+          $publishPath = Join-Path $env:RUNNER_TEMP ("enkuuka-publish-" + $env:GITHUB_RUN_ID + "-" + $env:GITHUB_RUN_ATTEMPT)
+          $offlinePath = Join-Path $targetPath 'app_offline.htm'
+          Set-Content -LiteralPath $offlinePath -Encoding utf8 -Value '<html><body>Enkuuka is updating. Please try again shortly.</body></html>'
+
+          try {
+            & robocopy $publishPath $targetPath /E /COPY:DAT /DCOPY:DAT /R:2 /W:2 /NP
+            $robocopyExitCode = $LASTEXITCODE
+            if ($robocopyExitCode -ge 8) {
+              throw "Robocopy failed with exit code $robocopyExitCode"
+            }
+          }
+          finally {
+            if (Test-Path -LiteralPath $offlinePath) {
+              Remove-Item -LiteralPath $offlinePath -Force
+            }
+          }

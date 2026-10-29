@@ -1,0 +1,265 @@
+@page "/{slug?}"
+@model IndexModel
+@{
+    ViewData["Title"] = Model.Festival.Slug == "home" ? "Enkuuka y’Omwaka · Buganda Kingdom" : $"{Model.Festival.Title} {Model.Festival.Accent} · Enkuuka y’Omwaka";
+    ViewData["Slug"] = Model.Festival.Slug;
+}
+
+@if (Model.IsHome)
+{
+    <section class="hero" style="--hero-image: url('@Model.Festival.ImageUrl()')">
+        <div class="hero-shade"></div>
+        <div class="hero-copy wrap">
+            <p class="eyebrow light">Lubiri Palace <span>·</span> Mengo <span>·</span> Kampala</p>
+            <h1>Enkuuka<br /><i>y’Omwaka</i></h1>
+            <p class="hero-deck">The royal Buganda New Year festival</p>
+            <div class="countdown" aria-label="Countdown to New Year">
+                <div><strong data-days>000</strong><span>Days</span></div><b>:</b>
+                <div><strong data-hours>00</strong><span>Hours</span></div><b>:</b>
+                <div><strong data-minutes>00</strong><span>Minutes</span></div><b>:</b>
+                <div><strong data-seconds>00</strong><span>Seconds</span></div>
+            </div>
+            <div class="hero-actions">
+                <a class="button button-red" href="/invitation">Plan your visit</a>
+                <a class="button button-ghost" href="/events">Explore both days</a>
+            </div>
+        </div>
+        <div class="hero-rule"></div>
+    </section>
+
+    <div class="ticker" aria-label="Festival highlights"><div class="ticker-track">
+        <span>Culture in every rhythm</span><i>✳</i><span>One kingdom · many stories</span><i>✳</i><span>Meet us at Lubiri</span><i>✳</i><span>Welcome the new year together</span><i>✳</i>
+        <span aria-hidden="true">Culture in every rhythm</span><i aria-hidden="true">✳</i><span aria-hidden="true">One kingdom · many stories</span><i aria-hidden="true">✳</i><span aria-hidden="true">Meet us at Lubiri</span><i aria-hidden="true">✳</i><span aria-hidden="true">Welcome the new year together</span>
+    </div></div>
+
+    <section class="stat-band wrap" aria-label="Buganda by the numbers">
+        @foreach (var stat in Model.Festival.Stats ?? [])
+        {
+            <div class="stat"><strong>@stat.Value</strong><span>@stat.Label</span></div>
+        }
+    </section>
+
+    <section class="section section-paper">
+        <div class="wrap">
+            <div class="section-heading"><p class="eyebrow">A celebration for everyone</p><h2>Two days. <i>A whole kingdom.</i></h2>
+                <p>Day one brings the trade fair to Lubiri. Day two is for cultural celebration, music and the New Year welcome.</p>
+            </div>
+            <div class="card-grid card-grid-four">
+                @foreach (var card in Model.Festival.Cards)
+                {
+                    <a class="image-card" href="@(card.Tag == "Heritage" || card.Tag == "Culture" ? "/culture" : card.Tag == "Sport" ? "/masaza" : "/events")">
+                        <img src="@card.ImageUrl" alt="@card.Title" loading="lazy" />
+                        <span class="image-card-shade"></span><span class="image-card-copy"><small>@card.Tag</small><strong>@card.Title</strong><span>@card.Text</span></span>
+                    </a>
+                }
+            </div>
+            <div class="center-action"><a class="text-link" href="/events">Explore both festival days <span>↗</span></a></div>
+        </div>
+    </section>
+
+    <section class="feature-row">
+        <div class="feature-image"><img src="/assets/images/Maganda.jpeg" alt="Traditional royal drumming" loading="lazy" /></div>
+        <div class="feature-copy"><p class="eyebrow">Culture and heritage</p><h2>600 years of<br /><i>Kiganda pride</i></h2><p>Royal drumming, Baakisimba dance, bark cloth and the sacred clan system are part of Buganda’s living heritage.</p><a class="text-link" href="/culture">Discover Buganda culture <span>↗</span></a></div>
+    </section>
+    <section class="feature-row feature-reverse">
+        <div class="feature-image"><img src="/assets/images/trade.png" alt="The Enkuuka trade fair" loading="lazy" /></div>
+        <div class="feature-copy"><p class="eyebrow">Business and trade fair</p><h2>Local enterprise<br /><i>in the spotlight</i></h2><p>Meet makers, small businesses and partners in a lively marketplace shaped by Uganda’s creativity.</p><a class="text-link" href="/business">Take part in the trade fair <span>↗</span></a></div>
+    </section>
+    <section class="partners wrap"><span>Made possible with our partners</span><div><b>MTN Uganda</b><b>Airtel Uganda</b><b>Roofings Group</b><b>Uganda Tourism Board</b><b>CBS FM</b></div></section>
+}
+else
+{
+    <section class="page-hero" style="--hero-image: url('@Model.Festival.ImageUrl()')">
+        <div class="page-hero-shade"></div><div class="wrap page-hero-copy"><p class="eyebrow light">@Model.Festival.Eyebrow</p><h1>@Model.Festival.Title<br /><i>@Model.Festival.Accent</i></h1><p>@Model.Festival.Intro</p></div>
+    </section>
+    <div class="ticker"><div class="ticker-track"><span>Enkuuka y’Omwaka</span><i>✳</i><span>Buganda Kingdom</span><i>✳</i><span>Lubiri Palace</span><i>✳</i><span>Culture · Community · Celebration</span><i>✳</i><span aria-hidden="true">Enkuuka y’Omwaka</span><i aria-hidden="true">✳</i><span aria-hidden="true">Buganda Kingdom</span><i aria-hidden="true">✳</i></div></div>
+
+    @if (Model.Festival.Slug == "contact")
+    {
+        <section class="section section-paper"><div class="wrap contact-layout">
+            <div class="contact-intro"><p class="eyebrow">Reach out</p><h2>We’d love to<br /><i>hear from you</i></h2><p>@Model.Festival.Intro</p><dl><dt>Location</dt><dd>Lubiri Palace, Mengo, Kampala</dd><dt>Phone</dt><dd>+256 414 000 000</dd><dt>Email</dt><dd><a href="mailto:info@enkuuka.ug">info@enkuuka.ug</a></dd><dt>Office hours</dt><dd>Monday–Friday, 9:00 AM–5:00 PM EAT</dd></dl></div>
+            <div class="form-panel">
+                @if (Model.ContactSent) { <div class="success-note" role="status"><strong>Thank you, @Model.Contact.Name.</strong><p>@Model.Notice</p></div> }
+                else
+                {
+                    <h3>Send a message</h3><form method="post" asp-page-handler="Contact" asp-route-slug="contact">
+                        <div asp-validation-summary="ModelOnly" class="validation"></div>
+                        <label asp-for="Contact.Name">Your name</label><input asp-for="Contact.Name" autocomplete="name" /><span asp-validation-for="Contact.Name" class="validation"></span>
+                        <label asp-for="Contact.Email">Email address</label><input asp-for="Contact.Email" type="email" autocomplete="email" /><span asp-validation-for="Contact.Email" class="validation"></span>
+                        <label asp-for="Contact.Subject">Subject</label><input asp-for="Contact.Subject" /><span asp-validation-for="Contact.Subject" class="validation"></span>
+                        <label asp-for="Contact.Message">Your message</label><textarea asp-for="Contact.Message" rows="5"></textarea><span asp-validation-for="Contact.Message" class="validation"></span>
+                        <button class="button button-red" type="submit">Send message</button>
+                    </form>
+                }
+            </div>
+        </div></section>
+    }
+    else if (Model.Festival.Slug == "invitation")
+    {
+        <section class="section section-paper"><div class="wrap invite-wrap">
+            @if (!Model.InvitePreview)
+            {
+                <div class="section-heading"><p class="eyebrow">A personal welcome</p><h2>Your royal <i>invitation</i></h2><p>Enter a name to prepare a shareable invitation.</p></div>
+                <form method="post" asp-page-handler="Invitation" asp-route-slug="invitation" class="invite-form"><label asp-for="GuestName">Guest name</label><input asp-for="GuestName" placeholder="Your full name" autocomplete="name" /><span asp-validation-for="GuestName" class="validation"></span><button class="button button-red" type="submit">Preview invitation</button></form>
+            }
+            else
+            {
+                <article class="invitation-card" id="invitation-card"><p class="eyebrow">The Buganda Kingdom · Lubiri Palace</p><h2>Enkuuka<br /><i>y’Omwaka</i></h2><div class="invitation-rule"></div><p class="invite-kicker">Cordially invites</p><p class="invite-name">@(string.IsNullOrWhiteSpace(Model.GuestName) ? "Honoured Guest" : Model.GuestName)</p><p>to welcome the new year with the people of Buganda</p><strong>31 December · Lubiri Palace, Mengo</strong><p class="invite-signoff">Omuliro gw’omwaka gulabye omulembe!</p></article>
+                <div class="center-action"><button class="button button-red" type="button" data-share>Share invitation</button><a class="button button-outline" href="/invitation">Edit name</a></div>
+            }
+        </div></section>
+    }
+    else if (Model.Festival.Slug == "culture")
+    {
+        <section class="section section-paper culture-intro-section"><div class="wrap">
+            <div class="section-heading align-left"><p class="eyebrow">Living heritage · carried forward</p><h2>Culture is <i>lived together.</i></h2><p>From the clothes people wear to the food they share, the games they follow and the stories they pass on, Buganda’s heritage is part of everyday life.</p></div>
+            <article class="entanda-feature">
+                <div class="entanda-image"><img src="/assets/images/entanda_ya_buganda.png" alt="CBS FM Entanda ya Buganda event and quiz coverage" loading="lazy" /><span>Entanda ya Buganda · CBS FM</span></div>
+                <div class="entanda-copy">
+                    <p class="eyebrow">Language · knowledge · belonging</p>
+                    <h2>Entanda <i>ya Buganda</i></h2>
+                    <p>Entanda ya Buganda is a CBS FM cultural programme and knowledge competition in Luganda. Its questions invite people to revisit Buganda’s language, history, customs and values — and to keep that knowledge moving between generations.</p>
+                    <p>At Enkuuka, the competition reaches a public high point. UNESCO describes participation drawn from Buganda’s clans and counties, with the gathering climaxing at Enkuuka under the Kabaka’s leadership. It is a moment where radio learning becomes a shared celebration of identity and cultural memory.</p>
+                    <div class="entanda-links"><a class="text-link" href="https://cbsfm.ug/public/events/6" target="_blank" rel="noopener noreferrer">CBS FM on Entanda <span>↗</span></a><a class="text-link" href="https://ich.unesco.org/doc/src/Signed%20periodic%20report%20-%20Periodic%20report-62581.pdf" target="_blank" rel="noopener noreferrer">UNESCO report <span>↗</span></a></div>
+                    <a class="button button-outline" href="/events">See the two days at Lubiri</a>
+                </div>
+            </article>
+        </div></section>
+        <section class="section section-culture-topics"><div class="wrap">
+            <div class="section-heading"><p class="eyebrow">What you’ll find in the culture</p><h2>Wear it. Taste it. <i>Play it. Dance it.</i></h2><p>Explore the traditions that make the gathering feel distinctly Buganda.</p></div>
+            <div class="card-grid card-grid-four culture-topic-grid">
+                @foreach (var topic in IndexModel.CultureTopics)
+                {
+                    <article class="story-card culture-topic-card"><img src="@topic.Image" alt="@topic.Title" loading="lazy" /><div><small>@topic.Tag</small><h3>@topic.Title</h3><p>@topic.Text</p></div></article>
+                }
+            </div>
+        </div></section>
+    }
+    else if (Model.Festival.Slug == "clans")
+    {
+        <section class="section section-paper"><div class="wrap">
+            <div class="collection-tools"><div><p class="eyebrow">Identity · Kinship · Belonging</p><h2>Find your clan</h2><p>Search your personal name to find its recorded clan association, then explore the clans below.</p></div></div>
+            <div class="clan-controls">
+                <div class="search-box clan-name-search"><label for="name-search">Search using your name</label><input id="name-search" type="search" placeholder="Enter your name (for example, Baali or Nambi)" autocomplete="off" /><span id="name-count">Type at least 2 letters to search recorded names</span></div>
+                <p class="clan-directory-hint">Or explore all 52 clans below. Select a clan card to see names recorded for it.</p>
+            </div>
+            <div class="clan-name-results" id="name-results" aria-live="polite" hidden></div>
+            <section class="clan-selected-panel" id="clan-selected-names" aria-live="polite" aria-labelledby="selected-clan-title" hidden>
+                <div class="clan-selected-header">
+                    <div><p class="eyebrow" data-selected-clan-kicker></p><h3 id="selected-clan-title" data-selected-clan-title></h3><p class="clan-selected-summary" data-selected-clan-summary></p></div>
+                    <button class="clan-selected-close" type="button" data-close-clan-names>Close</button>
+                </div>
+                <ul class="clan-selected-list" data-selected-clan-list></ul>
+                <p class="association-note">These are names and associations recorded in the source collection, not proof of an individual’s clan or branch. Please confirm family heritage with elders.</p>
+            </section>
+            <div class="clan-masonry" data-clan-directory>
+                @foreach (var card in Model.Festival.Cards)
+                {
+                    var number = card.Tag.Replace("Clan ", "");
+                    var isFeatured = number == "01" || number == "02";
+                    <article id="clan-@number" class="clan-card-pro @(isFeatured ? "featured" : "")" data-clan-entry data-search="@card.Title @card.Search @card.Region" data-title="@card.Title" data-totem="@card.Search" data-head="@card.Region" data-number="@number" tabindex="0" role="button" aria-label="Show recorded names for the @card.Title clan" aria-controls="clan-selected-names" aria-expanded="false">
+                        <img class="clan-img" src="@card.ImageUrl" alt="@card.Search, totem of the @card.Title clan" loading="lazy" />
+                        <div class="clan-gradient" aria-hidden="true"></div>
+                        <div class="clan-badge"><span class="clan-badge-pill clan-badge-num">@number</span></div>
+                        <div class="clan-static-bottom">
+                            <span class="clan-card-totem-label">Totem</span>
+                            <p class="clan-card-name">@card.Title</p>
+                            <p class="clan-card-totem">@card.Search</p>
+                        </div>
+                        <div class="clan-hover-panel">
+                            <span class="clan-card-totem-label">Ekika · Clan @number</span>
+                            <p class="clan-card-name">@card.Title</p>
+                            <p class="clan-card-totem clan-card-totem-detail">Omuziro: <strong>@card.Search</strong></p>
+                            <div class="clan-head-row">
+                                <span class="clan-head-icon" aria-hidden="true">♛</span>
+                                <span><span class="clan-head-label">Clan Head</span><span class="clan-head-name">@card.Region</span></span>
+                            </div>
+                            <span class="clan-card-select-hint">Select to view recorded names</span>
+                        </div>
+                    </article>
+                }
+            </div>
+        </div></section>
+    }
+    else if (Model.Festival.Slug == "masaza")
+    {
+        <section class="section section-paper"><div class="wrap">
+            <div class="collection-tools"><div><p class="eyebrow">Counties of Buganda</p><h2>Explore the Masaza</h2><p>@Model.Festival.Intro</p></div>
+                <div class="search-box"><label for="collection-search">Search by name</label><input id="collection-search" type="search" placeholder="Start typing…" autocomplete="off" /><span id="result-count">@Model.Festival.Cards.Count entries</span></div></div>
+            <div class="card-grid card-grid-four" data-collection>
+                @for (var index = 0; index < Model.Festival.Cards.Count; index++)
+                {
+                    var card = Model.Festival.Cards[index];
+                    <article class="collection-card" data-card data-search="@card.Title @card.Tag @card.Region"><img src="@card.ImageUrl" alt="@card.Title" loading="lazy" /><div><small>@card.Tag</small><h3>@card.Title</h3><p>@card.Text</p></div></article>
+                }
+            </div><p class="empty-state" data-empty hidden>No entries match your search. Try another name.</p>
+        </div></section>
+    }
+    else if (Model.Festival.Slug == "events")
+    {
+        <section class="section section-paper"><div class="wrap">
+            <div class="section-heading"><p class="eyebrow">30–31 December · Lubiri Palace</p><h2>Two days, <i>two ways to celebrate.</i></h2><p>@Model.Festival.Intro</p></div>
+            <div class="festival-days">
+                @foreach (var day in Model.Festival.Days ?? [])
+                {
+                    <section class="festival-day">
+                        <header class="festival-day-heading"><span>@day.Label</span><h3>@day.Title</h3><p>@day.Intro</p></header>
+                        <div class="day-card-grid">
+                            @foreach (var card in day.Cards)
+                            {
+                                <article class="day-card"><img src="@card.ImageUrl" alt="@card.Title" loading="lazy" /><div><small>@card.Tag</small><h4>@card.Title</h4><p>@card.Text</p>@if (card.Credit is not null) { <span class="photo-credit">Image note: @card.Credit</span> }@if (card.Link is not null) { <a class="source-link" href="@card.Link" target="_blank" rel="noopener noreferrer">CBS FM coverage ↗</a> }</div></article>
+                            }
+                        </div>
+                    </section>
+                }
+            </div>
+            <p class="schedule-note">Festival activities are listed by day without unconfirmed start times. Check official Enkuuka channels for final event updates.</p>
+        </div></section>
+    }
+    else if (Model.Festival.Slug == "business")
+    {
+        <section class="section section-paper"><div class="wrap">
+            <div class="section-heading"><p class="eyebrow">CBS PEWOSA · Lubiri Palace</p><h2>Meet the makers <i>and the marketplace.</i></h2><p>Real moments from the CBS PEWOSA fairs at Lubiri, alongside the local produce and cultural displays that give the trade fair its character.</p></div>
+            <div class="card-grid tradefair-grid">
+                @foreach (var card in Model.Festival.Cards)
+                {
+                    <article class="story-card tradefair-card"><img src="@card.ImageUrl" alt="@card.Title" loading="lazy" /><div><small>@card.Tag</small><h3>@card.Title</h3><p>@card.Text</p>@if (card.Credit is not null) { <span class="photo-credit">Photo: @card.Credit</span> }@if (card.Link is not null) { <a class="source-link" href="@card.Link" target="_blank" rel="noopener noreferrer">View fair coverage ↗</a> }</div></article>
+                }
+            </div>
+            <p class="tradefair-note">The first four cards link to CBS PEWOSA exhibitor or Peer Nation coverage. Food and cultural-display images illustrate the wider marketplace.</p>
+        </div></section>
+    }
+    else if (Model.Festival.Slug == "programme" || Model.Festival.Slug == "events")
+    {
+        <section class="section section-paper"><div class="wrap"><div class="section-heading align-left"><p class="eyebrow">@(Model.Festival.Slug == "programme" ? "Plan your visit" : "From morning to midnight")</p><h2>@(Model.Festival.Slug == "programme" ? "A day at Lubiri" : "The celebration, hour by hour")</h2><p>@Model.Festival.Intro</p></div>
+            <div class="schedule-list">@foreach (var card in Model.Festival.Cards) { <article class="schedule-item"><div class="schedule-time">@card.Title.Split('·')[0]</div><div class="schedule-copy"><small>@card.Tag</small><h3>@(card.Title.Contains('·') ? card.Title[(card.Title.IndexOf('·') + 1)..].Trim() : card.Title)</h3><p>@card.Text</p></div><img src="@card.ImageUrl" alt="" loading="lazy" /></article> }</div>
+            <p class="schedule-note">Programme times are a guide and may change. Follow official Enkuuka channels for updates.</p>
+        </div></section>
+    }
+    else if (Model.Festival.Slug == "gallery")
+    {
+        <section class="section section-paper"><div class="wrap"><div class="section-heading"><p class="eyebrow">A kingdom in pictures</p><h2>Gathered <i>moments</i></h2><p>@Model.Festival.Intro</p></div><div class="gallery-grid">@foreach (var card in Model.Festival.Cards) { <figure class="gallery-figure"><button class="gallery-item" type="button" data-lightbox="@card.ImageUrl" data-title="@card.Title"><img src="@card.ImageUrl" alt="@card.Title" loading="lazy" /><span><small>@card.Tag</small><strong>@card.Title</strong></span></button>@if (card.Link is not null || card.Credit is not null) { <figcaption>@if (card.Credit is not null) { <span>@card.Credit · </span> }@if (card.Link is not null) { <span>Related coverage: <a href="@card.Link" target="_blank" rel="noopener noreferrer">CBS FM official coverage ↗</a></span> }</figcaption> }</figure> }</div></div></section>
+    }
+    else if (Model.Festival.Slug == "accommodation")
+    {
+        <section class="section section-paper"><div class="wrap">
+            <div class="section-heading"><p class="eyebrow">Mengo · Kampala</p><h2>Stay close to <i>Lubiri Palace</i></h2><p>@Model.Festival.Intro</p></div>
+            <div class="card-grid card-grid-three hotel-grid">
+                @foreach (var card in Model.Festival.Cards)
+                {
+                    <a class="story-card hotel-card" href="@card.Link" target="_blank" rel="noopener noreferrer">
+                        <img src="@card.ImageUrl" alt="@card.Title" loading="lazy" />
+                        <div><small>@card.Tag</small><h3>@card.Title</h3><p>@card.Text</p><span class="hotel-credit">@card.Credit</span><span class="hotel-visit">View hotel details ↗</span></div>
+                    </a>
+                }
+            </div>
+            <p class="hotel-note">Photos are served by the hotels or their listing sites. Confirm location, availability, rates and transport directly before booking.</p>
+        </div></section>
+    }
+    else
+    {
+        <section class="section section-paper"><div class="wrap"><div class="section-heading"><p class="eyebrow">@Model.Festival.Eyebrow</p><h2>@Model.Festival.Title <i>@Model.Festival.Accent</i></h2><p>@Model.Festival.Intro</p></div><div class="card-grid card-grid-three">@foreach (var card in Model.Festival.Cards) { <article class="story-card"><img src="@card.ImageUrl" alt="@card.Title" loading="lazy" /><div><small>@card.Tag</small><h3>@card.Title</h3><p>@card.Text</p>@if (card.Credit is not null) { <span class="photo-credit">Photo: @card.Credit</span> }@if (card.Credit is not null && card.Link is not null) { <a class="source-link" href="@card.Link" target="_blank" rel="noopener noreferrer">View photo source ↗</a> }</div></article> }</div></div></section>
+    }
+}
+
+<dialog class="lightbox" data-lightbox-dialog aria-label="Image preview"><button type="button" class="lightbox-close" data-lightbox-close aria-label="Close preview">×</button><img data-lightbox-image alt="" /><p data-lightbox-title></p></dialog>

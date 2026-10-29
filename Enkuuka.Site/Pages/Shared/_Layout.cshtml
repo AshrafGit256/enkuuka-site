@@ -1,0 +1,44 @@
+@using Enkuuka.Site.Pages
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f7eeeb" />
+    <meta name="description" content="Enkuuka y’Omwaka — the royal Buganda New Year festival at Lubiri Palace, Mengo, Kampala." />
+    <title>@ViewData["Title"]</title>
+    <link rel="icon" type="image/png" href="~/assets/images/enkuuka-logo.png" asp-append-version="true" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="~/site.css" asp-append-version="true" />
+</head>
+<body>
+    <header class="site-header">
+        <a class="brand" href="/" aria-label="Enkuuka home"><img class="brand-logo" src="~/assets/images/enkuuka-logo.png" alt="" asp-append-version="true" /><span class="brand-wordmark">Enkuuka <i>y’Omwaka</i></span></a>
+        <button class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="site-navigation" data-menu-toggle><span></span><span></span><span></span></button>
+        <nav class="site-nav" id="site-navigation" data-menu>
+            @foreach (var item in IndexModel.Navigation)
+            {
+                var active = string.Equals((string?)ViewData["Slug"] ?? "", item.Slug, StringComparison.OrdinalIgnoreCase);
+                <a href="@(string.IsNullOrEmpty(item.Slug) ? "/" : $"/{item.Slug}")" class="@(active ? "active" : "")" aria-current="@(active ? "page" : null)">@item.Label</a>
+            }
+        </nav>
+        <a class="header-cta" href="/invitation">Plan your visit</a>
+    </header>
+
+    <main id="main-content" tabindex="-1">@RenderBody()</main>
+
+    <footer class="site-footer">
+        <div class="footer-main wrap">
+            <div class="footer-brand-block"><a class="brand" href="/"><img class="brand-logo" src="~/assets/images/enkuuka-logo.png" alt="" asp-append-version="true" /><span class="brand-wordmark">Enkuuka <i>y’Omwaka</i></span></a><p>A royal celebration of Buganda’s culture, community and new year.</p></div>
+            <div><h2>Explore</h2><a href="/culture">Culture</a><a href="/clans">The clans</a><a href="/masaza">The Masaza</a><a href="/events">Events & entertainment</a></div>
+            <div><h2>Visit</h2><a href="/business">Trade fair</a><a href="/accommodation">Accommodation</a><a href="/gallery">Gallery</a><a href="/contact">Contact</a></div>
+            <div><h2>Find us</h2><p>Lubiri Palace<br />Mengo, Kampala</p><a href="mailto:info@enkuuka.ug">info@enkuuka.ug</a></div>
+        </div>
+        <div class="footer-bottom"><div class="wrap"><span>© @DateTime.Now.Year Enkuuka y’Omwaka · Buganda Kingdom</span><span>Organised by CBS FM</span></div></div>
+    </footer>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
